@@ -3,3 +3,5 @@ export class Main {
         console.log("Configuring new project")
     }
 }
+
+new Main();

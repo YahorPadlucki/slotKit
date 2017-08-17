@@ -1,9 +1,8 @@
 var gulp = require("gulp");
-var ts = require("gulp-typescript");
-var tsProject = ts.createProject("tsconfig.json");
+const webpack = require('webpack');
+const webpackConfigName = './webpack.config.js';
+const webpackConfig = require(webpackConfigName);
 
-gulp.task("default", function () {
-    return tsProject.src()
-        .pipe(tsProject())
-        .js.pipe(gulp.dest("dist"));
-});
+const webpackStream = require('webpack-stream');
+
+gulp.task("default", ()=>gulp.src('src/Main.ts').pipe(webpackStream(webpackConfig, webpack)).pipe(gulp.dest("./")));
