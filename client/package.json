@@ -14,10 +14,14 @@
   },
   "devDependencies": {
     "@types/pixi.js": "^4.5.3",
-    "gulp": "^3.9.1",
-    "typescript": "^2.4.2",
     "awesome-typescript-loader": "^3.2.3",
+    "brfs": "^1.4.3",
+    "browserify-versionify": "^1.0.6",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "ify-loader": "^1.0.4",
     "source-map-loader": "^0.2.1",
+    "typescript": "^2.4.2",
     "webpack": "^3.5.5",
     "webpack-stream": "^4.0.0"
   }

@@ -1,3 +1,6 @@
+const path = require('path');
+
+
 module.exports = {
     entry: './src/Main.ts',
     output: {
@@ -15,7 +18,12 @@ module.exports = {
                 use: 'source-map-loader',
                 exclude: /node_modules/
 
-            }],
+            },
+            {
+                test: /\.ts$/,
+                use: 'awesome-typescript-loader',
+                exclude: /node_modules/
+            },],
         loaders: [
             {test: /.ts$/, loader: 'awesome-typescript-loader'}
         ]
