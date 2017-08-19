@@ -1,14 +1,19 @@
+import {MainScene} from "./MainScene";
 export class Main {
 
     private renderer:PIXI.SystemRenderer;
+    private mainScene:MainScene;
+    
     constructor() {
         this.renderer = PIXI.autoDetectRenderer(256, 256);
         document.body.appendChild(this.renderer.view);
         var stage = new PIXI.Container();
-        this.renderer.render(stage);
-        // new MainScene();
+        this.mainScene = new MainScene();
+        
+        stage.addChild(this.mainScene);
 
         window.addEventListener("resize", () => this.onResize(), true);
+        this.renderer.render(stage);
 
     }
 
@@ -17,8 +22,6 @@ export class Main {
         var height = this.getHeight();
 
         const canvas = this.renderer.view;
-        // canvas.width = width;
-        // canvas.height = height;
         canvas.style.width = `${width}px`;
         canvas.style.height = `${height}px`;
 
