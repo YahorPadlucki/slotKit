@@ -5,10 +5,14 @@ export class Main {
     private mainScene:MainScene;
     
     constructor() {
-        this.renderer = PIXI.autoDetectRenderer(256, 256);
+
+        const width = this.getWidth();
+        const height = this.getHeight();
+
+        this.renderer = PIXI.autoDetectRenderer(width,height);
         document.body.appendChild(this.renderer.view);
         var stage = new PIXI.Container();
-        this.mainScene = new MainScene();
+        this.mainScene = new MainScene(width,height);
         
         stage.addChild(this.mainScene);
 
@@ -18,14 +22,16 @@ export class Main {
     }
 
     private onResize() {
-        var width = this.getWidth();
-        var height = this.getHeight();
+        const width = this.getWidth();
+        const height = this.getHeight();
 
         const canvas = this.renderer.view;
         canvas.style.width = `${width}px`;
         canvas.style.height = `${height}px`;
 
         this.renderer.resize(width, height);
+        
+        this.mainScene.resize(width,height);
     }
 
     private getWidth() {

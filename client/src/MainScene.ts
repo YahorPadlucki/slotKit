@@ -3,16 +3,27 @@ export class MainScene extends PIXI.Container{
 
     private minWidth:number = 800;
     private minHeight:number = 600;
-    
-    constructor() {
+
+    private tempGraphics:PIXI.Graphics;
+
+    constructor(private screenWidth, private screenHeight) {
         super();
-        console.log("Main scene inited")
+        console.log("Main scene inited");
 
-        let graphics:PIXI.Graphics = new PIXI.Graphics();
-        graphics.beginFill(0xFFFFFF);
-        graphics.drawRect(0, 0, this.minWidth, this.minHeight);
-        graphics.endFill();
+        this.tempGraphics = new PIXI.Graphics();
+        this.tempGraphics.beginFill(0xFFFF00);
+        this.tempGraphics.drawRect(-this.minWidth/2, -this.minHeight/2, this.minWidth, this.minHeight);
+        this.tempGraphics.endFill();
 
-        this.addChild(graphics)
+        this.tempGraphics.x = screenWidth/2;
+        this.tempGraphics.y = screenHeight/2;
+
+        this.addChild(this.tempGraphics);
+
+
+    }
+
+    resize(width:number, height:number) {
+        
     }
 }
