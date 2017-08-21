@@ -1,24 +1,39 @@
-import {MainScene} from "./MainScene";
+import {MainScene} from "./scenes/MainScene";
+import Ticker = PIXI.ticker;
+import Point = PIXI.Point;
+
 export class Main {
 
-    private renderer:PIXI.SystemRenderer;
-    private mainScene:MainScene;
-    
+    private renderer: PIXI.SystemRenderer;
+
+    private stage: PIXI.Container;
+    private mainScene: MainScene;
+
     constructor() {
 
         const width = this.getWidth();
         const height = this.getHeight();
 
-        this.renderer = PIXI.autoDetectRenderer(width,height);
+        this.renderer = PIXI.autoDetectRenderer(width, height);
         document.body.appendChild(this.renderer.view);
-        var stage = new PIXI.Container();
-        this.mainScene = new MainScene(width,height);
-        
-        stage.addChild(this.mainScene);
+
+        this.stage = new PIXI.Container();
+
+        this.mainScene = new MainScene();
+        this.mainScene.pivot = new Point(0.5, 0.5);
+        this.mainScene.x = width / 2;
+        this.mainScene.y = height / 2;
+
+        this.stage.addChild(this.mainScene);
 
         window.addEventListener("resize", () => this.onResize(), true);
-        this.renderer.render(stage);
 
+        Ticker.shared.add(this.onTickUpdate, this);
+
+    }
+
+    private onTickUpdate(): void {
+        this.renderer.render(this.stage);
     }
 
     private onResize() {
@@ -30,8 +45,10 @@ export class Main {
         canvas.style.height = `${height}px`;
 
         this.renderer.resize(width, height);
-        
-        this.mainScene.resize(width,height);
+
+        this.mainScene.resize(width, height);
+        this.mainScene.x = width / 2;
+        this.mainScene.y = height / 2;
     }
 
     private getWidth() {
