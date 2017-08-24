@@ -10,6 +10,7 @@ const webpackConfig = require(webpackConfigName);
 const webpackStream = require('webpack-stream');
 
 const pixiPath = 'node_modules/pixi.js/dist';
+const tweenLitePath = 'node_modules/gsap/src/minified';
 
 gulp.task('addLibs', () => {
     const indexPath = `./dist/index.html`;
@@ -25,7 +26,7 @@ gulp.task('addLibs', () => {
         });
     }
 
-    return gulp.src([`${pixiPath}/pixi.js`]).pipe(concat(libFileName)).pipe(gulp.dest("./dist/"));
+    return gulp.src([`${pixiPath}/pixi.js`,`${tweenLitePath}/TweenLite.min.js`]).pipe(concat(libFileName)).pipe(gulp.dest("./dist/"));
 });
 
 gulp.task("default",['addLibs'], ()=>gulp.src('src/Main.ts').pipe(webpackStream(webpackConfig, webpack)).pipe(gulp.dest("./")));
