@@ -1,22 +1,22 @@
-import Point = PIXI.Point;
 import {ReelsContainer} from "../reels/ReelsContainer";
-import {SymbolView} from "../symbols/SymbolView";
+
 export class MainScene extends PIXI.Container {
 
     private minWidth: number = 800;
     private minHeight: number = 600;
 
-    private reelsPlaceholder: PIXI.Graphics;
+    private sceneBack: PIXI.Graphics;
     private reelsContainer: ReelsContainer;
 
     constructor() {
         super();
         console.log("Main scene inited");
-        this.reelsPlaceholder = this.drawTempPlaceHolder();
+        this.sceneBack = this.drawTempPlaceHolder();
 
         this.reelsContainer = new ReelsContainer();
 
-        this.addChild(new SymbolView());
+        this.addChild(this.sceneBack);
+        this.addChild(this.reelsContainer);
 
     }
 
@@ -32,7 +32,7 @@ export class MainScene extends PIXI.Container {
     }
 
     resize(width: number, height: number) {
-        const scale = Math.min(Math.min(width, this.minWidth) / this.minWidth, Math.min(height, this.minHeight) / this.minHeight);
-        this.scale.set(scale);
+        // const scale = Math.min(Math.min(width, this.minWidth) / this.minWidth, Math.min(height, this.minHeight) / this.minHeight);
+        // this.scale.set(scale);
     }
 }
