@@ -17,5 +17,21 @@ export class ReelView extends Container {
 
             this.addChild(symbol);
         }
+        this.startSpin();
+    }
+
+    //TODO: start, stop anim with tweenLite
+    // main anim on pixi draw
+    //reel model
+    public startSpin(): void {
+
+        TweenLite.killTweensOf(this);
+        TweenLite.to(
+            this,
+           5,
+            {
+                y:400
+            }
+        );
     }
 }
