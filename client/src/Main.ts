@@ -30,10 +30,12 @@ export class Main {
 
         Ticker.shared.add(this.onTickUpdate, this);
 
+
     }
 
     private onTickUpdate(): void {
         this.renderer.render(this.stage);
+        this.mainScene.draw();
     }
 
     private onResize() {

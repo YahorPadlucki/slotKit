@@ -17,7 +17,7 @@ export class ReelView extends Container {
 
             this.addChild(symbol);
         }
-        this.startSpin();
+        // this.startSpin();
     }
 
     //TODO: start, stop anim with tweenLite
@@ -33,5 +33,9 @@ export class ReelView extends Container {
                 y:400
             }
         );
+    }
+
+    draw() {
+        this.y++;
     }
 }
