@@ -14,11 +14,13 @@ export class EventDispatcher {
     }
 
     removeListener(event: string, listener: EventListener, scope?: Object) {
-        //todo: remove by filter
+        this.eventMaps.removeByFilter({event: event, listener: listener, scope: scope});
     }
 
 
     dispatch(event: string, data?: any) {
-
+        this.eventMaps.getByFilter({event: event}).forEach((eventMap) => {
+            eventMap.eventListener.call(eventMap.scope, data);
+        })
     }
 }

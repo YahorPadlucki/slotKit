@@ -1,6 +1,9 @@
 import {MainScene} from "./scenes/MainScene";
 import Ticker = PIXI.ticker;
 import Point = PIXI.Point;
+import {List} from "./utils/dataStructures/List";
+import {EventMap} from "./utils/dispatcher/Event";
+import {EventDispatcher} from "./utils/dispatcher/EventDispatcher";
 
 export class Main {
 
@@ -30,6 +33,17 @@ export class Main {
 
         Ticker.shared.add(this.onTickUpdate, this);
 
+      /*  const dispathcer: EventDispatcher = new EventDispatcher();
+
+        dispathcer.addListener("111", this.MyListener, this);
+        dispathcer.dispatch("111", "Fisrt Dispatch");
+        dispathcer.removeListener("111", this.MyListener, this)
+        dispathcer.dispatch("111", "Second Dispath!");*/
+
+    }
+
+    private MyListener(someData: any): void {
+        console.log(" Listener " + someData);
 
     }
 

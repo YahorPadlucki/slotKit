@@ -19,15 +19,6 @@ export class MainScene extends PIXI.Container {
 
         this.addChild(this.sceneBack);
         this.addChild(this.reelsContainer);
-
-        const testList = new List<number>();
-        testList.add(1);
-        testList.add(2);
-        testList.add(3);
-        console.log(testList);
-        testList.remove(2);
-        console.log(testList);
-
     }
 
     private drawTempPlaceHolder() {
