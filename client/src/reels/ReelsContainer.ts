@@ -20,8 +20,4 @@ export class ReelsContainer extends Container {
             this.addChild(reel);
         }
     }
-
-    draw() {
-        this.reels.forEach((reel)=>reel.draw());
-    }
 }

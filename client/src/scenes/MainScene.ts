@@ -35,8 +35,4 @@ export class MainScene extends PIXI.Container {
         const scale = Math.min(Math.min(width, this.minWidth) / this.minWidth, Math.min(height, this.minHeight) / this.minHeight);
         this.scale.set(scale);
     }
-
-    draw() {
-        this.reelsContainer.draw();
-    }
 }

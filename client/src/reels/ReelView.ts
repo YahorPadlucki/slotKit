@@ -1,5 +1,7 @@
 import Container = PIXI.Container;
 import {SymbolView} from "../symbols/SymbolView";
+import {EventDispatcher} from "../utils/dispatcher/EventDispatcher";
+import {Event} from "../Event";
 
 export class ReelView extends Container {
 
@@ -17,7 +19,14 @@ export class ReelView extends Container {
 
             this.addChild(symbol);
         }
+
+        //TODO: reels mediator
+        EventDispatcher.addListener(Event.ENTER_FRAME, this.onEnterFrame, this);
         // this.startSpin();
+    }
+
+    private onEnterFrame(): void {
+        this.y++;
     }
 
     //TODO: start, stop anim with tweenLite
@@ -28,14 +37,10 @@ export class ReelView extends Container {
         TweenLite.killTweensOf(this);
         TweenLite.to(
             this,
-           5,
+            5,
             {
-                y:400
+                y: 400
             }
         );
-    }
-
-    draw() {
-        this.y++;
     }
 }

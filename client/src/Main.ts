@@ -4,6 +4,8 @@ import Point = PIXI.Point;
 import {List} from "./utils/dataStructures/List";
 import {EventMap} from "./utils/dispatcher/Event";
 import {EventDispatcher} from "./utils/dispatcher/EventDispatcher";
+import InteractionMouseEvents = PIXI.interaction.InteractionMouseEvents;
+import {Event} from "./Event";
 
 export class Main {
 
@@ -33,12 +35,12 @@ export class Main {
 
         Ticker.shared.add(this.onTickUpdate, this);
 
-      /*  const dispathcer: EventDispatcher = new EventDispatcher();
+        /*  const dispathcer: EventDispatcher = new EventDispatcher();
 
-        dispathcer.addListener("111", this.MyListener, this);
-        dispathcer.dispatch("111", "Fisrt Dispatch");
-        dispathcer.removeListener("111", this.MyListener, this)
-        dispathcer.dispatch("111", "Second Dispath!");*/
+          dispathcer.addListener("111", this.MyListener, this);
+          dispathcer.dispatch("111", "Fisrt Dispatch");
+          dispathcer.removeListener("111", this.MyListener, this)
+          dispathcer.dispatch("111", "Second Dispath!");*/
 
     }
 
@@ -49,7 +51,7 @@ export class Main {
 
     private onTickUpdate(): void {
         this.renderer.render(this.stage);
-        this.mainScene.draw();
+        EventDispatcher.dispatch(Event.ENTER_FRAME);
     }
 
     private onResize() {
