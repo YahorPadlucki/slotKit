@@ -9,6 +9,9 @@ export class ReelView extends Container {
     private symbolsCount: number = 5;
     private verticalGap: number = 5;
 
+    private visibleSymbolsTape: SymbolView[] = [];
+    private topSymbolIndex:number;
+
     constructor() {
         super();
 
