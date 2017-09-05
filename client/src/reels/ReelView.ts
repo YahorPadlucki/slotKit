@@ -5,19 +5,21 @@ import {Event} from "../Event";
 
 export class ReelView extends Container {
 
-
-    private symbolsCount: number = 5;
     private verticalGap: number = 5;
+    private rows: number = 5;
 
     private visibleSymbolsTape: SymbolView[] = [];
-    private topSymbolIndex:number;
+    private topSymbol: SymbolView;
 
     constructor() {
         super();
 
-        for (let i = 0; i < this.symbolsCount; i++) {
+        for (let i = 0; i < this.rows; i++) {
             const symbol = new SymbolView();
 
+            if (i === 0) {
+                this.topSymbol = symbol;
+            }
             symbol.y = symbol.symbolHeight * i + this.verticalGap * i;
 
             this.addChild(symbol);
@@ -25,10 +27,13 @@ export class ReelView extends Container {
 
         //TODO: reels mediator
         EventDispatcher.addListener(Event.ENTER_FRAME, this.onEnterFrame, this);
-        // this.startSpin();
     }
 
     private onEnterFrame(): void {
+        this.spin();
+    }
+
+    private spin(): void {
         this.y++;
     }
 
