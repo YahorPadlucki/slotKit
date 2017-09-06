@@ -15,8 +15,10 @@ export class MainScene extends PIXI.Container {
 
         this.reelsContainer = new ReelsContainer();
 
-        this.reelsContainer.pivot.set(this.reelsContainer.width / 2, this.reelsContainer.height / 2);
+        // this.reelsContainer.pivot.set(this.reelsContainer.width / 2, this.reelsContainer.height / 2);
 
+        this.reelsContainer.y = -this.minHeight / 2;
+        this.reelsContainer.x = -this.reelsContainer.width/2;
         this.addChild(this.sceneBack);
         this.addChild(this.reelsContainer);
     }
