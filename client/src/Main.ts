@@ -34,6 +34,7 @@ export class Main {
         window.addEventListener("resize", () => this.onResize(), true);
 
         Ticker.shared.add(this.onTickUpdate, this);
+        this.onResize();
 
         /*  const dispathcer: EventDispatcher = new EventDispatcher();
 

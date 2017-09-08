@@ -1,7 +1,6 @@
 import Container = PIXI.Container;
 import {SymbolView} from "../symbols/SymbolView";
-import {EventDispatcher} from "../utils/dispatcher/EventDispatcher";
-import {Event} from "../Event";
+
 
 export class ReelView extends Container {
 
@@ -10,6 +9,10 @@ export class ReelView extends Container {
 
     private symbols: SymbolView[] = [];
 
+    private tapeHeight:number;
+
+    private _prevTime:number;
+
     constructor() {
         super();
 
@@ -17,7 +20,6 @@ export class ReelView extends Container {
 
         //TODO: reels mediator
 
-        EventDispatcher.addListener(Event.ENTER_FRAME, this.onEnterFrame, this);
     }
 
     private initReels() {
@@ -25,6 +27,8 @@ export class ReelView extends Container {
 
         this.addNonVisibleSymbolToTop();
         this.addNonVisibleSymbolToBottom();
+
+        this.tapeHeight =  this.symbols[0].y + (this.verticalGap * this.symbols.length - 1) + (this.symbols[0].height * this.symbols.length);
     }
 
     private addVisibleSymbols() {
@@ -38,14 +42,22 @@ export class ReelView extends Container {
     }
 
     private onEnterFrame(): void {
+    }
+
+    draw() {
         this.spin();
     }
 
     private spin(): void {
         this.symbols.forEach((symbol) => symbol.y++);
         const topSymbol = this.symbols[0];
+        const bottomSymbol = this.symbols[this.symbols.length - 1];
         if (topSymbol.y >= -topSymbol.symbolHeight) {
             this.addNonVisibleSymbolToTop();
+        }
+        if(bottomSymbol.y> this.tapeHeight){
+            this.removeChild(bottomSymbol);
+            this.symbols.pop();
         }
     }
 
@@ -82,4 +94,6 @@ export class ReelView extends Container {
         this.symbols.push(bottomNonVisibleSymbol);
 
     }
+
+
 }
