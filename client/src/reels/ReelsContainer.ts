@@ -10,10 +10,6 @@ export class ReelsContainer extends Container {
 
     private reels: ReelView[] = [];
 
-    private prevTime: number = 0;
-    private fps: number = 60;
-    private updateRate: number;
-
     constructor() {
         super();
 
@@ -26,24 +22,11 @@ export class ReelsContainer extends Container {
             this.addChild(reel);
         }
 
-        this.updateRate = 1000/this.fps;
         EventDispatcher.addListener(Event.ENTER_FRAME, this.onEnterFrame, this);
 
     }
 
-    private onEnterFrame(): void {
-        const currentTime = Date.now();
-
-        if (this.prevTime === 0) {
-            this.prevTime = currentTime;
-        }
-
-        const deltaTime = currentTime - this.prevTime;
-
-        if (deltaTime > this.updateRate) {
-            this.reels.forEach(reel => reel.draw());
-
-            this.prevTime = currentTime - deltaTime % this.updateRate;
-        }
+    private onEnterFrame(deltaTime: number): void {
+        this.reels.forEach(reel => reel.draw(deltaTime));
     }
 }

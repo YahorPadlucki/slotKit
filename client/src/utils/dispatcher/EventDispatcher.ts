@@ -1,5 +1,6 @@
 import {EventMap} from "./Event";
 import {List} from "../dataStructures/List";
+import {EventListener} from "../dispatcher/EventListener"
 
 export class EventDispatcher {
 

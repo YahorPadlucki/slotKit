@@ -9,26 +9,26 @@ export class ReelView extends Container {
 
     private symbols: SymbolView[] = [];
 
-    private tapeHeight:number;
+    private tapeHeight: number;
 
-    private _prevTime:number;
+    private spinSpeed: number = 200;
 
     constructor() {
         super();
 
-        this.initReels();
+        this.initReel();
 
         //TODO: reels mediator
 
     }
 
-    private initReels() {
+    private initReel() {
         this.addVisibleSymbols();
 
         this.addNonVisibleSymbolToTop();
         this.addNonVisibleSymbolToBottom();
 
-        this.tapeHeight =  this.symbols[0].y + (this.verticalGap * this.symbols.length - 1) + (this.symbols[0].height * this.symbols.length);
+        this.tapeHeight = this.symbols[0].y + (this.verticalGap * this.symbols.length - 1) + (this.symbols[0].height * this.symbols.length);
     }
 
     private addVisibleSymbols() {
@@ -41,21 +41,18 @@ export class ReelView extends Container {
         }
     }
 
-    private onEnterFrame(): void {
+    draw(deltaTime: number) {
+        this.spin(deltaTime);
     }
 
-    draw() {
-        this.spin();
-    }
-
-    private spin(): void {
-        this.symbols.forEach((symbol) => symbol.y++);
+    private spin(deltaTime: number): void {
+        this.symbols.forEach((symbol) => symbol.y += this.spinSpeed/1000 * deltaTime);
         const topSymbol = this.symbols[0];
         const bottomSymbol = this.symbols[this.symbols.length - 1];
         if (topSymbol.y >= -topSymbol.symbolHeight) {
             this.addNonVisibleSymbolToTop();
         }
-        if(bottomSymbol.y> this.tapeHeight){
+        if (bottomSymbol.y > this.tapeHeight) {
             this.removeChild(bottomSymbol);
             this.symbols.pop();
         }

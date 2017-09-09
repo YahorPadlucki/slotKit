@@ -14,6 +14,11 @@ export class Main {
     private stage: PIXI.Container;
     private mainScene: MainScene;
 
+
+    private prevTime: number = 0;
+    private fps: number = 60;
+    private drawInterval: number;
+
     constructor() {
 
         const width = this.getWidth();
@@ -21,6 +26,8 @@ export class Main {
 
         this.renderer = PIXI.autoDetectRenderer(width, height);
         document.body.appendChild(this.renderer.view);
+
+        this.drawInterval = 1000 / this.fps;
 
         this.stage = new PIXI.Container();
 
@@ -31,10 +38,11 @@ export class Main {
 
         this.stage.addChild(this.mainScene);
 
+        this.onResize();
+
         window.addEventListener("resize", () => this.onResize(), true);
 
         Ticker.shared.add(this.onTickUpdate, this);
-        this.onResize();
 
         /*  const dispathcer: EventDispatcher = new EventDispatcher();
 
@@ -52,7 +60,18 @@ export class Main {
 
     private onTickUpdate(): void {
         this.renderer.render(this.stage);
-        EventDispatcher.dispatch(Event.ENTER_FRAME);
+        const now = Date.now();
+
+        if (this.prevTime === 0) {
+            this.prevTime = now;
+        }
+
+        const deltaTime = now - this.prevTime;
+
+        if (deltaTime > this.drawInterval) {
+            EventDispatcher.dispatch(Event.ENTER_FRAME, deltaTime);
+            this.prevTime = now - deltaTime % this.drawInterval;
+        }
     }
 
     private onResize() {
