@@ -1,8 +1,11 @@
 import Container = PIXI.Container;
 import {SymbolView} from "../symbols/SymbolView";
+import {ReelState} from "./model/ReelModel";
 
 
 export class ReelView extends Container {
+
+
 
     private verticalGap: number = 5;
     private rows: number = 5;
@@ -12,6 +15,12 @@ export class ReelView extends Container {
     private tapeHeight: number;
 
     private spinSpeed: number = 200;
+
+    private _currentState:ReelState;
+
+    set currentState(value: ReelState) {
+        this._currentState = value;
+    }
 
     constructor() {
         super();

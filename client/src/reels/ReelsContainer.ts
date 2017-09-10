@@ -2,6 +2,7 @@ import Container = PIXI.Container;
 import {ReelView} from "./ReelView";
 import {EventDispatcher} from "../utils/dispatcher/EventDispatcher";
 import {Event} from "../Event";
+import {ReelMediator} from "./mediator/ReelsContainerMediator";
 
 export class ReelsContainer extends Container {
 
@@ -9,6 +10,7 @@ export class ReelsContainer extends Container {
     private reelsGap: number = 50;
 
     private reels: ReelView[] = [];
+    private reelsMediators: ReelMediator[] = [];
 
     constructor() {
         super();
@@ -19,6 +21,8 @@ export class ReelsContainer extends Container {
             reel.x = reel.width * i + this.reelsGap * i;
 
             this.reels.push(reel);
+
+
             this.addChild(reel);
         }
 
