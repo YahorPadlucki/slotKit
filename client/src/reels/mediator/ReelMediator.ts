@@ -9,7 +9,6 @@ export class ReelMediator {
         this.reelView = reelView;
         this.model = model;
 
-        this.reelView.currentState = ReelState.Idle;
-
+        this.model.currentState = ReelState.Idle;
     }
 }

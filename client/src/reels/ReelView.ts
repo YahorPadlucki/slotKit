@@ -1,10 +1,9 @@
 import Container = PIXI.Container;
 import {SymbolView} from "../symbols/SymbolView";
-import {ReelState} from "./model/ReelModel";
+import {ReelModel, ReelState} from "./model/ReelModel";
 
 
 export class ReelView extends Container {
-
 
 
     private verticalGap: number = 5;
@@ -16,22 +15,16 @@ export class ReelView extends Container {
 
     private spinSpeed: number = 200;
 
-    private _currentState:ReelState;
+    private model: ReelModel;
 
-    set currentState(value: ReelState) {
-        this._currentState = value;
-    }
-
-    constructor() {
+    constructor(reelModel: ReelModel) {
         super();
-
-        this.initReel();
-
-        //TODO: reels mediator
-
+        this.model = reelModel;
+        this.init();
     }
 
-    private initReel() {
+    public init() {
+
         this.addVisibleSymbols();
 
         this.addNonVisibleSymbolToTop();
@@ -52,10 +45,17 @@ export class ReelView extends Container {
 
     draw(deltaTime: number) {
         this.spin(deltaTime);
+        switch (this.model.currentState) {
+            case ReelState.Idle:
+                break;
+            case ReelState.Spin:
+                this.spin(deltaTime);
+                break;
+        }
     }
 
     private spin(deltaTime: number): void {
-        this.symbols.forEach((symbol) => symbol.y += this.spinSpeed/1000 * deltaTime);
+        this.symbols.forEach((symbol) => symbol.y += this.spinSpeed / 1000 * deltaTime);
         const topSymbol = this.symbols[0];
         const bottomSymbol = this.symbols[this.symbols.length - 1];
         if (topSymbol.y >= -topSymbol.symbolHeight) {

@@ -4,6 +4,13 @@ export class ReelModel {
 
     public readonly symbolsTape: number[] = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
 
+    set currentState(value: ReelState) {
+        this._currentState = value;
+    }
+
+    get currentState() {
+        return this._currentState;
+    }
 
 }
 
