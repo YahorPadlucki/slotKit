@@ -1,7 +1,7 @@
 import {ReelView} from "../ReelView";
 import {ReelModel, ReelState} from "../model/ReelModel";
 
-export class ReelMediator {
+export class ReelController {
     private reelView: ReelView;
     private model: ReelModel;
 

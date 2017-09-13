@@ -44,7 +44,6 @@ export class ReelView extends Container {
     }
 
     draw(deltaTime: number) {
-        this.spin(deltaTime);
         switch (this.model.currentState) {
             case ReelState.Idle:
                 break;
