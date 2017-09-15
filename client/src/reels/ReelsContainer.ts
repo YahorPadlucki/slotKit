@@ -1,9 +1,9 @@
 import Container = PIXI.Container;
 import {ReelView} from "./ReelView";
 import {EventDispatcher} from "../utils/dispatcher/EventDispatcher";
-import {Event} from "../Event";
 import {ReelModel} from "./model/ReelModel";
 import {ReelController} from "./controller/ReelController";
+import {SlotEvent} from "../SlotEvent";
 
 export class ReelsContainer extends Container {
 
@@ -28,7 +28,7 @@ export class ReelsContainer extends Container {
             this.addChild(reel);
         }
 
-        EventDispatcher.addListener(Event.ENTER_FRAME, this.onEnterFrame, this);
+        EventDispatcher.addListener(SlotEvent.ENTER_FRAME, this.onEnterFrame, this);
 
     }
 

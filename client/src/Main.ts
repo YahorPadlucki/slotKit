@@ -1,11 +1,8 @@
 import {MainScene} from "./scenes/MainScene";
+import {EventDispatcher} from "./utils/dispatcher/EventDispatcher";
+import {SlotEvent} from "./SlotEvent";
 import Ticker = PIXI.ticker;
 import Point = PIXI.Point;
-import {List} from "./utils/dataStructures/List";
-import {EventMap} from "./utils/dispatcher/Event";
-import {EventDispatcher} from "./utils/dispatcher/EventDispatcher";
-import InteractionMouseEvents = PIXI.interaction.InteractionMouseEvents;
-import {Event} from "./Event";
 
 export class Main {
 
@@ -69,7 +66,7 @@ export class Main {
         const deltaTime = now - this.prevTime;
 
         if (deltaTime > this.drawInterval) {
-            EventDispatcher.dispatch(Event.ENTER_FRAME, deltaTime);
+            EventDispatcher.dispatch(SlotEvent.ENTER_FRAME, deltaTime);
             this.prevTime = now - deltaTime % this.drawInterval;
         }
     }
