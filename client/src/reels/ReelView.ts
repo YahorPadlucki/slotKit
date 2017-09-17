@@ -17,6 +17,8 @@ export class ReelView extends Container {
 
     private model: ReelModel;
 
+    private _previousState: ReelState;
+
     constructor(reelModel: ReelModel) {
         super();
         this.model = reelModel;
@@ -44,13 +46,23 @@ export class ReelView extends Container {
     }
 
     draw(deltaTime: number) {
-        switch (this.model.currentState) {
-            case ReelState.Idle:
-                break;
-            case ReelState.Spin:
+
+        const currentState = this.model.currentState;
+        if (this._previousState != currentState) {
+            switch (this.model.currentState) {
+                case ReelState.Idle:
+                    break;
+                case ReelState.StartSpin:
+                    this.startSpin();
+                    break;
+            }
+
+            this._previousState = currentState;
+        } else {
+            if (currentState === ReelState.Spin)
                 this.spin(deltaTime);
-                break;
         }
+
     }
 
     private spin(deltaTime: number): void {
@@ -66,9 +78,21 @@ export class ReelView extends Container {
         }
     }
 
-    //TODO: start, stop anim with tweenLite
     public startSpin(): void {
 
+        TweenLite.killTweensOf(this);
+        TweenLite.to(
+            this,
+            0.5,
+            {
+                y: 200,
+                onComplete: () => {
+                }
+            }
+        );
+    }
+
+    public stopSpin(): void {
         TweenLite.killTweensOf(this);
         TweenLite.to(
             this,
