@@ -67,6 +67,10 @@ export class ReelView extends Container {
 
     private spin(deltaTime: number): void {
         this.symbols.forEach((symbol) => symbol.y += this.spinSpeed / 1000 * deltaTime);
+        this.updateSymbols();
+    }
+
+    private updateSymbols() {
         const topSymbol = this.symbols[0];
         const bottomSymbol = this.symbols[this.symbols.length - 1];
         if (topSymbol.y >= -topSymbol.symbolHeight) {
@@ -79,13 +83,24 @@ export class ReelView extends Container {
     }
 
     public startSpin(): void {
+        this.symbols.forEach((symbol) => this.tweenSymbol(symbol));
+    }
 
-        TweenLite.killTweensOf(this);
+    private tweenSymbol(symbol: SymbolView) {
+
+        //TODO: tween speed - not position
+        TweenLite.killTweensOf(symbol);
+
+        const finalPosition:number = symbol.y+200;
+
         TweenLite.to(
-            this,
+            symbol,
             0.5,
             {
-                y: 200,
+                y: finalPosition,
+                onUpdate: () => {
+                    this.updateSymbols();
+                },
                 onComplete: () => {
                 }
             }
