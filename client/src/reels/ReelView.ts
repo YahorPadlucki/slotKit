@@ -13,7 +13,8 @@ export class ReelView extends Container {
 
     private tapeHeight: number;
 
-    private spinSpeed: number = 200;
+    private spinSpeed: number = 0;
+    private maxSpinSpeed: number = 200;
 
     private model: ReelModel;
 
@@ -55,13 +56,18 @@ export class ReelView extends Container {
                 case ReelState.StartSpin:
                     this.startSpin();
                     break;
+                case ReelState.StartStop:
+                    this.stopSpin();
+                    break;
             }
 
             this._previousState = currentState;
         } else {
-            if (currentState === ReelState.Spin)
-                this.spin(deltaTime);
+            // if (currentState === ReelState.Spin)
         }
+
+        this.spin(deltaTime);
+
 
     }
 
@@ -82,38 +88,31 @@ export class ReelView extends Container {
         }
     }
 
-    public startSpin(): void {
-        this.symbols.forEach((symbol) => this.tweenSymbol(symbol));
-    }
-
-    private tweenSymbol(symbol: SymbolView) {
-
-        //TODO: tween speed - not position
-        TweenLite.killTweensOf(symbol);
-
-        const finalPosition:number = symbol.y+200;
-
+    private startSpin() {
+        TweenLite.killTweensOf(this);
         TweenLite.to(
-            symbol,
+            this,
             0.5,
             {
-                y: finalPosition,
-                onUpdate: () => {
-                    this.updateSymbols();
-                },
+                spinSpeed: this.maxSpinSpeed,
                 onComplete: () => {
+                    this.model.currentState = ReelState.Spin;
                 }
             }
         );
     }
 
+    //TODO: stop on fully visible symbol
     public stopSpin(): void {
         TweenLite.killTweensOf(this);
         TweenLite.to(
             this,
-            5,
+            0.5,
             {
-                y: 400
+                spinSpeed: 0,
+                onComplete: () => {
+                    this.model.currentState = ReelState.Idle;
+                }
             }
         );
     }

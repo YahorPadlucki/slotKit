@@ -23,7 +23,7 @@ export class ReelController {
                 this.model.currentState = ReelState.StartSpin;
                 break;
             case ReelState.Spin:
-                this.model.currentState = ReelState.Idle;
+                this.model.currentState = ReelState.StartStop;
                 break;
         }
     }
