@@ -77,6 +77,7 @@ export class ReelView extends Container {
     }
 
     private updateSymbols() {
+
         const topSymbol = this.symbols[0];
         const bottomSymbol = this.symbols[this.symbols.length - 1];
         if (topSymbol.y >= -topSymbol.symbolHeight) {
@@ -102,19 +103,25 @@ export class ReelView extends Container {
         );
     }
 
-    //TODO: stop on fully visible symbol
     public stopSpin(): void {
-        TweenLite.killTweensOf(this);
-        TweenLite.to(
-            this,
-            0.5,
-            {
-                spinSpeed: 0,
-                onComplete: () => {
-                    this.model.currentState = ReelState.Idle;
-                }
-            }
-        );
+        this.spinSpeed = 0;
+        //TODO:not 1 - but additional count
+        // always do a tween?
+        const yShift = this.symbols[1].y;
+
+        this.symbols.forEach((symbol) => {
+            const finalY = symbol.y + Math.abs(yShift);
+            TweenLite.killTweensOf(symbol);
+            TweenLite.to(
+                symbol,
+                0.5,
+                {
+                    y: finalY,
+                    onComplete: () => {
+                        this.model.currentState = ReelState.Idle;
+                    }
+                });
+        });
     }
 
     private addNonVisibleSymbolToTop() {
