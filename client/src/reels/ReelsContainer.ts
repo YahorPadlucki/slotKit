@@ -4,6 +4,7 @@ import {EventDispatcher} from "../utils/dispatcher/EventDispatcher";
 import {ReelModel} from "./model/ReelModel";
 import {ReelController} from "./controller/ReelController";
 import {SlotEvent} from "../SlotEvent";
+import Graphics = PIXI.Graphics;
 
 export class ReelsContainer extends Container {
 
@@ -12,6 +13,8 @@ export class ReelsContainer extends Container {
 
     private reels: ReelView[] = [];
     private reelsControllers: ReelController[] = [];
+
+    private reelsMask: Graphics;
 
     constructor() {
         super();
@@ -23,10 +26,17 @@ export class ReelsContainer extends Container {
             reel.x = reel.width * i + this.reelsGap * i;
 
             this.reels.push(reel);
-            this.reelsControllers.push(new ReelController(reel,reelModel));
+            this.reelsControllers.push(new ReelController(reel, reelModel));
 
             this.addChild(reel);
         }
+        this.reelsMask = new Graphics();
+        this.reelsMask.beginFill(0x000000, 1);
+        this.reelsMask.drawRect(0, 0, 575, 500);
+        this.reelsMask.endFill();
+        this.addChild(this.reelsMask);
+
+        this.mask = this.reelsMask;
 
         EventDispatcher.addListener(SlotEvent.ENTER_FRAME, this.onEnterFrame, this);
 

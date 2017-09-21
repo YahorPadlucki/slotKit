@@ -104,6 +104,10 @@ export class ReelView extends Container {
     }
 
     public stopSpin(): void {
+        setTimeout(() => this.stop(), 1000);
+    }
+
+    private stop() {
         this.spinSpeed = 0;
         //TODO:not 1 - but additional count
         // always do a tween?
