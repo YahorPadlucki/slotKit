@@ -1,4 +1,5 @@
 import Container = PIXI.Container;
+import {SymbolModel} from "./model/SymbolModel";
 
 export class SymbolView extends Container {
 
@@ -6,14 +7,20 @@ export class SymbolView extends Container {
     public symbolWidth: number = 100;
     public symbolHeight: number = 100;
 
-    constructor(color:number) {
+    private symbolModel:SymbolModel = new SymbolModel;
+
+    constructor(index:number) {
         super();
+
         const graphics = new PIXI.Graphics();
-        graphics.beginFill(color);
+        graphics.beginFill(this.symbolModel.colorMap[index]);
 
         graphics.drawRect(0, 0, this.symbolWidth, this.symbolHeight);
         graphics.endFill();
         this.addChild(graphics);
+
+        const text = new PIXI.Text(index.toString());
+        this.addChild(text);
 
     }
 }

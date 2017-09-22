@@ -34,9 +34,9 @@ export class ReelsContainer extends Container {
         this.reelsMask.beginFill(0x000000, 1);
         this.reelsMask.drawRect(0, 0, 575, 500);
         this.reelsMask.endFill();
-        this.addChild(this.reelsMask);
+        // this.addChild(this.reelsMask);
 
-        this.mask = this.reelsMask;
+        // this.mask = this.reelsMask;
 
         EventDispatcher.addListener(SlotEvent.ENTER_FRAME, this.onEnterFrame, this);
 

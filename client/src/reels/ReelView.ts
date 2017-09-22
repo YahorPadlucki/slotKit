@@ -19,6 +19,7 @@ export class ReelView extends Container {
     private model: ReelModel;
 
     private _previousState: ReelState;
+    private _currentTapeIndex: number = 0;
 
     constructor(reelModel: ReelModel) {
         super();
@@ -28,17 +29,18 @@ export class ReelView extends Container {
 
     public init() {
 
+        //TODO:add symbols form tape in model, top visible symbol remove?
         this.addVisibleSymbols();
 
         this.addNonVisibleSymbolToTop();
-        this.addNonVisibleSymbolToBottom();
+        // this.addNonVisibleSymbolToBottom();
 
         this.tapeHeight = this.symbols[0].y + (this.verticalGap * this.symbols.length - 1) + (this.symbols[0].height * this.symbols.length);
     }
 
     private addVisibleSymbols() {
         for (let i = 0; i < this.rows; i++) {
-            const symbol = new SymbolView(0xFF3300);
+            const symbol = new SymbolView(2);
 
             symbol.y = symbol.symbolHeight * i + this.verticalGap * i;
             this.symbols.push(symbol);
@@ -129,7 +131,7 @@ export class ReelView extends Container {
     }
 
     private addNonVisibleSymbolToTop() {
-        const topNonVisibleSymbol = new SymbolView(0x003300);
+        const topNonVisibleSymbol = new SymbolView(1);
         const topSymbol = this.symbols[0];
 
         topNonVisibleSymbol.y = topSymbol.y - this.verticalGap - topNonVisibleSymbol.symbolHeight;
@@ -138,7 +140,7 @@ export class ReelView extends Container {
     }
 
     private addNonVisibleSymbolToBottom() {
-        const bottomNonVisibleSymbol = new SymbolView(0x003300);
+        const bottomNonVisibleSymbol = new SymbolView(1);
         const topSymbol = this.symbols[0];
 
         bottomNonVisibleSymbol.y = topSymbol.y + (this.verticalGap * this.symbols.length - 1) + (topSymbol.height * this.symbols.length);
