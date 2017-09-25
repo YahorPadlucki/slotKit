@@ -14,12 +14,16 @@ export class ReelView extends Container {
     private tapeHeight: number;
 
     private spinSpeed: number = 0;
-    private maxSpinSpeed: number = 200;
+    private maxSpinSpeed: number = 50;
 
     private model: ReelModel;
 
     private _previousState: ReelState;
-    private _currentTapeIndex: number = 0;
+    private currentTapeIndex: number = 0;
+
+    private inited: boolean;
+
+    //TODO: inversion of tape
 
     constructor(reelModel: ReelModel) {
         super();
@@ -29,27 +33,31 @@ export class ReelView extends Container {
 
     public init() {
 
-        //TODO:add symbols form tape in model, top visible symbol remove?
         this.addVisibleSymbols();
-
-        this.addNonVisibleSymbolToTop();
-        // this.addNonVisibleSymbolToBottom();
-
         this.tapeHeight = this.symbols[0].y + (this.verticalGap * this.symbols.length - 1) + (this.symbols[0].height * this.symbols.length);
+        this.inited = true;
     }
 
     private addVisibleSymbols() {
-        for (let i = 0; i < this.rows; i++) {
-            const symbol = new SymbolView(2);
+
+        for (let i = this.rows - 1; i >= -1; i--) {
+
+            const symbolIndex = this.model.symbolsTape[this.currentTapeIndex];
+            const symbol = new SymbolView(symbolIndex);
 
             symbol.y = symbol.symbolHeight * i + this.verticalGap * i;
             this.symbols.push(symbol);
             this.addChild(symbol);
+            this.currentTapeIndex++;
         }
     }
 
-    draw(deltaTime: number) {
+    private getCurrentSymbolTape(i: number) {
+        return this.model.symbolsTape[i];
+    }
 
+    draw(deltaTime: number) {
+        if (!this.inited) return;
         const currentState = this.model.currentState;
         if (this._previousState != currentState) {
             switch (this.model.currentState) {
@@ -80,8 +88,8 @@ export class ReelView extends Container {
 
     private updateSymbols() {
 
-        const topSymbol = this.symbols[0];
-        const bottomSymbol = this.symbols[this.symbols.length - 1];
+        const topSymbol = this.symbols[this.rows];
+        const bottomSymbol = this.symbols[0];
         if (topSymbol.y >= -topSymbol.symbolHeight) {
             this.addNonVisibleSymbolToTop();
         }
@@ -131,12 +139,17 @@ export class ReelView extends Container {
     }
 
     private addNonVisibleSymbolToTop() {
-        const topNonVisibleSymbol = new SymbolView(1);
-        const topSymbol = this.symbols[0];
+        const topNonVisibleSymbol = new SymbolView(this.currentTapeIndex);
+        const topSymbol = this.symbols[this.rows];
 
         topNonVisibleSymbol.y = topSymbol.y - this.verticalGap - topNonVisibleSymbol.symbolHeight;
         this.addChild(topNonVisibleSymbol);
         this.symbols.unshift(topNonVisibleSymbol);
+
+        if (this.currentTapeIndex == this.model.symbolsTape.length - 1) {
+            this.currentTapeIndex = 0;
+        }
+        this.currentTapeIndex++;
     }
 
     private addNonVisibleSymbolToBottom() {
