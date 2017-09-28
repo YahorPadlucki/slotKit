@@ -14,7 +14,7 @@ export class ReelView extends Container {
     private tapeHeight: number;
 
     private spinSpeed: number = 0;
-    private maxSpinSpeed: number = 500;
+    private maxSpinSpeed: number = 50;
     private stopSpinSpeed: number = 50;
 
     private model: ReelModel;
@@ -117,29 +117,13 @@ export class ReelView extends Container {
         );
     }
 
-    public stopSpin(): void {
-        TweenLite.killTweensOf(this);
-        TweenLite.to(
-            this,
-            1,
-            {
-                spinSpeed: this.stopSpinSpeed,
-                onComplete: () => {
-                    // this.stop();
-                }
-            }
-        );
-        // setTimeout(() => this.stop(), 1000);
-    }
-
-    private stop() {
-        this.spinSpeed = 0;
+    private stopSpin() {
         const yShift = this.symbolsInTape[1].y;
+        const stopTime = Math.abs(yShift)/ (this.spinSpeed);
 
         this.symbolsInTape.forEach((symbol) => {
             const finalY = symbol.y + Math.abs(yShift);
 
-            const stopTime = (finalY-symbol.y)/this.stopSpinSpeed;
             TweenLite.killTweensOf(symbol);
             TweenLite.to(
                 symbol,
@@ -151,6 +135,8 @@ export class ReelView extends Container {
                     }
                 });
         });
+        this.spinSpeed = 0;
+
     }
 
     private addSymbolToTop() {
