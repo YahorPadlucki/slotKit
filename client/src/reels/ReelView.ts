@@ -14,7 +14,7 @@ export class ReelView extends Container {
     private tapeHeight: number;
 
     private spinSpeed: number = 0;
-    private maxSpinSpeed: number = 50;
+    private maxSpinSpeed: number = 500;
     private stopSpinSpeed: number = 50;
 
     private model: ReelModel;
@@ -24,7 +24,6 @@ export class ReelView extends Container {
 
     private inited: boolean;
 
-    //TODO: tween top symbol on one tween
     //loosing focus, return
 
     constructor(reelModel: ReelModel) {
@@ -73,6 +72,9 @@ export class ReelView extends Container {
                 case ReelState.StartStop:
                     this.stopSpin();
                     break;
+                case ReelState.Stop:
+                    this.stopSpin();
+                    break;
             }
 
             this._previousState = currentState;
@@ -103,6 +105,20 @@ export class ReelView extends Container {
         }
     }
 
+    private startStop() {
+        TweenLite.killTweensOf(this);
+        TweenLite.to(
+            this,
+            1,
+            {
+                spinSpeed: this.stopSpinSpeed,
+                onComplete: () => {
+                    this.model.currentState = ReelState.Stop;
+                }
+            }
+        );
+    }
+
     private startSpin() {
         TweenLite.killTweensOf(this);
         TweenLite.to(
@@ -117,9 +133,12 @@ export class ReelView extends Container {
         );
     }
 
+    //TODO: smooth stop without tween filling
+    // tween back
+
     private stopSpin() {
         const yShift = this.symbolsInTape[1].y;
-        const stopTime = Math.abs(yShift)/ (this.spinSpeed);
+        const stopTime = Math.abs(yShift) / (this.maxSpinSpeed);
 
         this.symbolsInTape.forEach((symbol) => {
             const finalY = symbol.y + Math.abs(yShift);
