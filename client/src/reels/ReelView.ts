@@ -14,7 +14,7 @@ export class ReelView extends Container {
     private tapeHeight: number;
 
     private spinSpeed: number = 0;
-    private maxSpinSpeed: number = 500;
+    private maxSpinSpeed: number = 250;
     private stopSpinSpeed: number = 50;
 
     private model: ReelModel;
@@ -133,8 +133,6 @@ export class ReelView extends Container {
         );
     }
 
-    //TODO: smooth stop without tween filling
-    // tween back
 
     private stopSpin() {
         const yShift = this.symbolsInTape[1].y;
@@ -148,6 +146,7 @@ export class ReelView extends Container {
                 symbol,
                 stopTime,
                 {
+                    ease:Back.easeOut,
                     y: finalY,
                     onComplete: () => {
                         this.model.currentState = ReelState.Idle;

@@ -67,7 +67,8 @@ export class Main {
 
         if (deltaTime > this.drawInterval) {
             EventDispatcher.dispatch(SlotEvent.ENTER_FRAME, deltaTime);
-            this.prevTime = now - deltaTime % this.drawInterval;
+            this.prevTime = now;
+            // this.prevTime = now - deltaTime % this.drawInterval;
         }
     }
 
