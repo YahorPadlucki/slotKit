@@ -14,17 +14,17 @@ export class ReelView extends Container {
     private tapeHeight: number;
 
     private spinSpeed: number = 0;
-    private maxSpinSpeed: number = 250;
-    private stopSpinSpeed: number = 50;
+    private maxSpinSpeed: number = 500;
 
     private model: ReelModel;
 
-    private _previousState: ReelState;
+    private previousState: ReelState;
     private _currentTapeIndex: number = 0;
 
     private inited: boolean;
 
-    //loosing focus, return
+    private readyToStop: boolean;
+
 
     constructor(reelModel: ReelModel) {
         super();
@@ -55,14 +55,10 @@ export class ReelView extends Container {
         }
     }
 
-    private getCurrentSymbolTape(i: number) {
-        return this.model.symbolsTape[i];
-    }
-
     draw(deltaTime: number) {
         if (!this.inited) return;
         const currentState = this.model.currentState;
-        if (this._previousState != currentState) {
+        if (this.previousState != currentState) {
             switch (this.model.currentState) {
                 case ReelState.Idle:
                     break;
@@ -70,26 +66,36 @@ export class ReelView extends Container {
                     this.startSpin();
                     break;
                 case ReelState.StartStop:
-                    this.stopSpin();
-                    break;
-                case ReelState.Stop:
-                    this.stopSpin();
+                    this.readyToStop = true;
                     break;
             }
 
-            this._previousState = currentState;
-        } else {
-            // if (currentState === ReelState.Spin)
+            this.previousState = currentState;
         }
 
         this.spin(deltaTime);
+        this.checkIfReadyToStop();
+    }
 
-
+    private startSpin(): void {
+        TweenLite.killTweensOf(this);
+        TweenLite.to(
+            this,
+            0.5,
+            {
+                spinSpeed: this.maxSpinSpeed,
+                onComplete: () => {
+                    this.model.currentState = ReelState.Spin;
+                }
+            }
+        );
     }
 
     private spin(deltaTime: number): void {
         this.symbolsInTape.forEach((symbol) => symbol.y += this.spinSpeed / 1000 * deltaTime);
-        this.updateSymbols();
+        if (this.model.currentState !== ReelState.Stopping)
+            this.updateSymbols();
+
     }
 
     private updateSymbols() {
@@ -105,55 +111,47 @@ export class ReelView extends Container {
         }
     }
 
-    private startStop() {
-        TweenLite.killTweensOf(this);
-        TweenLite.to(
-            this,
-            1,
-            {
-                spinSpeed: this.stopSpinSpeed,
-                onComplete: () => {
-                    this.model.currentState = ReelState.Stop;
-                }
-            }
-        );
+    private checkIfReadyToStop() {
+        if (!this.readyToStop) return;
+        const topVisibleSymbol = this.symbolsInTape[1];
+        if (topVisibleSymbol.y >= -topVisibleSymbol.height / 2 && topVisibleSymbol.y <= 0) {
+            this.stopSpin();
+        }
     }
-
-    private startSpin() {
-        TweenLite.killTweensOf(this);
-        TweenLite.to(
-            this,
-            0.5,
-            {
-                spinSpeed: this.maxSpinSpeed,
-                onComplete: () => {
-                    this.model.currentState = ReelState.Spin;
-                }
-            }
-        );
-    }
-
 
     private stopSpin() {
-        const yShift = this.symbolsInTape[1].y;
-        const stopTime = Math.abs(yShift) / (this.maxSpinSpeed);
+        this.spinSpeed = 0;
+        this.readyToStop = false;
+        this.model.currentState = ReelState.Stopping;
+
+        const topVisibleSymbol = this.symbolsInTape[1];
+        const finalYShift = topVisibleSymbol.y * -1;
 
         this.symbolsInTape.forEach((symbol) => {
-            const finalY = symbol.y + Math.abs(yShift);
+            const easOutY = symbol.y + finalYShift + 20;
+            const easeInY = symbol.y + finalYShift;
 
             TweenLite.killTweensOf(symbol);
             TweenLite.to(
                 symbol,
-                stopTime,
+                0.1,
                 {
-                    ease:Back.easeOut,
-                    y: finalY,
+                    ease: Sine.easeOut,
+                    y: easOutY,
                     onComplete: () => {
-                        this.model.currentState = ReelState.Idle;
+                        TweenLite.to(
+                            symbol,
+                            0.2,
+                            {
+                                ease: Sine.easeIn,
+                                y: easeInY,
+                                onComplete: () => {
+                                    this.model.currentState = ReelState.Idle;
+                                }
+                            });
                     }
                 });
         });
-        this.spinSpeed = 0;
 
     }
 

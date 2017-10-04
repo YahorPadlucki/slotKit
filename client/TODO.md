@@ -1,1 +1,3 @@
-smooth stop with Back ease
++ smooth stop with ease
+- loosing focus, return
+

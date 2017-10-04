@@ -19,5 +19,5 @@ export const enum ReelState {
     StartSpin,
     Spin,
     StartStop,
-    Stop
+    Stopping
 }
