@@ -7,7 +7,7 @@ export class ReelView extends Container {
 
 
     private verticalGap: number = 5;
-    private rows: number = 5;
+    private rows: number = 4;
 
     private symbolsInTape: SymbolView[] = [];
 

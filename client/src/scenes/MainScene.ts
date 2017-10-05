@@ -1,7 +1,7 @@
 import {ReelsContainer} from "../reels/ReelsContainer";
 import {List} from "../utils/dataStructures/List";
 import {SpinButton} from "../ui/SpinButton";
-import {UiPannel} from "../ui/UiPannel";
+import {UiPanel} from "../ui/UiPannel";
 
 export class MainScene extends PIXI.Container {
 
@@ -12,7 +12,7 @@ export class MainScene extends PIXI.Container {
     private sceneBack: PIXI.Graphics;
 
     private reelsContainer: ReelsContainer;
-    private uiPannel: UiPannel;
+    private uiPannel: UiPanel;
 
 
     constructor() {
@@ -23,19 +23,22 @@ export class MainScene extends PIXI.Container {
 
         // this.reelsContainer.pivot.set(this.reelsContainer.width / 2, this.reelsContainer.height / 2);
 
-        this.reelsContainer.y = -this.minHeight / 2;
+        // this.reelsContainer.y = -this.minHeight / 2;
         this.reelsContainer.x = -this.reelsContainer.width / 2;
         this.addChild(this.sceneBack);
         this.addChild(this.reelsContainer);
 
-        this.uiPannel = new UiPannel();
+        this.uiPannel = new UiPanel();
         this.addChild(this.uiPannel);
+
+        this.reelsContainer.y = -this.reelsContainer.visibleHeight/2-this.uiPannel.height/2;
+
     }
 
     private drawTempPlaceHolder() {
 
         const graphics = new PIXI.Graphics();
-        graphics.beginFill(0xFFFF00);
+        graphics.beginFill(0xcccccc);
         graphics.drawRect(-this.minWidth / 2, -this.minHeight / 2, this.minWidth, this.minHeight);
         graphics.endFill();
 
@@ -50,8 +53,8 @@ export class MainScene extends PIXI.Container {
     }
 
     private onResize() {
-        this.uiPannel.x = 0;
-        this.uiPannel.y = this.minHeight/2;
+        this.uiPannel.x = -this.minWidth / 2;
+        this.uiPannel.y = this.minHeight / 2 - this.uiPannel.height;
         this.uiPannel.onResize();
 
     }
