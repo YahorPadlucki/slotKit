@@ -25,6 +25,8 @@ export class ReelsContainer extends Container {
             const reelModel = new ReelModel();
             const reel = new ReelView(reelModel);
 
+            reelModel.reelIndex = i;
+
             reel.x = reel.width * i + this.reelsGap * i;
 
             this.reels.push(reel);

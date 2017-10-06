@@ -14,7 +14,7 @@ export class ReelView extends Container {
     private tapeHeight: number;
 
     private spinSpeed: number = 0;
-    private maxSpinSpeed: number = 500;
+    private maxSpinSpeed: number = 1000;
 
     private model: ReelModel;
 
