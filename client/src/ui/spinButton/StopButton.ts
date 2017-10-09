@@ -1,11 +1,11 @@
-import Container = PIXI.Container;
+import {Button} from "../Button";
 
-export class SpinButton extends Container {
+export class StopButton extends Button {
 
     constructor() {
         super();
         const graphics = new PIXI.Graphics();
-        graphics.beginFill(0xB3650C);
+        graphics.beginFill(0x432700);
 
         graphics.drawCircle(0, 0, 45);
         graphics.endFill();

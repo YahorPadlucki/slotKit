@@ -1,6 +1,4 @@
 import {ReelsContainer} from "../reels/ReelsContainer";
-import {List} from "../utils/dataStructures/List";
-import {SpinButton} from "../ui/SpinButton";
 import {UiPanel} from "../ui/UiPannel";
 
 export class MainScene extends PIXI.Container {

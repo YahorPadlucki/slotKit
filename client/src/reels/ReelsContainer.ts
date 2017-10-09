@@ -1,7 +1,7 @@
 import Container = PIXI.Container;
 import {ReelView} from "./ReelView";
 import {EventDispatcher} from "../utils/dispatcher/EventDispatcher";
-import {ReelModel} from "./model/ReelModel";
+import {ReelModel, ReelState} from "./model/ReelModel";
 import {ReelController} from "./controller/ReelController";
 import {SlotEvent} from "../SlotEvent";
 import Graphics = PIXI.Graphics;
@@ -40,14 +40,23 @@ export class ReelsContainer extends Container {
         this.reelsMask.endFill();
         this.addChild(this.reelsMask);
 
-
         this.mask = this.reelsMask;
 
         EventDispatcher.addListener(SlotEvent.ENTER_FRAME, this.onEnterFrame, this);
-
     }
 
     private onEnterFrame(deltaTime: number): void {
+        let reelsIdle: boolean = true;
+
+        this.reelsControllers.forEach(reelController => {
+            if (reelController.model.currentState != ReelState.Idle) {
+                reelsIdle = false;
+            }
+        });
+
+        if (reelsIdle)
+            EventDispatcher.dispatch(SlotEvent.ENABLE_SPIN_BUTTON);
+
         this.reels.forEach(reel => reel.draw(deltaTime));
     }
 }

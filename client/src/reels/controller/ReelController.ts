@@ -5,7 +5,7 @@ import {SlotEvent} from "../../SlotEvent";
 
 export class ReelController {
     private reelView: ReelView;
-    private model: ReelModel;
+    public model: ReelModel;
 
     private autoStopTime: number = 2000;
     private autoStopTimer: any;
@@ -17,9 +17,10 @@ export class ReelController {
         this.model.currentState = ReelState.Idle;
 
         EventDispatcher.addListener(SlotEvent.SPIN_CLICK, this.onSpinClicked, this);
+        EventDispatcher.addListener(SlotEvent.STOP_CLICK, this.onStopClicked, this);
     }
 
-    protected onSpinClicked(): void {
+    private onSpinClicked(): void {
 
         clearTimeout(this.autoStopTimer);
 
@@ -28,6 +29,13 @@ export class ReelController {
                 this.autoStopTimer = setTimeout(() => this.stopReel(), this.autoStopTime + (this.model.reelIndex * 200));
                 this.model.currentState = ReelState.StartSpin;
                 break;
+
+        }
+    }
+
+    private onStopClicked(): void {
+        clearTimeout(this.autoStopTimer);
+        switch (this.model.currentState) {
             case ReelState.Spin:
                 this.stopReel();
                 break;
