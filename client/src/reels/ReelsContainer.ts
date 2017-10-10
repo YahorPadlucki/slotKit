@@ -46,15 +46,15 @@ export class ReelsContainer extends Container {
     }
 
     private onEnterFrame(deltaTime: number): void {
-        let reelsIdle: boolean = true;
+        let allReelsIdle: boolean = true;
 
         this.reelsControllers.forEach(reelController => {
             if (reelController.model.currentState != ReelState.Idle) {
-                reelsIdle = false;
+                allReelsIdle = false;
             }
         });
 
-        if (reelsIdle)
+        if (allReelsIdle)
             EventDispatcher.dispatch(SlotEvent.ENABLE_SPIN_BUTTON);
 
         this.reels.forEach(reel => reel.draw(deltaTime));

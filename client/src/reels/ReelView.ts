@@ -120,6 +120,7 @@ export class ReelView extends Container {
     }
 
     private stopSpin() {
+        TweenLite.killTweensOf(this);
         this.spinSpeed = 0;
         this.readyToStop = false;
         this.model.currentState = ReelState.Stopping;

@@ -34,17 +34,12 @@ export class ReelController {
     }
 
     private onStopClicked(): void {
-        clearTimeout(this.autoStopTimer);
-        switch (this.model.currentState) {
-            case ReelState.Spin:
-                this.stopReel();
-                break;
-        }
+        this.stopReel()
     }
 
     private stopReel() {
         clearTimeout(this.autoStopTimer);
-        if (this.model.currentState == ReelState.Spin) {
+        if (this.model.currentState == ReelState.Spin || this.model.currentState == ReelState.StartSpin) {
             this.model.currentState = ReelState.StartStop;
         }
     }
