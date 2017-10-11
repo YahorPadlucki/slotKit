@@ -1,3 +1,5 @@
-export interface IServer{
-    spinRequest(): Promise<void>;
+import {IServerResponce} from "./interfaces/IServerResponce";
+
+export interface IServer {
+    spinRequest(): Promise<IServerResponce>;
 }
