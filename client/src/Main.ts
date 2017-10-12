@@ -1,20 +1,21 @@
-import {MainScene} from "./scenes/MainScene";
-import {EventDispatcher} from "./utils/dispatcher/EventDispatcher";
-import {SlotEvent} from "./SlotEvent";
+import {EventDispatcher} from "./slot/modules/utils/dispatcher/EventDispatcher";
+import {SlotEvent} from "./slot/SlotEvent";
+import {SlotView} from "./slot/SlotView";
+import {SlotController} from "./slot/SlotController";
 import Ticker = PIXI.ticker;
 import Point = PIXI.Point;
 
 export class Main {
 
     private renderer: PIXI.SystemRenderer;
-
     private stage: PIXI.Container;
-    private mainScene: MainScene;
-
 
     private prevTime: number = 0;
     private fps: number = 60;
     private drawInterval: number;
+
+    private slotView: SlotView;
+    private slotController: SlotController;
 
     constructor() {
 
@@ -28,12 +29,13 @@ export class Main {
 
         this.stage = new PIXI.Container();
 
-        this.mainScene = new MainScene();
-        this.mainScene.pivot = new Point(0.5, 0.5);
-        this.mainScene.x = width / 2;
-        this.mainScene.y = height / 2;
+        this.slotView = new SlotView();
+        this.slotView.pivot = new Point(0.5, 0.5);
+        this.slotView.x = width / 2;
+        this.slotView.y = height / 2;
 
-        this.stage.addChild(this.mainScene);
+        this.slotController = new SlotController(this.slotView);
+        this.stage.addChild(this.slotView);
 
         this.onResize();
 
@@ -82,9 +84,9 @@ export class Main {
 
         this.renderer.resize(width, height);
 
-        this.mainScene.resize(width, height);
-        this.mainScene.x = width / 2;
-        this.mainScene.y = height / 2;
+        this.slotView.resize(width, height);
+        this.slotView.x = width / 2;
+        this.slotView.y = height / 2;
     }
 
     private getWidth() {

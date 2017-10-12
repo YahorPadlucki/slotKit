@@ -1,7 +1,7 @@
 import {ReelView} from "../ReelView";
 import {ReelModel, ReelState} from "../model/ReelModel";
 import {EventDispatcher} from "../../utils/dispatcher/EventDispatcher";
-import {SlotEvent} from "../../SlotEvent";
+import {SlotEvent} from "../../../SlotEvent";
 
 export class ReelController {
     private reelView: ReelView;

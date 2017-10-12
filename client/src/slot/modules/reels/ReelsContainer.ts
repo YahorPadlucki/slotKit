@@ -3,7 +3,7 @@ import {ReelView} from "./ReelView";
 import {EventDispatcher} from "../utils/dispatcher/EventDispatcher";
 import {ReelModel, ReelState} from "./model/ReelModel";
 import {ReelController} from "./controller/ReelController";
-import {SlotEvent} from "../SlotEvent";
+import {SlotEvent} from "../../SlotEvent";
 import Graphics = PIXI.Graphics;
 
 export class ReelsContainer extends Container {

@@ -1,6 +1,6 @@
 import {SpinButton} from "./SpinButton";
 import {EventDispatcher} from "../../utils/dispatcher/EventDispatcher";
-import {SlotEvent} from "../../SlotEvent";
+import {SlotEvent} from "../../../SlotEvent";
 import {StopButton} from "./StopButton";
 
 export class SpinButtonController {

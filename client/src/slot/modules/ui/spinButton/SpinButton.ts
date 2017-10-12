@@ -1,4 +1,4 @@
-import {Button} from "../Button";
+import {Button} from "../generic/Button";
 
 export class SpinButton extends Button {
 
