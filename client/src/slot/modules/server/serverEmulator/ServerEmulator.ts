@@ -1,13 +1,13 @@
 import {IServer} from "../IServer";
-import {IServerResponce} from "../interfaces/IServerResponce";
+import {IServerResponse} from "../interfaces/IServerResponse";
 
 export class ServerEmulator implements IServer {
 
-    spinRequest(): Promise<IServerResponce> {
+    spinRequest(): Promise<IServerResponse> {
         return new Promise(resolve => {
             setTimeout(() => {
 
-                const serverResponse: IServerResponce = {
+                const serverResponse: IServerResponse = {
                     totalWin: 0,
                     reels: {
                         positions: [0, 0, 0, 0, 0]

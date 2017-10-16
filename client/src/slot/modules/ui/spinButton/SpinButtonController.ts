@@ -5,11 +5,14 @@ import {StopButton} from "./StopButton";
 
 export class SpinButtonController {
 
+
     constructor(private spinButton: SpinButton, private stopButton: StopButton) {
         this.spinButton.on('pointerdown', this.onSpinClick, this);
         this.stopButton.on('pointerdown', this.onStopClick, this);
 
-        EventDispatcher.addListener(SlotEvent.ENABLE_SPIN_BUTTON, this.enableSpin, this);
+        EventDispatcher.addListener(SlotEvent.ENABLE_SPIN_BUTTON, this.enableSpin, this); //TODO slot state changed
+
+        EventDispatcher.addListener(SlotEvent.SERVER_RESPONSE_RECEIVED, this.onServerResponse,this);
 
 
         this.enableSpin();
@@ -28,8 +31,6 @@ export class SpinButtonController {
     }
 
     private enableStop(): void {
-        this.disableSpin();
-
         this.stopButton.enable();
         this.stopButton.visible = true;
 
@@ -40,10 +41,12 @@ export class SpinButtonController {
         this.stopButton.visible = false;
     }
 
-
     private onSpinClick(): void {
-        this.enableStop(); //TODO: should be disable all until server response;
+        this.disableSpin();
         EventDispatcher.dispatch(SlotEvent.SPIN_CLICK);
+    }
+
+    onServerResponse(): any {
     }
 
     private onStopClick(): void {

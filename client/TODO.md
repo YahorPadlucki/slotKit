@@ -1,7 +1,9 @@
 - data transfer/injection/organisation
-- server simulation
-- set final tape position (on simulated server response)
+- change slot state (TODOS)
+- inject slot model
 - global slot model - to check current state (idle, spin, stop) (inject)
+- spin button disable state (when spinning without response
+- set final tape position (on simulated server response)
 - reels with different symbols
 - showing rewards
 - loading assets
@@ -9,7 +11,7 @@
 - spaceBar control
 - loosing focus, return
 
-
++ server simulation
 + fast spin/stop clicking
 + spinButton two states (Spin/Stop) - case when reels start stopping automatically
 + manual, auto stop (one by one)

@@ -1,8 +1,8 @@
 import {IServer} from "./IServer";
-import {IServerResponce} from "./interfaces/IServerResponce";
+import {IServerResponse} from "./interfaces/IServerResponse";
 
 export class Server implements IServer {
-    spinRequest(): Promise<IServerResponce> {
+    spinRequest(): Promise<IServerResponse> {
         throw new Error("Method not implemented.");
     }
 

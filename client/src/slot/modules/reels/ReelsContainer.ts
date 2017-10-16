@@ -55,7 +55,7 @@ export class ReelsContainer extends Container {
         });
 
         if (allReelsIdle)
-            EventDispatcher.dispatch(SlotEvent.ENABLE_SPIN_BUTTON);
+            EventDispatcher.dispatch(SlotEvent.ENABLE_SPIN_BUTTON); //TODO: change slot state
 
         this.reels.forEach(reel => reel.draw(deltaTime));
     }

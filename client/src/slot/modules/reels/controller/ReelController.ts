@@ -18,6 +18,8 @@ export class ReelController {
 
         EventDispatcher.addListener(SlotEvent.SPIN_CLICK, this.onSpinClicked, this);
         EventDispatcher.addListener(SlotEvent.STOP_CLICK, this.onStopClicked, this);
+
+        EventDispatcher.addListener(SlotEvent.SERVER_RESPONSE_RECEIVED, this.onServerResponse, this);
     }
 
     private onSpinClicked(): void {
@@ -26,11 +28,14 @@ export class ReelController {
 
         switch (this.model.currentState) {
             case ReelState.Idle:
-                this.autoStopTimer = setTimeout(() => this.stopReel(), this.autoStopTime + (this.model.reelIndex * 200));
                 this.model.currentState = ReelState.StartSpin;
                 break;
 
         }
+    }
+
+    private onServerResponse(): void {
+        this.autoStopTimer = setTimeout(() => this.stopReel(), this.autoStopTime + (this.model.reelIndex * 200));
     }
 
     private onStopClicked(): void {
