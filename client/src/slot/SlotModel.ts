@@ -1,4 +1,6 @@
 import {IServerResponse} from "./modules/server/interfaces/IServerResponse";
+import {EventDispatcher} from "./modules/utils/dispatcher/EventDispatcher";
+import {SlotEvent} from "./SlotEvent";
 
 export class SlotModel {
     private _currentSlotState;
@@ -22,4 +24,20 @@ export class SlotModel {
     public getStopReelsPosition(): number[] {
         return this._stopReelsPosition;
     }
+
+    public set state(state: SlotState) {
+        if (this._currentSlotState != state) {
+            this._currentSlotState = state;
+            EventDispatcher.dispatch(SlotEvent.SLOT_STATE_CHANGED);
+        }
+    }
+
+    public get state(): SlotState {
+        return this._currentSlotState;
+    }
+}
+
+export const enum SlotState {
+    Idle,
+    Spin
 }

@@ -5,6 +5,8 @@ import {ReelModel, ReelState} from "./model/ReelModel";
 import {ReelController} from "./controller/ReelController";
 import {SlotEvent} from "../../SlotEvent";
 import Graphics = PIXI.Graphics;
+import {SlotModel, SlotState} from "../../SlotModel";
+import {get} from "../utils/locator/locator";
 
 export class ReelsContainer extends Container {
 
@@ -15,6 +17,9 @@ export class ReelsContainer extends Container {
     private reelsControllers: ReelController[] = [];
 
     private reelsMask: Graphics;
+
+    private slotModel: SlotModel = get(SlotModel);
+
 
     public visibleHeight: number = 415;
 
@@ -55,7 +60,7 @@ export class ReelsContainer extends Container {
         });
 
         if (allReelsIdle)
-            EventDispatcher.dispatch(SlotEvent.ENABLE_SPIN_BUTTON); //TODO: change slot state
+            this.slotModel.state = SlotState.Idle;
 
         this.reels.forEach(reel => reel.draw(deltaTime));
     }

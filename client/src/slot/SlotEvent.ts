@@ -6,6 +6,6 @@ export const SlotEvent = {
 
     SERVER_RESPONSE_RECEIVED: "SERVER_RESPONSE_RECEIVED",
 
-    ENABLE_SPIN_BUTTON: "ENABLE_SPIN_BUTTON"// TODO: delete and switch to slot state change event
+    SLOT_STATE_CHANGED: "SLOT_STATE_CHANGED"
 
 };

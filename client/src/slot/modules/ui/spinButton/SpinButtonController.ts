@@ -2,32 +2,31 @@ import {SpinButton} from "./SpinButton";
 import {EventDispatcher} from "../../utils/dispatcher/EventDispatcher";
 import {SlotEvent} from "../../../SlotEvent";
 import {StopButton} from "./StopButton";
+import {SlotModel, SlotState} from "../../../SlotModel";
+import {get} from "../../utils/locator/locator";
 
 export class SpinButtonController {
 
+
+    private slotModel: SlotModel = get(SlotModel);
 
     constructor(private spinButton: SpinButton, private stopButton: StopButton) {
         this.spinButton.on('pointerdown', this.onSpinClick, this);
         this.stopButton.on('pointerdown', this.onStopClick, this);
 
-        EventDispatcher.addListener(SlotEvent.ENABLE_SPIN_BUTTON, this.enableSpin, this); //TODO slot state changed
+        EventDispatcher.addListener(SlotEvent.SLOT_STATE_CHANGED, this.onSlotStateChanged, this);
+        EventDispatcher.addListener(SlotEvent.SERVER_RESPONSE_RECEIVED, this.onServerResponse, this);
 
-        EventDispatcher.addListener(SlotEvent.SERVER_RESPONSE_RECEIVED, this.onServerResponse,this);
-
-
+        this.disableStop();
         this.enableSpin();
     }
 
     private enableSpin(): void {
-        this.disableStop();
-
         this.spinButton.enable();
-        this.spinButton.visible = true;
     }
 
     private disableSpin(): void {
         this.spinButton.disable();
-        this.spinButton.visible = false;
     }
 
     private enableStop(): void {
@@ -47,9 +46,18 @@ export class SpinButtonController {
     }
 
     onServerResponse(): any {
+        this.enableStop();
+    }
+
+    onSlotStateChanged(): any {
+        if (this.slotModel.state === SlotState.Idle) {
+            this.disableStop();
+            this.enableSpin();
+        }
     }
 
     private onStopClick(): void {
+        this.disableStop();
         EventDispatcher.dispatch(SlotEvent.STOP_CLICK);
     }
 }

@@ -11,3 +11,8 @@ export class Button extends Container {
         this.buttonMode = false;
     }
 }
+
+export const enum ButtonState {
+    Active,
+    Disabled
+}
