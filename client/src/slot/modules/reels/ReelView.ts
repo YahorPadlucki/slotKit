@@ -34,15 +34,15 @@ export class ReelView extends Container {
 
     public init() {
 
-        this.addVisibleSymbols();
+        this.prepareTape();
         this.tapeHeight = this.symbolsInTape[0].y + (this.verticalGap * this.symbolsInTape.length - 1) + (this.symbolsInTape[0].height * this.symbolsInTape.length);
         this.inited = true;
     }
 
-    private addVisibleSymbols() {
+    private prepareTape() {
 
         let sybmols = this.model.symbolsTape.slice(this.currentTapeIndex, this.rows + 1);
-        sybmols.reverse();
+        // sybmols.reverse();
         for (let i = -1; i < this.rows; i++) {
 
             const symbolIndex = sybmols[this.currentTapeIndex];
@@ -121,6 +121,8 @@ export class ReelView extends Container {
 
     private stopSpin() {
         TweenLite.killTweensOf(this);
+        // console.log(this.model.symbolsTape[this.topSymbolTapeIndex])
+
         this.spinSpeed = 0;
         this.readyToStop = false;
         this.model.currentState = ReelState.Stopping;
@@ -154,6 +156,13 @@ export class ReelView extends Container {
                 });
         });
 
+    }
+
+    private get topSymbolTapeIndex(): number {
+        let tapeIndex = this.currentTapeIndex + 1;
+        if (tapeIndex >= this.model.symbolsTape.length)
+            tapeIndex = 0;
+        return tapeIndex;
     }
 
     private addSymbolToTop() {
