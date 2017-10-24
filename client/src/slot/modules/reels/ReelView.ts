@@ -1,6 +1,8 @@
 import Container = PIXI.Container;
 import {SymbolView} from "../symbols/SymbolView";
 import {ReelModel, ReelState} from "./model/ReelModel";
+import {get} from "../utils/locator/locator";
+import {SlotModel} from "../../SlotModel";
 
 
 export class ReelView extends Container {
@@ -16,7 +18,6 @@ export class ReelView extends Container {
     private spinSpeed: number = 0;
     private maxSpinSpeed: number = 1000;
 
-    private model: ReelModel;
 
     private previousState: ReelState;
     private _currentTapeIndex: number = 0;
@@ -24,11 +25,15 @@ export class ReelView extends Container {
     private inited: boolean;
 
     private readyToStop: boolean;
+    private prepareStopPositions: boolean;
+
+    private slotModel: SlotModel = get(SlotModel);
+    private reelModel: ReelModel;
 
 
     constructor(reelModel: ReelModel) {
         super();
-        this.model = reelModel;
+        this.reelModel = reelModel;
         this.init();
     }
 
@@ -41,7 +46,7 @@ export class ReelView extends Container {
 
     private prepareTape() {
 
-        let sybmols = this.model.symbolsTape.slice(this.currentTapeIndex, this.rows + 1);
+        let sybmols = this.reelModel.symbolsTape.slice(this.currentTapeIndex, this.rows + 1);
         // sybmols.reverse();
         for (let i = -1; i < this.rows; i++) {
 
@@ -57,16 +62,15 @@ export class ReelView extends Container {
 
     draw(deltaTime: number) {
         if (!this.inited) return;
-        const currentState = this.model.currentState;
+        const currentState = this.reelModel.currentState;
         if (this.previousState != currentState) {
-            switch (this.model.currentState) {
+            switch (this.reelModel.currentState) {
                 case ReelState.Idle:
                     break;
                 case ReelState.StartSpin:
                     this.startSpin();
                     break;
                 case ReelState.StartStop:
-                    this.readyToStop = true;
                     break;
             }
 
@@ -78,6 +82,8 @@ export class ReelView extends Container {
     }
 
     private startSpin(): void {
+        this.prepareStopPositions = false;
+        this.readyToStop = false;
         TweenLite.killTweensOf(this);
         TweenLite.to(
             this,
@@ -85,7 +91,7 @@ export class ReelView extends Container {
             {
                 spinSpeed: this.maxSpinSpeed,
                 onComplete: () => {
-                    this.model.currentState = ReelState.Spin;
+                    this.reelModel.currentState = ReelState.Spin;
                 }
             }
         );
@@ -93,7 +99,7 @@ export class ReelView extends Container {
 
     private spin(deltaTime: number): void {
         this.symbolsInTape.forEach((symbol) => symbol.y += this.spinSpeed / 1000 * deltaTime);
-        if (this.model.currentState !== ReelState.Stopping)
+        if (this.reelModel.currentState !== ReelState.Stopping)
             this.updateSymbols();
 
     }
@@ -103,6 +109,27 @@ export class ReelView extends Container {
         const topSymbol = this.symbolsInTape[0];
         const bottomSymbol = this.symbolsInTape[this.symbolsInTape.length - 1];
         if (topSymbol.y >= -topSymbol.symbolHeight) {
+
+            if (this.reelModel.currentState == ReelState.StartStop) {
+                const finalPosition = this.slotModel.getStopReelsPosition()[this.reelModel.reelIndex];
+                if (!this.prepareStopPositions) {
+
+                    if (this.currentTapeIndex != finalPosition) {
+                        this.currentTapeIndex = finalPosition;
+                    }
+                    this.prepareStopPositions = true;
+
+                } else {
+                    if (!this.readyToStop) {
+                        if (this.currentTapeIndex == finalPosition + this.rows) {
+                            this.readyToStop = true;
+                        }
+
+                    }
+                }
+            }
+
+
             this.addSymbolToTop();
         }
         if (bottomSymbol.y > this.tapeHeight) {
@@ -121,11 +148,11 @@ export class ReelView extends Container {
 
     private stopSpin() {
         TweenLite.killTweensOf(this);
-        // console.log(this.model.symbolsTape[this.topSymbolTapeIndex])
+        console.log(this.reelModel.symbolsTape[this.topSymbolTapeIndex]);
 
         this.spinSpeed = 0;
         this.readyToStop = false;
-        this.model.currentState = ReelState.Stopping;
+        this.reelModel.currentState = ReelState.Stopping;
 
         const topVisibleSymbol = this.symbolsInTape[1];
         const finalYShift = topVisibleSymbol.y * -1;
@@ -149,7 +176,7 @@ export class ReelView extends Container {
                                 ease: Sine.easeIn,
                                 y: easeInY,
                                 onComplete: () => {
-                                    this.model.currentState = ReelState.Idle;
+                                    this.reelModel.currentState = ReelState.Idle;
                                 }
                             });
                     }
@@ -160,24 +187,25 @@ export class ReelView extends Container {
 
     private get topSymbolTapeIndex(): number {
         let tapeIndex = this.currentTapeIndex + 1;
-        if (tapeIndex >= this.model.symbolsTape.length)
+        if (tapeIndex >= this.reelModel.symbolsTape.length)
             tapeIndex = 0;
         return tapeIndex;
     }
 
     private addSymbolToTop() {
-        const symbolFromTape = this.model.symbolsTape[this.currentTapeIndex];
-        this.currentTapeIndex++;
+        const symbolFromTape = this.reelModel.symbolsTape[this.currentTapeIndex];
         const topNonVisibleSymbol = new SymbolView(symbolFromTape);
-        const topSymbol = this.symbolsInTape[0];
+        const topVisibleSymbolPosition = this.symbolsInTape[0].y;
 
-        topNonVisibleSymbol.y = topSymbol.y - this.verticalGap - topNonVisibleSymbol.symbolHeight;
+        topNonVisibleSymbol.y = topVisibleSymbolPosition - this.verticalGap - topNonVisibleSymbol.symbolHeight;
         this.addChild(topNonVisibleSymbol);
         this.symbolsInTape.unshift(topNonVisibleSymbol);
+
+        this.currentTapeIndex++;
     }
 
     private get currentTapeIndex() {
-        if (this._currentTapeIndex >= this.model.symbolsTape.length) {
+        if (this._currentTapeIndex >= this.reelModel.symbolsTape.length) {
             this._currentTapeIndex = 0
         }
         return this._currentTapeIndex;
