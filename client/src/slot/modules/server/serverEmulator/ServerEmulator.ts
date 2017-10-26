@@ -3,14 +3,17 @@ import {IServerResponse} from "../interfaces/IServerResponse";
 
 export class ServerEmulator implements IServer {
 
+    private spinRequestTimeout: any;
+
     spinRequest(): Promise<IServerResponse> {
         return new Promise(resolve => {
-            setTimeout(() => {
+            clearTimeout(this.spinRequestTimeout);
+            this.spinRequestTimeout = setTimeout(() => {
 
                 const serverResponse: IServerResponse = {
                     totalWin: 0,
                     reels: {
-                        positions: [0, 1, 2, 0, 3]
+                        positions: [0, 0, 0, 0, 0]
                     }
                 };
 

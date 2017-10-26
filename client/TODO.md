@@ -1,4 +1,4 @@
-- set final tape position (on simulated server response)
+- set final tape position (on simulated server response) - check and refactor
 - reels with different symbols
 - showing rewards
 - loading assets
@@ -6,6 +6,7 @@
 - spaceBar control
 - loosing focus, return
 
++ manual immediately stop
 + spin button disable state (when spinning without response
 + global slot model - to check current state (idle, spin, stop) (inject)
 + change slot state (TODOS)

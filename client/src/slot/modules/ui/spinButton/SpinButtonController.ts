@@ -42,10 +42,13 @@ export class SpinButtonController {
 
     private onSpinClick(): void {
         this.disableSpin();
+        console.log("clicked")
         EventDispatcher.dispatch(SlotEvent.SPIN_CLICK);
     }
 
     onServerResponse(): any {
+        console.log("responce")
+
         this.enableStop();
     }
 

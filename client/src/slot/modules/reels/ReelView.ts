@@ -16,7 +16,7 @@ export class ReelView extends Container {
     private tapeHeight: number;
 
     private spinSpeed: number = 0;
-    private maxSpinSpeed: number = 1000;
+    private maxSpinSpeed: number = 400;
 
 
     private previousState: ReelState;
@@ -25,7 +25,7 @@ export class ReelView extends Container {
     private inited: boolean;
 
     private readyToStop: boolean;
-    private prepareStopPositions: boolean;
+    private stopPositionsPrepared: boolean;
 
     private slotModel: SlotModel = get(SlotModel);
     private reelModel: ReelModel;
@@ -72,6 +72,8 @@ export class ReelView extends Container {
                     break;
                 case ReelState.StartStop:
                     break;
+                case ReelState.ManualStop:
+                    break;
             }
 
             this.previousState = currentState;
@@ -82,7 +84,7 @@ export class ReelView extends Container {
     }
 
     private startSpin(): void {
-        this.prepareStopPositions = false;
+        this.stopPositionsPrepared = false;
         this.readyToStop = false;
         TweenLite.killTweensOf(this);
         TweenLite.to(
@@ -111,13 +113,15 @@ export class ReelView extends Container {
         if (topSymbol.y >= -topSymbol.symbolHeight) {
 
             if (this.reelModel.currentState == ReelState.StartStop) {
+
                 const finalPosition = this.slotModel.getStopReelsPosition()[this.reelModel.reelIndex];
-                if (!this.prepareStopPositions) {
+
+                if (!this.stopPositionsPrepared) {
 
                     if (this.currentTapeIndex != finalPosition) {
                         this.currentTapeIndex = finalPosition;
                     }
-                    this.prepareStopPositions = true;
+                    this.stopPositionsPrepared = true;
 
                 } else {
                     if (!this.readyToStop) {
@@ -127,6 +131,13 @@ export class ReelView extends Container {
 
                     }
                 }
+
+
+            } else {
+                if (this.reelModel.currentState == ReelState.ManualStop) {
+                    this.readyToStop = true;
+                }
+
             }
 
 
@@ -138,17 +149,30 @@ export class ReelView extends Container {
         }
     }
 
+
+    private changeSymbolsToStopSymbols() {
+        const finalPosition = this.slotModel.getStopReelsPosition()[this.reelModel.reelIndex];
+
+        for (let i = 0; i < this.rows; i++) {
+            const symbolFromTape = this.reelModel.symbolsTape[finalPosition + i];
+            this.symbolsInTape[i + 1].setSymbolImage(symbolFromTape);
+
+        }
+    }
+
     private checkIfReadyToStop() {
         if (!this.readyToStop) return;
         const topVisibleSymbol = this.symbolsInTape[1];
         if (topVisibleSymbol.y >= -topVisibleSymbol.height / 2 && topVisibleSymbol.y <= 0) {
+            if (this.reelModel.currentState == ReelState.ManualStop)
+                this.changeSymbolsToStopSymbols();
             this.stopSpin();
+
         }
     }
 
     private stopSpin() {
         TweenLite.killTweensOf(this);
-        console.log(this.reelModel.symbolsTape[this.topSymbolTapeIndex]);
 
         this.spinSpeed = 0;
         this.readyToStop = false;

@@ -39,12 +39,14 @@ export class ReelController {
     }
 
     private onStopClicked(): void {
-        this.stopReel()
+        this.stopReel(true)
     }
 
-    private stopReel() {
+    private stopReel(isManual: boolean = false) {
         clearTimeout(this.autoStopTimer);
-        if (this.model.currentState == ReelState.Spin || this.model.currentState == ReelState.StartSpin) {
+        if (isManual) {
+            this.model.currentState = ReelState.ManualStop;
+        } else {
             this.model.currentState = ReelState.StartStop;
         }
     }
