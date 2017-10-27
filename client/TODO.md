@@ -1,3 +1,4 @@
+- reverse tape display (from left to right)
 - set final tape position (on simulated server response) - check and refactor
 - reels with different symbols
 - showing rewards

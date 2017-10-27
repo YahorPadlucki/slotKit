@@ -16,7 +16,7 @@ export class ReelView extends Container {
     private tapeHeight: number;
 
     private spinSpeed: number = 0;
-    private maxSpinSpeed: number = 400;
+    private maxSpinSpeed: number = 100;
 
 
     private previousState: ReelState;
@@ -46,17 +46,17 @@ export class ReelView extends Container {
 
     private prepareTape() {
 
-        let sybmols = this.reelModel.symbolsTape.slice(this.currentTapeIndex, this.rows + 1);
+        // let sybmols = this.reelModel.symbolsTape.slice(this.currentTapeIndex, this.rows + 1);
         // sybmols.reverse();
-        for (let i = -1; i < this.rows; i++) {
+        for (let i = this.rows - 1; i >= 0; i--) {
 
-            const symbolIndex = sybmols[this.currentTapeIndex];
+            const symbolIndex = this.reelModel.symbolsTape[this.currentTapeIndex];
             const symbol = new SymbolView(symbolIndex);
 
             symbol.y = symbol.symbolHeight * i + this.verticalGap * i;
             this.symbolsInTape.push(symbol);
             this.addChild(symbol);
-            this.currentTapeIndex++;
+            this.currentTapeIndex--;
         }
     }
 
@@ -149,12 +149,16 @@ export class ReelView extends Container {
         }
     }
 
-
     private changeSymbolsToStopSymbols() {
         const finalPosition = this.slotModel.getStopReelsPosition()[this.reelModel.reelIndex];
 
-        for (let i = 0; i < this.rows; i++) {
-            const symbolFromTape = this.reelModel.symbolsTape[finalPosition + i];
+        for (let i = this.rows - 1; i >= 0; i--) {
+            let symbolTapePosition = finalPosition - i;
+            const tapeLength = this.reelModel.symbolsTape.length;
+            if (symbolTapePosition < 0) {
+                symbolTapePosition = tapeLength + symbolTapePosition;
+            }
+            const symbolFromTape = this.reelModel.symbolsTape[symbolTapePosition];
             this.symbolsInTape[i + 1].setSymbolImage(symbolFromTape);
 
         }
@@ -225,13 +229,14 @@ export class ReelView extends Container {
         this.addChild(topNonVisibleSymbol);
         this.symbolsInTape.unshift(topNonVisibleSymbol);
 
-        this.currentTapeIndex++;
+        this.currentTapeIndex--;
     }
 
     private get currentTapeIndex() {
-        if (this._currentTapeIndex >= this.reelModel.symbolsTape.length) {
-            this._currentTapeIndex = 0
+        if (this._currentTapeIndex < 0) {
+            this._currentTapeIndex += this.reelModel.symbolsTape.length;
         }
+
         return this._currentTapeIndex;
     }
 
