@@ -13,7 +13,7 @@ export class ServerEmulator implements IServer {
                 const serverResponse: IServerResponse = {
                     totalWin: 0,
                     reels: {
-                        positions: [0, 0, 0, 0, 0]
+                        positions: [0, 1, 2, 3, 20]
                     }
                 };
 

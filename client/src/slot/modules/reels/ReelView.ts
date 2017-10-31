@@ -48,6 +48,7 @@ export class ReelView extends Container {
 
         // let sybmols = this.reelModel.symbolsTape.slice(this.currentTapeIndex, this.rows + 1);
         // sybmols.reverse();
+        this.currentTapeIndex = 3;
         for (let i = this.rows - 1; i >= 0; i--) {
 
             const symbolIndex = this.reelModel.symbolsTape[this.currentTapeIndex];
@@ -110,22 +111,25 @@ export class ReelView extends Container {
 
         const topSymbol = this.symbolsInTape[0];
         const bottomSymbol = this.symbolsInTape[this.symbolsInTape.length - 1];
+
         if (topSymbol.y >= -topSymbol.symbolHeight) {
 
             if (this.reelModel.currentState == ReelState.StartStop) {
 
-                const finalPosition = this.slotModel.getStopReelsPosition()[this.reelModel.reelIndex];
+                const stopPosition = this.slotModel.getStopReelsPosition()[this.reelModel.reelIndex];
+                const finalBottomRowPosition = this.getNormalizedPosition(stopPosition + this.rows);
 
                 if (!this.stopPositionsPrepared) {
 
-                    if (this.currentTapeIndex != finalPosition) {
-                        this.currentTapeIndex = finalPosition;
+                    if (this.currentTapeIndex != finalBottomRowPosition) {
+                        this.currentTapeIndex = finalBottomRowPosition;
                     }
                     this.stopPositionsPrepared = true;
 
                 } else {
                     if (!this.readyToStop) {
-                        if (this.currentTapeIndex == finalPosition + this.rows) {
+
+                        if (this.currentTapeIndex == stopPosition) {
                             this.readyToStop = true;
                         }
 
@@ -153,15 +157,27 @@ export class ReelView extends Container {
         const finalPosition = this.slotModel.getStopReelsPosition()[this.reelModel.reelIndex];
 
         for (let i = this.rows - 1; i >= 0; i--) {
-            let symbolTapePosition = finalPosition - i;
+            let symbolTapePosition = finalPosition + i;
             const tapeLength = this.reelModel.symbolsTape.length;
-            if (symbolTapePosition < 0) {
-                symbolTapePosition = tapeLength + symbolTapePosition;
+            if (symbolTapePosition >= tapeLength) {
+                symbolTapePosition -= tapeLength;
             }
             const symbolFromTape = this.reelModel.symbolsTape[symbolTapePosition];
             this.symbolsInTape[i + 1].setSymbolImage(symbolFromTape);
 
         }
+    }
+
+    private getNormalizedPosition(position: number): number {
+        const tapeLength = this.reelModel.symbolsTape.length;
+
+        if (position >= tapeLength) {
+            position -= tapeLength;
+        }
+        if (position < 0)
+            position += tapeLength;
+
+        return position;
     }
 
     private checkIfReadyToStop() {
