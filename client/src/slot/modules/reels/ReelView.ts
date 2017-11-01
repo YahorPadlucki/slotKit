@@ -16,7 +16,7 @@ export class ReelView extends Container {
     private tapeHeight: number;
 
     private spinSpeed: number = 0;
-    private maxSpinSpeed: number = 100;
+    private maxSpinSpeed: number = 1000;
 
 
     private previousState: ReelState;
@@ -116,8 +116,8 @@ export class ReelView extends Container {
 
             if (this.reelModel.currentState == ReelState.StartStop) {
 
-                const stopPosition = this.slotModel.getStopReelsPosition()[this.reelModel.reelIndex];
-                const finalBottomRowPosition = this.getNormalizedPosition(stopPosition + this.rows);
+                const stopPosition = this.getNormalizedPosition(this.slotModel.getStopReelsPosition()[this.reelModel.reelIndex]-1);
+                const finalBottomRowPosition =  this.getNormalizedPosition(stopPosition+this.rows);
 
                 if (!this.stopPositionsPrepared) {
 
@@ -147,7 +147,7 @@ export class ReelView extends Container {
 
             this.addSymbolToTop();
         }
-        if (bottomSymbol.y > this.tapeHeight) {
+        if (bottomSymbol.y >= this.tapeHeight) {
             this.removeChild(bottomSymbol);
             this.symbolsInTape.pop();
         }

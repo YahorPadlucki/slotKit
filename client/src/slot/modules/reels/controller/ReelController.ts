@@ -43,6 +43,8 @@ export class ReelController {
     }
 
     private stopReel(isManual: boolean = false) {
+        if (this.model.currentState == ReelState.Idle) return;
+
         clearTimeout(this.autoStopTimer);
         if (isManual) {
             this.model.currentState = ReelState.ManualStop;
