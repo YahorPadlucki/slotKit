@@ -35,6 +35,7 @@ export class ReelView extends Container {
         super();
         this.reelModel = reelModel;
         this.init();
+
     }
 
     public init() {

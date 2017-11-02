@@ -29,19 +29,10 @@ export class Main {
 
         this.stage = new PIXI.Container();
 
-        this.slotView = new SlotView();
-        this.slotView.pivot = new Point(0.5, 0.5);
-        this.slotView.x = width / 2;
-        this.slotView.y = height / 2;
-
         this.slotController = new SlotController(this.slotView);
-        this.stage.addChild(this.slotView);
 
-        this.onResize();
+        this.slotController.makeInitRequest().then(() => this.onInitResponse())
 
-        window.addEventListener("resize", () => this.onResize(), true);
-
-        Ticker.shared.add(this.onTickUpdate, this);
 
         /*  const dispathcer: EventDispatcher = new EventDispatcher();
 
@@ -50,6 +41,25 @@ export class Main {
           dispathcer.removeListener("111", this.MyListener, this)
           dispathcer.dispatch("111", "Second Dispath!");*/
 
+    }
+
+    private onInitResponse(): void {
+
+        const width = this.getWidth();
+        const height = this.getHeight();
+
+        this.slotView = new SlotView();
+        this.slotView.pivot = new Point(0.5, 0.5);
+        this.slotView.x = width / 2;
+        this.slotView.y = height / 2;
+
+        this.stage.addChild(this.slotView);
+
+        this.onResize();
+
+        window.addEventListener("resize", () => this.onResize(), true);
+
+        Ticker.shared.add(this.onTickUpdate, this);
     }
 
     private MyListener(someData: any): void {

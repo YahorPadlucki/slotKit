@@ -1,8 +1,10 @@
 export class ReelModel {
+
+
     private _reelIndex: number;
     private _currentState: ReelState;
 
-    public readonly symbolsTape: number[] = [1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3];
+    public symbolsTape: number[];
 
     set reelIndex(value: number) {
         this._reelIndex = value;
@@ -18,6 +20,10 @@ export class ReelModel {
 
     get currentState() {
         return this._currentState;
+    }
+
+    updateTape(tape: number[]) {
+        this.symbolsTape = tape.concat();
     }
 
 }

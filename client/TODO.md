@@ -1,5 +1,6 @@
-- reverse tape display (from left to right)
-- set final tape position (on simulated server response) - check and refactor
+- init server emulation with reels and lines
+- apply init stop positions
+- update reelModel when slot model updated
 - reels with different symbols
 - showing rewards
 - loading assets
@@ -7,6 +8,8 @@
 - spaceBar control
 - loosing focus, return
 
++ set final tape position (on simulated server response) - check and refactor
++ reverse tape display (from left to right)
 + manual immediately stop
 + spin button disable state (when spinning without response
 + global slot model - to check current state (idle, spin, stop) (inject)

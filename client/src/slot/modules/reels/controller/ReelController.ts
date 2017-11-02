@@ -19,7 +19,7 @@ export class ReelController {
         EventDispatcher.addListener(SlotEvent.SPIN_CLICK, this.onSpinClicked, this);
         EventDispatcher.addListener(SlotEvent.STOP_CLICK, this.onStopClicked, this);
 
-        EventDispatcher.addListener(SlotEvent.SERVER_RESPONSE_RECEIVED, this.onServerResponse, this);
+        EventDispatcher.addListener(SlotEvent.SERVER_SPIN_RESPONSE_RECEIVED, this.onServerResponse, this);
     }
 
     private onSpinClicked(): void {

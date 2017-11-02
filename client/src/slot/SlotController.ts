@@ -3,9 +3,10 @@ import {EventDispatcher} from "./modules/utils/dispatcher/EventDispatcher";
 import {SlotEvent} from "./SlotEvent";
 import {IServer} from "./modules/server/IServer";
 import {ServerEmulator} from "./modules/server/serverEmulator/ServerEmulator";
-import {IServerResponse} from "./modules/server/interfaces/IServerResponse";
 import {SlotModel, SlotState} from "./SlotModel";
 import {get} from "./modules/utils/locator/locator";
+import {ISpinResponse} from "./modules/server/interfaces/ISpinResponse";
+import {IInitResponse} from "./modules/server/interfaces/IInitResponse";
 
 export class SlotController {
 
@@ -18,13 +19,20 @@ export class SlotController {
 
     onSpinClicked(): void {
         this.slotModel.state = SlotState.Spin;
-        this.server.spinRequest().then((serverResponse: IServerResponse) => this.handleServerResponce(serverResponse));
+        this.server.spinRequest().then((serverResponse: ISpinResponse) => this.handleServerSpinResponse(serverResponse));
 
     }
 
-    private handleServerResponce(serverResponse: IServerResponse) {
-        this.slotModel.parseServerResponce(serverResponse);
+    makeInitRequest(): Promise<any> {
+        return this.server.initRequest().then((initResponse: IInitResponse) => {
+            this.slotModel.parseServerInitResponse(initResponse);
+            return Promise.resolve();
+        })
+    }
 
-        EventDispatcher.dispatch(SlotEvent.SERVER_RESPONSE_RECEIVED);
+    private handleServerSpinResponse(serverResponse: ISpinResponse) {
+        this.slotModel.parseServerSpinResponse(serverResponse);
+
+        EventDispatcher.dispatch(SlotEvent.SERVER_SPIN_RESPONSE_RECEIVED);
     }
 }

@@ -1,3 +1,4 @@
-export interface IServerReelsResponse{
-    positions:number[];
+export interface IServerReelsResponse {
+    stopPositions?: number[];
+    tapes?: number[][];
 }

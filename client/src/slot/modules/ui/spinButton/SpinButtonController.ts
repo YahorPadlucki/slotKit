@@ -15,7 +15,7 @@ export class SpinButtonController {
         this.stopButton.on('pointerdown', this.onStopClick, this);
 
         EventDispatcher.addListener(SlotEvent.SLOT_STATE_CHANGED, this.onSlotStateChanged, this);
-        EventDispatcher.addListener(SlotEvent.SERVER_RESPONSE_RECEIVED, this.onServerResponse, this);
+        EventDispatcher.addListener(SlotEvent.SERVER_SPIN_RESPONSE_RECEIVED, this.onServerResponse, this);
 
         this.disableStop();
         this.enableSpin();

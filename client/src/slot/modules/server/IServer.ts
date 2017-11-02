@@ -1,5 +1,8 @@
-import {IServerResponse} from "./interfaces/IServerResponse";
+
+import {ISpinResponse} from "./interfaces/ISpinResponse";
+import {IInitResponse} from "./interfaces/IInitResponse";
 
 export interface IServer {
-    spinRequest(): Promise<IServerResponse>;
+    initRequest(): Promise<IInitResponse>;
+    spinRequest(): Promise<ISpinResponse>;
 }

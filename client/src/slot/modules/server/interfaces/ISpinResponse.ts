@@ -1,6 +1,6 @@
 import {IServerReelsResponse} from "./ServerResponseInterfaces";
 
-export interface IServerResponse {
+export interface ISpinResponse {
     totalWin?: number;
     reels: IServerReelsResponse
 }
