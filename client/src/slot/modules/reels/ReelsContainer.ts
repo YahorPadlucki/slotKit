@@ -28,11 +28,11 @@ export class ReelsContainer extends Container {
 
         for (let i = 0; i < this.reelsCount; i++) {
             const reelModel = new ReelModel();
-            //TODO: update tapes from slot model;
+            //TODO: refactor reels view/model/controller creation - move in reelsController;
             reelModel.updateTape(this.slotModel.tapes[i]);
+
             reelModel.reelIndex = i;
             const reel = new ReelView(reelModel);
-
 
             reel.x = reel.width * i + this.reelsGap * i;
 

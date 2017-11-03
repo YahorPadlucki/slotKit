@@ -16,10 +16,10 @@ export class ReelView extends Container {
     private tapeHeight: number;
 
     private spinSpeed: number = 0;
-    private maxSpinSpeed: number = 1000;
+    private maxSpinSpeed: number = 500;
 
 
-    private previousState: ReelState;
+    private previousState: ReelState = ReelState.Idle;
     private _currentTapeIndex: number = 0;
 
     private inited: boolean;
@@ -39,7 +39,6 @@ export class ReelView extends Container {
     }
 
     public init() {
-
         this.prepareTape();
         this.tapeHeight = this.symbolsInTape[0].y + (this.verticalGap * this.symbolsInTape.length - 1) + (this.symbolsInTape[0].height * this.symbolsInTape.length);
         this.inited = true;
@@ -47,16 +46,14 @@ export class ReelView extends Container {
 
     private prepareTape() {
 
-        // let sybmols = this.reelModel.symbolsTape.slice(this.currentTapeIndex, this.rows + 1);
-        // sybmols.reverse();
-        this.currentTapeIndex = 3;
+        this.currentTapeIndex = this.getNormalizedPosition(3 + this.slotModel.getStopReelsPosition()[this.reelModel.reelIndex]);
         for (let i = this.rows - 1; i >= 0; i--) {
 
             const symbolIndex = this.reelModel.symbolsTape[this.currentTapeIndex];
             const symbol = new SymbolView(symbolIndex);
 
             symbol.y = symbol.symbolHeight * i + this.verticalGap * i;
-            this.symbolsInTape.push(symbol);
+            this.symbolsInTape[i] = symbol;
             this.addChild(symbol);
             this.currentTapeIndex--;
         }
@@ -117,8 +114,8 @@ export class ReelView extends Container {
 
             if (this.reelModel.currentState == ReelState.StartStop) {
 
-                const stopPosition = this.getNormalizedPosition(this.slotModel.getStopReelsPosition()[this.reelModel.reelIndex]-1);
-                const finalBottomRowPosition =  this.getNormalizedPosition(stopPosition+this.rows);
+                const stopPosition = this.getNormalizedPosition(this.slotModel.getStopReelsPosition()[this.reelModel.reelIndex] - 1);
+                const finalBottomRowPosition = this.getNormalizedPosition(stopPosition + this.rows);
 
                 if (!this.stopPositionsPrepared) {
 
@@ -230,13 +227,6 @@ export class ReelView extends Container {
 
     }
 
-    private get topSymbolTapeIndex(): number {
-        let tapeIndex = this.currentTapeIndex + 1;
-        if (tapeIndex >= this.reelModel.symbolsTape.length)
-            tapeIndex = 0;
-        return tapeIndex;
-    }
-
     private addSymbolToTop() {
         const symbolFromTape = this.reelModel.symbolsTape[this.currentTapeIndex];
         const topNonVisibleSymbol = new SymbolView(symbolFromTape);
@@ -260,17 +250,4 @@ export class ReelView extends Container {
     private set currentTapeIndex(value: number) {
         this._currentTapeIndex = value;
     }
-
-
-    private addNonVisibleSymbolToBottom() {
-        const bottomNonVisibleSymbol = new SymbolView(1);
-        const topSymbol = this.symbolsInTape[0];
-
-        bottomNonVisibleSymbol.y = topSymbol.y + (this.verticalGap * this.symbolsInTape.length - 1) + (topSymbol.height * this.symbolsInTape.length);
-        this.addChild(bottomNonVisibleSymbol);
-        this.symbolsInTape.push(bottomNonVisibleSymbol);
-
-    }
-
-
 }

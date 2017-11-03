@@ -2,6 +2,8 @@ import {ReelView} from "../ReelView";
 import {ReelModel, ReelState} from "../model/ReelModel";
 import {EventDispatcher} from "../../utils/dispatcher/EventDispatcher";
 import {SlotEvent} from "../../../SlotEvent";
+import {SlotModel} from "../../../SlotModel";
+import {get} from "../../utils/locator/locator";
 
 export class ReelController {
     private reelView: ReelView;
@@ -9,6 +11,9 @@ export class ReelController {
 
     private autoStopTime: number = 2000;
     private autoStopTimer: any;
+
+    private slotModel: SlotModel = get(SlotModel);
+
 
     constructor(reelView: ReelView, model: ReelModel) {
         this.reelView = reelView;
@@ -20,6 +25,7 @@ export class ReelController {
         EventDispatcher.addListener(SlotEvent.STOP_CLICK, this.onStopClicked, this);
 
         EventDispatcher.addListener(SlotEvent.SERVER_SPIN_RESPONSE_RECEIVED, this.onServerResponse, this);
+        EventDispatcher.addListener(SlotEvent.NEW_REELS_TAPES_RECEIVED, () => this.model.updateTape(this.slotModel.tapes[this.model.reelIndex]), this);
     }
 
     private onSpinClicked(): void {
@@ -30,7 +36,6 @@ export class ReelController {
             case ReelState.Idle:
                 this.model.currentState = ReelState.StartSpin;
                 break;
-
         }
     }
 

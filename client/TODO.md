@@ -1,6 +1,5 @@
-- init server emulation with reels and lines
-- apply init stop positions
 - update reelModel when slot model updated
+- reelS  controller - reelS view (reelsContainer)
 - reels with different symbols
 - showing rewards
 - loading assets
@@ -8,6 +7,8 @@
 - spaceBar control
 - loosing focus, return
 
++ init server emulation with reels and lines
++ apply init stop positions
 + set final tape position (on simulated server response) - check and refactor
 + reverse tape display (from left to right)
 + manual immediately stop

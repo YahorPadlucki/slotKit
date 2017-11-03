@@ -31,6 +31,7 @@ export class SlotModel {
             }
             if (reels.tapes) {
                 this._tapes = reels.tapes;
+                EventDispatcher.dispatch(SlotEvent.NEW_REELS_TAPES_RECEIVED);
             }
         }
     }
