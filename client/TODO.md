@@ -1,12 +1,16 @@
-- update reelModel when slot model updated
-- reelS  controller - reelS view (reelsContainer)
-- reels with different symbols
 - showing rewards
+    - lines on init
+    - lines reward
+    - symbols toggle animations
+
 - loading assets
 - width,height number to some config, reels, rows, spin speed - also to config
 - spaceBar control
 - loosing focus, return
 
++ reels with different symbols
++ update reelModel when slot model updated
++ reelS  controller - reelS view (reelsContainer)
 + init server emulation with reels and lines
 + apply init stop positions
 + set final tape position (on simulated server response) - check and refactor

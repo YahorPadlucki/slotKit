@@ -1,8 +1,8 @@
 import Container = PIXI.Container;
-import {SymbolView} from "../symbols/SymbolView";
-import {ReelModel, ReelState} from "./model/ReelModel";
-import {get} from "../utils/locator/locator";
-import {SlotModel} from "../../SlotModel";
+import {SymbolView} from "../../symbols/SymbolView";
+import {ReelModel, ReelState} from "../model/ReelModel";
+import {get} from "../../utils/locator/locator";
+import {SlotModel} from "../../../SlotModel";
 
 
 export class ReelView extends Container {

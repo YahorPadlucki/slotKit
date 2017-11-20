@@ -1,5 +1,5 @@
 import Container = PIXI.Container;
-import {ReelView} from "./ReelView";
+import {ReelView} from "./view/ReelView";
 import {EventDispatcher} from "../utils/dispatcher/EventDispatcher";
 import {ReelModel, ReelState} from "./model/ReelModel";
 import {ReelController} from "./controller/ReelController";
@@ -8,7 +8,7 @@ import Graphics = PIXI.Graphics;
 import {SlotModel, SlotState} from "../../SlotModel";
 import {get} from "../utils/locator/locator";
 
-export class ReelsContainer extends Container {
+export class ReelsController extends Container {
 
     private reelsCount: number = 5;
     private reelsGap: number = 15;
@@ -27,13 +27,12 @@ export class ReelsContainer extends Container {
         super();
 
         for (let i = 0; i < this.reelsCount; i++) {
+
             const reelModel = new ReelModel();
-            //TODO: refactor reels view/model/controller creation - move in reelsController;
             reelModel.updateTape(this.slotModel.tapes[i]);
-
             reelModel.reelIndex = i;
-            const reel = new ReelView(reelModel);
 
+            const reel = new ReelView(reelModel);
             reel.x = reel.width * i + this.reelsGap * i;
 
             this.reels.push(reel);

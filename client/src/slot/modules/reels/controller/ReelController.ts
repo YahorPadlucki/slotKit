@@ -1,4 +1,4 @@
-import {ReelView} from "../ReelView";
+import {ReelView} from "../view/ReelView";
 import {ReelModel, ReelState} from "../model/ReelModel";
 import {EventDispatcher} from "../../utils/dispatcher/EventDispatcher";
 import {SlotEvent} from "../../../SlotEvent";
@@ -6,7 +6,7 @@ import {SlotModel} from "../../../SlotModel";
 import {get} from "../../utils/locator/locator";
 
 export class ReelController {
-    private reelView: ReelView;
+    public reelView: ReelView;
     public model: ReelModel;
 
     private autoStopTime: number = 2000;

@@ -1,4 +1,4 @@
-import {ReelsContainer} from "../reels/ReelsContainer";
+import {ReelsController} from "../reels/ReelsController";
 import {UiPanel} from "../ui/UiPannel";
 import {BaseScene} from "./BaseScene";
 
@@ -6,14 +6,14 @@ export class MainScene extends BaseScene {
 
     private sceneBack: PIXI.Graphics;
 
-    private reelsContainer: ReelsContainer;
+    private reelsContainer: ReelsController;
     private uiPannel: UiPanel;
 
     constructor(minWidth, minHeight) {
         super(minWidth, minHeight);
         this.sceneBack = this.drawTempPlaceHolder();
 
-        this.reelsContainer = new ReelsContainer();
+        this.reelsContainer = new ReelsController();
         this.reelsContainer.x = -this.reelsContainer.width / 2;
 
         this.addChild(this.sceneBack);
