@@ -13,10 +13,10 @@ export class ServerEmulator implements IServer {
             this.initTimeout = setTimeout(() => {
                 const serverResponse: IInitResponse = {
                     lines: [
+                        [0, 0, 0, 0, 0],
                         [1, 1, 1, 1, 1],
                         [2, 2, 2, 2, 2],
                         [3, 3, 3, 3, 3],
-                        [4, 4, 4, 4, 4]
                     ],
                     reels: {
                         stopPositions: [1, 2, 3, 4, 0],
@@ -43,7 +43,19 @@ export class ServerEmulator implements IServer {
                     totalWin: 0,
                     reels: {
                         stopPositions: [1, 1, 1, 1, 0]
-                    }
+                    },
+                    rewards: [
+                        {
+                            lineId: 0,
+                            linePayout: 0,
+                            symbolsCount: 3
+                        },
+                        {
+                            lineId: 1,
+                            linePayout: 0,
+                            symbolsCount: 3
+                        }
+                    ]
                 };
 
                 resolve(serverResponse)

@@ -1,6 +1,7 @@
-import {IServerReelsResponse} from "./ServerResponseInterfaces";
+import {IServerReelsResponse, IServerRewardsResponse} from "./ServerResponseInterfaces";
 
 export interface ISpinResponse {
     totalWin?: number;
-    reels: IServerReelsResponse
+    reels: IServerReelsResponse;
+    rewards: IServerRewardsResponse [];
 }
