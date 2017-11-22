@@ -1,11 +1,11 @@
 import Container = PIXI.Container;
+import Graphics = PIXI.Graphics;
 import {ReelView} from "./view/ReelView";
 import {EventDispatcher} from "../utils/dispatcher/EventDispatcher";
 import {ReelModel, ReelState} from "./model/ReelModel";
 import {ReelController} from "./controller/ReelController";
 import {SlotEvent} from "../../SlotEvent";
-import Graphics = PIXI.Graphics;
-import {SlotModel, SlotState} from "../../SlotModel";
+import {SlotModel} from "../../SlotModel";
 import {get} from "../utils/locator/locator";
 
 export class ReelsController extends Container {
@@ -60,8 +60,9 @@ export class ReelsController extends Container {
             }
         });
 
-        if (allReelsIdle)
-            this.slotModel.state = SlotState.Idle;
+        if (allReelsIdle) {
+            EventDispatcher.dispatch(SlotEvent.REELS_STOPPED);
+        }
 
         this.reels.forEach(reel => reel.draw(deltaTime));
     }

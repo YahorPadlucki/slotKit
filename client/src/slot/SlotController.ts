@@ -7,14 +7,20 @@ import {SlotModel, SlotState} from "./SlotModel";
 import {get} from "./modules/utils/locator/locator";
 import {ISpinResponse} from "./modules/server/interfaces/ISpinResponse";
 import {IInitResponse} from "./modules/server/interfaces/IInitResponse";
+import {RewardsModel} from "./modules/rewards/RewardsModel";
 
 export class SlotController {
 
     private server: IServer = new ServerEmulator();
     private slotModel: SlotModel = get(SlotModel);
+    private rewardsModel:RewardsModel = get(RewardsModel);
 
     constructor(private view: SlotView) {
         EventDispatcher.addListener(SlotEvent.SPIN_CLICK, this.onSpinClicked, this);
+
+        EventDispatcher.addListener(SlotEvent.REELS_STOPPED, this.onReelsStopped, this);
+
+        //TODO: add listeners - all reels stop - show rewards etc
     }
 
     onSpinClicked(): void {
@@ -28,6 +34,12 @@ export class SlotController {
             this.slotModel.parseServerInitResponse(initResponse);
             return Promise.resolve();
         })
+    }
+
+    private onReelsStopped(){
+        // this.slotModel.state = SlotState.Idle;
+
+        //TODO:show rewards, or set to Idle
     }
 
     private handleServerSpinResponse(serverResponse: ISpinResponse) {

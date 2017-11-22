@@ -3,6 +3,8 @@ import {SlotEvent} from "./SlotEvent";
 import {ISpinResponse} from "./modules/server/interfaces/ISpinResponse";
 import {IInitResponse} from "./modules/server/interfaces/IInitResponse";
 import {IServerReelsResponse} from "./modules/server/interfaces/ServerResponseInterfaces";
+import {RewardsModel} from "./modules/rewards/RewardsModel";
+import {get} from "./modules/utils/locator/locator";
 
 export class SlotModel {
     private _currentSlotState;
@@ -10,8 +12,11 @@ export class SlotModel {
     private _tapes: number[][];
     private _totalWin: number;
 
+    private rewardsModel: RewardsModel = get(RewardsModel);
+
     public parseServerSpinResponse(response: ISpinResponse): void {
         this.parseReels(response.reels);
+        this.rewardsModel.parse(response);
 
         if (response.totalWin) {
             this._totalWin = response.totalWin;
@@ -59,5 +64,6 @@ export class SlotModel {
 
 export const enum SlotState {
     Idle,
-    Spin
+    Spin,
+    ShowWin
 }

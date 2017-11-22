@@ -1,12 +1,20 @@
-import {IServerRewardsResponse} from "../server/interfaces/ServerResponseInterfaces";
 import {RewardVO} from "./RewardVO";
+import {ISpinResponse} from "../server/interfaces/ISpinResponse";
 
 export class RewardsModel {
     protected rewards: RewardVO[];
 
-    parse(rewards: IServerRewardsResponse) {
+    parse(response: ISpinResponse) {
+        if (response.rewards) {
+            this.rewards = [];
+            response.rewards.forEach((reward) => {
+                let rewardVO = new RewardVO();
+                rewardVO.symbolsCount = reward.symbolsCount;
+                rewardVO.lineId = reward.lineId;
+                rewardVO.linePayout = reward.linePayout;
 
-        //TODO: parse rewards to rewardsVO
-
+                this.rewards.push(rewardVO);
+            })
+        }
     }
 }
