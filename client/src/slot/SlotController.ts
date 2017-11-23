@@ -8,25 +8,24 @@ import {get} from "./modules/utils/locator/locator";
 import {ISpinResponse} from "./modules/server/interfaces/ISpinResponse";
 import {IInitResponse} from "./modules/server/interfaces/IInitResponse";
 import {RewardsModel} from "./modules/rewards/RewardsModel";
+import {RewardsManager} from "./modules/rewards/RewardsManager";
 
 export class SlotController {
 
     private server: IServer = new ServerEmulator();
     private slotModel: SlotModel = get(SlotModel);
-    private rewardsModel:RewardsModel = get(RewardsModel);
+    private rewardsModel: RewardsModel = get(RewardsModel);
+    private rewardsManager: RewardsManager = get(RewardsManager);
 
     constructor(private view: SlotView) {
         EventDispatcher.addListener(SlotEvent.SPIN_CLICK, this.onSpinClicked, this);
 
         EventDispatcher.addListener(SlotEvent.REELS_STOPPED, this.onReelsStopped, this);
-
-        //TODO: add listeners - all reels stop - show rewards etc
     }
 
     onSpinClicked(): void {
         this.slotModel.state = SlotState.Spin;
         this.server.spinRequest().then((serverResponse: ISpinResponse) => this.handleServerSpinResponse(serverResponse));
-
     }
 
     makeInitRequest(): Promise<any> {
@@ -36,10 +35,14 @@ export class SlotController {
         })
     }
 
-    private onReelsStopped(){
-        // this.slotModel.state = SlotState.Idle;
-
-        //TODO:show rewards, or set to Idle
+    private onReelsStopped() {
+        if (this.rewardsModel.totalWin > 0) {
+            this.slotModel.state = SlotState.ShowWin;
+            this.rewardsManager.showWinnings().then(() => this.slotModel.state = SlotState.Idle);
+        }
+        else {
+            this.slotModel.state = SlotState.Idle;
+        }
     }
 
     private handleServerSpinResponse(serverResponse: ISpinResponse) {

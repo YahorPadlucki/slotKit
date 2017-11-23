@@ -2,7 +2,9 @@ import {RewardVO} from "./RewardVO";
 import {ISpinResponse} from "../server/interfaces/ISpinResponse";
 
 export class RewardsModel {
+
     protected rewards: RewardVO[];
+    private _totalWin: number;
 
     parse(response: ISpinResponse) {
         if (response.rewards) {
@@ -16,5 +18,12 @@ export class RewardsModel {
                 this.rewards.push(rewardVO);
             })
         }
+        if (response.totalWin) {
+            this._totalWin = response.totalWin;
+        }
+    }
+
+    get totalWin(): number {
+        return this._totalWin;
     }
 }

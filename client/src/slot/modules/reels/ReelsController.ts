@@ -20,7 +20,7 @@ export class ReelsController extends Container {
 
     private slotModel: SlotModel = get(SlotModel);
 
-
+    private reelsStopped: boolean = false;
     public visibleHeight: number = 415;
 
     constructor() {
@@ -53,14 +53,16 @@ export class ReelsController extends Container {
 
     private onEnterFrame(deltaTime: number): void {
         let allReelsIdle: boolean = true;
-
+//TODO:refactor
         this.reelsControllers.forEach(reelController => {
             if (reelController.model.currentState != ReelState.Idle) {
+                this.reelsStopped = false;
                 allReelsIdle = false;
             }
         });
 
-        if (allReelsIdle) {
+        if (allReelsIdle && !this.reelsStopped) {
+            this.reelsStopped = true;
             EventDispatcher.dispatch(SlotEvent.REELS_STOPPED);
         }
 

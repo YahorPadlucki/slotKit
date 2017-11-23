@@ -3,6 +3,8 @@
     - lines reward
     - symbols toggle animations
 
+- emulate several spins;
+
 - loading assets
 - width,height number to some config, reels, rows, spin speed - also to config
 - spaceBar control

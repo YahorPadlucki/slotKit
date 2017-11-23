@@ -40,7 +40,7 @@ export class ServerEmulator implements IServer {
             this.spinRequestTimeout = setTimeout(() => {
 
                 const serverResponse: ISpinResponse = {
-                    totalWin: 0,
+                    totalWin: 10,
                     reels: {
                         stopPositions: [1, 1, 1, 1, 0]
                     },

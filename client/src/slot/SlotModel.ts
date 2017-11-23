@@ -10,17 +10,12 @@ export class SlotModel {
     private _currentSlotState;
     private _stopReelsPosition: number[];
     private _tapes: number[][];
-    private _totalWin: number;
 
     private rewardsModel: RewardsModel = get(RewardsModel);
 
     public parseServerSpinResponse(response: ISpinResponse): void {
         this.parseReels(response.reels);
         this.rewardsModel.parse(response);
-
-        if (response.totalWin) {
-            this._totalWin = response.totalWin;
-        }
     }
 
 

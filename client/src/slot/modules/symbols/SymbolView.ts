@@ -1,6 +1,8 @@
 import Container = PIXI.Container;
 import {SymbolModel} from "./model/SymbolModel";
 import {get} from "../utils/locator/locator";
+import {EventDispatcher} from "../utils/dispatcher/EventDispatcher";
+import {SymbolEvents} from "./events/SymbolEvents";
 
 export class SymbolView extends Container {
 
@@ -13,6 +15,7 @@ export class SymbolView extends Container {
     constructor(colorIndex: number) {
         super();
         this.setSymbolImage(colorIndex);
+        EventDispatcher.addListener(SymbolEvents.BLINK, this.blink, this);
     }
 
     public setSymbolImage(colorIndex: number) {
@@ -26,5 +29,18 @@ export class SymbolView extends Container {
 
         const text = new PIXI.Text(colorIndex.toString());
         this.addChild(text);
+    }
+
+    private blink() {
+        TweenLite.killTweensOf(this);
+        TweenLite.to(this, 1, {
+            alpha: 0.5
+        });
+        setTimeout(() => {
+            TweenLite.to(this, 1, {
+                alpha: 1
+            });
+        }, 1000)
+
     }
 }
