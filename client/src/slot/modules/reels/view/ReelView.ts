@@ -85,6 +85,7 @@ export class ReelView extends Container {
     private startSpin(): void {
         this.stopPositionsPrepared = false;
         this.readyToStop = false;
+        this.symbolsInTape.forEach((symbol) => symbol.setSymbolStopPositionIndexes(-1, -1));
         TweenLite.killTweensOf(this);
         TweenLite.to(
             this,
@@ -199,10 +200,10 @@ export class ReelView extends Container {
         const topVisibleSymbol = this.symbolsInTape[1];
         const finalYShift = topVisibleSymbol.y * -1;
 
-        this.symbolsInTape.forEach((symbol) => {
+        this.symbolsInTape.forEach((symbol, index) => {
             const easOutY = symbol.y + finalYShift + 20;
             const easeInY = symbol.y + finalYShift;
-
+            symbol.setSymbolStopPositionIndexes(index - 1, this.reelModel.reelIndex);
             TweenLite.killTweensOf(symbol);
             TweenLite.to(
                 symbol,

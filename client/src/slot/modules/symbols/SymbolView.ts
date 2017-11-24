@@ -3,6 +3,7 @@ import {SymbolModel} from "./model/SymbolModel";
 import {get} from "../utils/locator/locator";
 import {EventDispatcher} from "../utils/dispatcher/EventDispatcher";
 import {SymbolEvents} from "./events/SymbolEvents";
+import {IWinSymbolData} from "../rewards/interfaces/IWinSymbolData";
 
 export class SymbolView extends Container {
 
@@ -11,6 +12,10 @@ export class SymbolView extends Container {
     public symbolHeight: number = 100;
 
     private symbolModel: SymbolModel = get(SymbolModel);
+
+    private _stopRowIndex: number;
+    private _stopCollumnIndex: number;
+
 
     constructor(colorIndex: number) {
         super();
@@ -31,7 +36,10 @@ export class SymbolView extends Container {
         this.addChild(text);
     }
 
-    private blink() {
+    private blink(winSymbolData: IWinSymbolData) {
+        if (winSymbolData.rowIndex != this._stopRowIndex || winSymbolData.columnIndex != this._stopCollumnIndex)
+            return;
+
         TweenLite.killTweensOf(this);
         TweenLite.to(this, 1, {
             alpha: 0.5
@@ -42,5 +50,10 @@ export class SymbolView extends Container {
             });
         }, 1000)
 
+    }
+
+    public setSymbolStopPositionIndexes(rowIndex: number, column: number) {
+        this._stopRowIndex = rowIndex;
+        this._stopCollumnIndex = column;
     }
 }

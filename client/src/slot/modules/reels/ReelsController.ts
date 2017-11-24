@@ -53,7 +53,7 @@ export class ReelsController extends Container {
 
     private onEnterFrame(deltaTime: number): void {
         let allReelsIdle: boolean = true;
-//TODO:refactor
+        //TODO:refactor
         this.reelsControllers.forEach(reelController => {
             if (reelController.model.currentState != ReelState.Idle) {
                 this.reelsStopped = false;

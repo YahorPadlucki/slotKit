@@ -1,7 +1,9 @@
 - showing rewards
-    - lines on init
-    - lines reward
-    - symbols toggle animations
+    + lines on init
+    + lines reward
+    + symbols toggle animations
+    - symbol on several lines
+    - symbols animation over callback
 
 - emulate several spins;
 

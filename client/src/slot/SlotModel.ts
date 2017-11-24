@@ -10,6 +10,7 @@ export class SlotModel {
     private _currentSlotState;
     private _stopReelsPosition: number[];
     private _tapes: number[][];
+    private _lines: number[][];
 
     private rewardsModel: RewardsModel = get(RewardsModel);
 
@@ -21,7 +22,7 @@ export class SlotModel {
 
     public parseServerInitResponse(response: IInitResponse): void {
         this.parseReels(response.reels);
-
+        this.parseLines(response.lines);
     }
 
     private parseReels(reels: IServerReelsResponse) {
@@ -30,9 +31,16 @@ export class SlotModel {
                 this._stopReelsPosition = reels.stopPositions;
             }
             if (reels.tapes) {
-                this._tapes = reels.tapes;
+                this._tapes = reels.tapes.concat();
                 EventDispatcher.dispatch(SlotEvent.NEW_REELS_TAPES_RECEIVED);
             }
+        }
+    }
+
+
+    private parseLines(lines: number[][]) {
+        if (lines) {
+            this._lines = lines.concat();
         }
     }
 
@@ -54,6 +62,10 @@ export class SlotModel {
 
     public get tapes(): number[][] {
         return this._tapes;
+    }
+
+    public get lines(): number[][] {
+        return this._lines;
     }
 }
 
