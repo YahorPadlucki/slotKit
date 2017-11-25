@@ -46,8 +46,13 @@ export class SymbolView extends Container {
         });
         setTimeout(() => {
             TweenLite.to(this, 1, {
-                alpha: 1
-            });
+                alpha: 1,
+                onComplete: () => {
+                    EventDispatcher.dispatch(SymbolEvents.BLINK_COMPLETE)
+                }
+
+            })
+            ;
         }, 1000)
 
     }

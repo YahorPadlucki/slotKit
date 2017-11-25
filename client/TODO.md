@@ -1,8 +1,10 @@
+- bug with fast spin click
+- onSlotStateChanged in button conroller issue
 - showing rewards
     + lines on init
     + lines reward
     + symbols toggle animations
-    - symbol on several lines
+    + symbol on several lines
     - symbols animation over callback
 
 - emulate several spins;

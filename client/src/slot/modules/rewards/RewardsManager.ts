@@ -10,9 +10,20 @@ export class RewardsManager {
 
     private rewardsModel: RewardsModel = get(RewardsModel);
     private slotModel: SlotModel = get(SlotModel);
+    private mainResolve;
+
+    private onBlinkComplete() {
+        EventDispatcher.removeListener(SymbolEvents.BLINK_COMPLETE, this.onBlinkComplete, this);
+
+        this.mainResolve();
+    }
 
     public showWinnings(): Promise<any> {
         return new Promise((resolve) => {
+            this.mainResolve = resolve;
+
+            EventDispatcher.addListener(SymbolEvents.BLINK_COMPLETE, this.onBlinkComplete, this);
+
             this.rewardsModel.rewards.forEach((rewardVO: RewardVO) => {
                 const winLine: number[] = this.slotModel.lines[rewardVO.lineId];
 
@@ -23,12 +34,8 @@ export class RewardsManager {
                         columnIndex: columnIndex,
                         rowIndex: rowIndex
                     });
-                })
+                });
             });
-
-
-            //TODO: how to detect that symbols animation is over
-            setTimeout(() => resolve(), 2000);
         });
 
     }
