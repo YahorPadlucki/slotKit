@@ -25,6 +25,7 @@ export class List<T> {
     }
 
     private filter<FilterType>(filter: FilterType, hasItem: boolean): T[] {
+        //TODO: issue with deleting by filter
         return this.list.filter((listItem: T) => {
             for (const property in filter) {
                 if (filter.hasOwnProperty(property) && listItem.hasOwnProperty(property)) {

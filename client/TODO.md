@@ -1,5 +1,6 @@
-- bug with fast spin click
-- onSlotStateChanged in button conroller issue
+- listeners remove issue
+- _remove blink listener in symbols
+
 - showing rewards
     + lines on init
     + lines reward
