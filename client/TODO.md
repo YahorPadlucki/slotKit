@@ -1,4 +1,3 @@
-- listeners remove issue
 - _remove blink listener in symbols
 
 - showing rewards
@@ -15,6 +14,7 @@
 - spaceBar control
 - loosing focus, return
 
++ listeners remove issue
 + reels with different symbols
 + update reelModel when slot model updated
 + reelS  controller - reelS view (reelsContainer)

@@ -17,24 +17,39 @@ export class List<T> {
     }
 
     public getByFilter<FilterType>(filter: FilterType): T[] {
-        return this.filter(filter, true);
+        return this.filter(filter, false);
     }
 
     public removeByFilter<FilterType>(filter: FilterType): void {
-        this.list = this.filter(filter, false);
+        this.list = this.filter(filter, true);
     }
 
-    private filter<FilterType>(filter: FilterType, hasItem: boolean): T[] {
-        //TODO: issue with deleting by filter
-        return this.list.filter((listItem: T) => {
-            for (const property in filter) {
-                if (filter.hasOwnProperty(property) && listItem.hasOwnProperty(property)) {
-                    if (filter[property] === listItem[property as any] && hasItem) {
-                        return true;
-                    }
-                }
+
+    private filter<Filter>(filter: Filter, isInverted: boolean = false): T[] {
+        const result: T[] = [];
+
+        this.list.forEach((item) => {
+            if (this.isInList<Filter>(item, filter) !== isInverted) {
+                result.push(item);
             }
         });
+
+        return result;
+
     }
+
+    private isInList<Filter>(item: T, filter: Filter): boolean {
+        for (const property in filter) {
+            if (filter.hasOwnProperty(property) && item.hasOwnProperty(property)) {
+
+                if ((filter[property]) && filter[property] !== item[property as any]) {
+                    return false;
+                }
+
+            }
+        }
+        return true;
+    }
+
 
 }
