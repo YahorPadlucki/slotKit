@@ -50,13 +50,13 @@ export class SpinButtonController {
     }
 
     onSlotStateChanged(): any {
-        if (this.slotModel.state === SlotState.Idle) {
+        if (this.slotModel.state === SlotState.Idle||this.slotModel.state === SlotState.ShowWin) {
             this.disableStop();
             this.enableSpin();
         }
-        if (this.slotModel.state === SlotState.ShowWin) {
+      /*  if (this.slotModel.state === SlotState.ShowWin) {
             this.disableStop();
-        }
+        }*/
     }
 
     private onStopClick(): void {

@@ -21,6 +21,7 @@ export class SymbolView extends Container {
         super();
         this.setSymbolImage(colorIndex);
         EventDispatcher.addListener(SymbolEvents.BLINK, this.blink, this);
+        EventDispatcher.addListener(SymbolEvents.STOP_BLINK, this.stopBlink, this);
     }
 
     public setSymbolImage(colorIndex: number) {
@@ -57,8 +58,21 @@ export class SymbolView extends Container {
 
     }
 
+    private stopBlink(winSymbolData: IWinSymbolData) {
+        if (winSymbolData.rowIndex != this._stopRowIndex || winSymbolData.columnIndex != this._stopCollumnIndex)
+            return;
+        TweenLite.killTweensOf(this);
+        this.alpha = 1;
+    }
+
     public setSymbolStopPositionIndexes(rowIndex: number, column: number) {
         this._stopRowIndex = rowIndex;
         this._stopCollumnIndex = column;
+    }
+
+    onDestroy() {
+        EventDispatcher.removeListener(SymbolEvents.BLINK, this.blink, this);
+        EventDispatcher.removeListener(SymbolEvents.STOP_BLINK, this.stopBlink, this);
+
     }
 }

@@ -147,6 +147,7 @@ export class ReelView extends Container {
             this.addSymbolToTop();
         }
         if (bottomSymbol.y >= this.tapeHeight) {
+            bottomSymbol.onDestroy();
             this.removeChild(bottomSymbol);
             this.symbolsInTape.pop();
         }

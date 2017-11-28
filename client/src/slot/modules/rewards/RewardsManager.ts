@@ -12,31 +12,39 @@ export class RewardsManager {
     private slotModel: SlotModel = get(SlotModel);
     private mainResolve;
 
+    public showWinnings(): Promise<any> {
+        return new Promise((resolve) => {
+            this.mainResolve = resolve;
+
+            EventDispatcher.addListener(SymbolEvents.BLINK_COMPLETE, this.onBlinkComplete, this);
+            this.dispatchWinningsDisplayEvent(SymbolEvents.BLINK);
+        });
+    }
+
+    public cancelShowWinnings() {
+        this.dispatchWinningsDisplayEvent(SymbolEvents.STOP_BLINK);
+    }
+
+    private dispatchWinningsDisplayEvent(event: string) {
+        if (!this.rewardsModel.rewards) return;
+
+        this.rewardsModel.rewards.forEach((rewardVO: RewardVO) => {
+            const winLine: number[] = this.slotModel.lines[rewardVO.lineId];
+
+            winLine.forEach((rowIndex, columnIndex) => {
+
+                EventDispatcher.dispatch(event, <IWinSymbolData>{
+                    columnIndex: columnIndex,
+                    rowIndex: rowIndex
+                });
+            });
+        });
+    }
+
     private onBlinkComplete() {
         EventDispatcher.removeListener(SymbolEvents.BLINK_COMPLETE, this.onBlinkComplete, this);
 
         this.mainResolve();
     }
 
-    public showWinnings(): Promise<any> {
-        return new Promise((resolve) => {
-            this.mainResolve = resolve;
-
-            EventDispatcher.addListener(SymbolEvents.BLINK_COMPLETE, this.onBlinkComplete, this);
-
-            this.rewardsModel.rewards.forEach((rewardVO: RewardVO) => {
-                const winLine: number[] = this.slotModel.lines[rewardVO.lineId];
-
-                winLine.forEach((rowIndex, columnIndex) => {
-
-                    //TODO: if same symbol on different lines
-                    EventDispatcher.dispatch(SymbolEvents.BLINK, <IWinSymbolData>{
-                        columnIndex: columnIndex,
-                        rowIndex: rowIndex
-                    });
-                });
-            });
-        });
-
-    }
 }

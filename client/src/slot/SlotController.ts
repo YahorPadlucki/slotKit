@@ -23,16 +23,17 @@ export class SlotController {
         EventDispatcher.addListener(SlotEvent.REELS_STOPPED, this.onReelsStopped, this);
     }
 
-    onSpinClicked(): void {
-        this.slotModel.state = SlotState.Spin;
-        this.server.spinRequest().then((serverResponse: ISpinResponse) => this.handleServerSpinResponse(serverResponse));
-    }
-
-    makeInitRequest(): Promise<any> {
+    public makeInitRequest(): Promise<any> {
         return this.server.initRequest().then((initResponse: IInitResponse) => {
             this.slotModel.parseServerInitResponse(initResponse);
             return Promise.resolve();
         })
+    }
+
+    private onSpinClicked(): void {
+        this.rewardsManager.cancelShowWinnings();
+        this.slotModel.state = SlotState.Spin;
+        this.server.spinRequest().then((serverResponse: ISpinResponse) => this.handleServerSpinResponse(serverResponse));
     }
 
     private onReelsStopped() {

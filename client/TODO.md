@@ -1,19 +1,22 @@
-- _remove blink listener in symbols
-
-- showing rewards
-    + lines on init
-    + lines reward
-    + symbols toggle animations
-    + symbol on several lines
-    - symbols animation over callback
-
 - emulate several spins;
+- issue with stop
 
 - loading assets
+
+- sounds Interface
+
 - width,height number to some config, reels, rows, spin speed - also to config
 - spaceBar control
 - loosing focus, return
 
++ skipping winning animations
++ showing rewards
+    + lines on init
+    + lines reward
+    + symbols toggle animations
+    + symbol on several lines
+    + symbols animation over callback
++ remove blink listener in symbols
 + listeners remove issue
 + reels with different symbols
 + update reelModel when slot model updated

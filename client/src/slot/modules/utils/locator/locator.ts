@@ -1,4 +1,4 @@
-let objectsMap: { [constructorId: string]: any } = {}
+let objectsMap: { [constructorId: string]: any } = {};
 
 
 export const get = <T>(constructor: { new() }): T => {
