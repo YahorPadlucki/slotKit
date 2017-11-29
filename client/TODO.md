@@ -1,14 +1,15 @@
-- emulate several spins;
 - issue with stop
 
 - loading assets
 
 - sounds Interface
 
+- emulation to json
 - width,height number to some config, reels, rows, spin speed - also to config
 - spaceBar control
 - loosing focus, return
 
++ emulate several spins;
 + skipping winning animations
 + showing rewards
     + lines on init
