@@ -1,0 +1,4 @@
+export const LoaderEvent = {
+  FILE_LOADING_STARTED: "FILE_LOADING_STARTED" ,
+  FILE_LOADED: "FILE_LOADED" ,
+};
