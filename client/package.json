@@ -10,12 +10,14 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "pixi.js": "^4.5.4",
-    "gsap": "^1.20.2"
+    "gsap": "^1.20.2",
+    "howler": "^2.0.5",
+    "pixi.js": "^4.5.4"
   },
   "devDependencies": {
     "@types/pixi.js": "^4.5.3",
     "@types/greensock": "^1.15.32",
+    "@types/howler": "^2.0.5",
     "awesome-typescript-loader": "^3.2.3",
     "brfs": "^1.4.3",
     "browserify-versionify": "^1.0.6",

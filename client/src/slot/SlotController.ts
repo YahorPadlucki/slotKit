@@ -9,6 +9,7 @@ import {ISpinResponse} from "./modules/server/interfaces/ISpinResponse";
 import {IInitResponse} from "./modules/server/interfaces/IInitResponse";
 import {RewardsModel} from "./modules/rewards/RewardsModel";
 import {RewardsManager} from "./modules/rewards/RewardsManager";
+import {Loader} from "./modules/loader/Loader";
 
 export class SlotController {
 
@@ -17,10 +18,14 @@ export class SlotController {
     private rewardsModel: RewardsModel = get(RewardsModel);
     private rewardsManager: RewardsManager = get(RewardsManager);
 
+    private loader: Loader = get(Loader);
+
     constructor(private view: SlotView) {
         EventDispatcher.addListener(SlotEvent.SPIN_CLICK, this.onSpinClicked, this);
 
         EventDispatcher.addListener(SlotEvent.REELS_STOPPED, this.onReelsStopped, this);
+
+        this.loader.addSound("test","../data/sounds/test.mp3");
     }
 
     public makeInitRequest(): Promise<any> {

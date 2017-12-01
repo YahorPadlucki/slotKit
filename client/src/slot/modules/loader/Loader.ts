@@ -3,7 +3,7 @@ import {LoadFile} from "./LoadFile";
 export class Loader {
     private isLoading: boolean;
     private hasLoaded: boolean;
-    private filesList: LoadFile[];
+    private filesList: LoadFile[] = [];
 
     public startLoading() {
         if (this.isLoading) {
@@ -31,14 +31,23 @@ export class Loader {
 
         const file = new LoadFile(key, url, type);
         this.filesList.push(file);
+
+        this.loadFile(file);
     }
 
     private loadFile(file: LoadFile) {
         switch (file.type) {
             case FileType.Sound:
+                const sound = new Howl({src: [file.url], onload: this.soundLoaded});
                 break;
 
         }
+    }
+
+    private soundLoaded(e?) {
+        const howl: Howl = this as any;
+        howl.play();
+        // this.sound.play()
     }
 }
 

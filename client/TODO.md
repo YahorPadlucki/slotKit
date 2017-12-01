@@ -1,7 +1,8 @@
-- issue with stop
 
 - loading assets
+    - loading sound
 
+- issue with stop
 - sounds Interface
 
 - emulation to json
