@@ -1,9 +1,10 @@
-import {LoadFile} from "./LoadFile";
+import {FileLoader} from "./loaders/FileLoader";
+import {SoundLoader} from "./loaders/SoundLoader";
 
 export class Loader {
     private isLoading: boolean;
     private hasLoaded: boolean;
-    private filesList: LoadFile[] = [];
+    private loadingQueue: FileLoader[] = [];
 
     public startLoading() {
         if (this.isLoading) {
@@ -18,37 +19,25 @@ export class Loader {
         this.processLoadQueue();
     }
 
-    private processLoadQueue() {
+    public addSound(id: string, url: string, autoDecode: boolean = true): void {
 
+        this.addToLoadingQueue(id, url, FileType.Sound);
     }
 
-    public addSound(key: string, url: string, autoDecode: boolean = true): void {
+    private addToLoadingQueue(id: string, url: string, type: FileType): void {
 
-        this.addToFileList(key, url, FileType.Sound);
-    }
-
-    private addToFileList(key: string, url: string, type: FileType): void {
-
-        const file = new LoadFile(key, url, type);
-        this.filesList.push(file);
-
-        this.loadFile(file);
-    }
-
-    private loadFile(file: LoadFile) {
-        switch (file.type) {
+        switch (type) {
             case FileType.Sound:
-                const sound = new Howl({src: [file.url], onload: this.soundLoaded});
+                this.loadingQueue.push(new SoundLoader(id, url));
                 break;
-
         }
     }
 
-    private soundLoaded(e?) {
-        const howl: Howl = this as any;
-        howl.play();
-        // this.sound.play()
+    //TODO:loading one by one?
+    public loadFiles() {
+        this.loadingQueue[0].load();
     }
+
 }
 
 export const enum FileType {

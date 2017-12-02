@@ -26,6 +26,7 @@ export class SlotController {
         EventDispatcher.addListener(SlotEvent.REELS_STOPPED, this.onReelsStopped, this);
 
         this.loader.addSound("test","../data/sounds/test.mp3");
+        this.loader.loadFiles();
     }
 
     public makeInitRequest(): Promise<any> {
