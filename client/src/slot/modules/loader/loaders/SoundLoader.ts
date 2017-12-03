@@ -1,6 +1,9 @@
 import {
     FileLoader
 } from "./FileLoader";
+import {SoundManager} from "../../sound/SoundManager";
+import {get} from "../../utils/locator/locator";
+import {Sound} from "../../sound/Sound";
 
 export class SoundLoader extends FileLoader {
 
@@ -9,7 +12,7 @@ export class SoundLoader extends FileLoader {
 
     private sound: Howl;
 
-    // private soundManager: SoundManager = inject(SoundManager);
+    private soundManager: SoundManager = get(SoundManager);
 
     constructor(id: string, url: string) {
         super(url);
@@ -35,9 +38,10 @@ export class SoundLoader extends FileLoader {
     protected loadCompleteHandler(event?) {
 
         console.log(this.sound);
-        // for (const id of this.idList) {
-        //     this.soundManager.setSound(id);
-        // }
+
+        for (const id of this.idList) {
+            this.soundManager.setSound(id,new Sound(this.sound));
+        }
 
         // this.sound.loop(true);
         // this.sound.play();
