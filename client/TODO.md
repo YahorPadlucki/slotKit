@@ -1,9 +1,12 @@
 
 - loading assets
-    - loading sound
+    + loading sound
 
 - issue with stop
 - sounds Interface
+    - same file multiple ids
+    - wait load and play (register sounds before they are loaded) ?
+
 
 - emulation to json
 - width,height number to some config, reels, rows, spin speed - also to config

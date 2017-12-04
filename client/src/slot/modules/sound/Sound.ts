@@ -6,5 +6,15 @@ export class Sound {
         this.instance = instance;
     }
 
-    public get
+    public play(): void {
+        this.instance.play();
+    }
+
+    public isPlaying(): boolean {
+        return this.instance.playing();
+    }
+
+    public get loaded(): boolean {
+        return this.instance.state() === "loaded";
+    }
 }

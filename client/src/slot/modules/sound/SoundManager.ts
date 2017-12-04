@@ -7,7 +7,7 @@ export class SoundManager {
 
     constructor() {
 
-        //TODO: for leave integration
+        //TODO: integration
         /*
         createjs.Sound.alternateExtensions = ["mp3"];
         this.dispatcher.addListener(DOMEventType.VISIBILITY_CHANGED, hidden => createjs.Sound.muted = hidden);
@@ -17,11 +17,11 @@ export class SoundManager {
 
     public setSound(id: string, sound: Sound): void {
         this.sounds[id] = sound;
-        this.setLoadingStatusCheck(id);//  TODO:integration
+        // this.setLoadingStatusCheck(id);//  TODO:integration
     }
 
-    public getSound(constantId: string): Sound {
-        return this.sounds[constantId];
+    public getSound(id: string): Sound {
+        return this.sounds[id];
     }
 
     public isSoundAvailable(constantId: string): boolean {
