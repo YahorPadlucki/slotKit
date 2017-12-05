@@ -24,6 +24,14 @@ export class SoundManager {
         return this.sounds[id];
     }
 
+    //TODO: will be removed
+    //  TODO:integration
+    public getSoundConstantById(soundId: string): string {
+        console.warn('Warning: "getSoundConstantById" is redundant and deprecated!');
+
+        return soundId;
+    }
+
     public isSoundAvailable(constantId: string): boolean {
         const sound: Sound = this.getSound(constantId);
         return sound && sound.loaded;
@@ -44,13 +52,9 @@ export class SoundManager {
 
         if (sound) {
             if (sound.loaded) {
-                sound.play(loop, useNativeLoop);
+                sound.play(loop);
             } else {
-                console.log(`This sound is not loaded yet: ${sound.id}`);
-
-                if (waitForLoadAndPlay) {
-                    this.soundLoadCallbacks[sound.id] = () => sound.play(loop, useNativeLoop);
-                }
+                console.log(`This sound is not loaded yet: ${constantId}`);
             }
         } else {
             console.log(`There is no such sound registered. constantId: ${constantId}`);
@@ -84,7 +88,7 @@ export class SoundManager {
     }
 
     public setSoundsVolume(volume: number) {
-        createjs.Sound.volume = volume;
+        Howler.volume(volume);
     }
 
     setSoundVolume(soundId: string, volume: number): void {
@@ -110,13 +114,13 @@ export class SoundManager {
         }
     }
 
-   /* public setLoadingStatusCheck(soundId: string): void {
-        this.sounds[soundId].loaded = true;
-        this.dispatcher.dispatch(SoundManagerEvent.SOUND_LOADED, soundId);
-        createjs.Sound.volume = createjs.Sound.volume; //TODO: workaround SWW-6
-        if (this.soundLoadCallbacks[soundId]) {
-            this.soundLoadCallbacks[soundId].call(this);
-            this.soundLoadCallbacks[soundId] = null;
-        }
-    }*/
+    /* public setLoadingStatusCheck(soundId: string): void {
+         this.sounds[soundId].loaded = true;
+         this.dispatcher.dispatch(SoundManagerEvent.SOUND_LOADED, soundId);
+         createjs.Sound.volume = createjs.Sound.volume;
+         if (this.soundLoadCallbacks[soundId]) {
+             this.soundLoadCallbacks[soundId].call(this);
+             this.soundLoadCallbacks[soundId] = null;
+         }
+     }*/
 }

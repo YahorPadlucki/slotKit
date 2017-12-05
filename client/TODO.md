@@ -5,7 +5,8 @@
 - issue with stop
 - sounds Interface
     - same file multiple ids
-    - wait load and play (register sounds before they are loaded) ?
+    - wait load and play (register sounds before they are loaded) ? // seems not used
+    - check all sound methods
 
 
 - emulation to json
