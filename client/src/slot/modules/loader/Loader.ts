@@ -34,6 +34,7 @@ export class Loader {
     }
 
     //TODO:loading one by one?
+    //load one by one, try load all together
     public loadFiles() {
         this.loadingQueue[0].load();
     }

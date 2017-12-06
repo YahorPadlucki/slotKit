@@ -1,12 +1,14 @@
 
 - loading assets
     + loading sound
+    - finalize loader
+    - sound loader integrations
 
 - issue with stop
 - sounds Interface
     - same file multiple ids
     - wait load and play (register sounds before they are loaded) ? // seems not used
-    - check all sound methods
+    - prepare SoundInstance for integration
 
 
 - emulation to json
