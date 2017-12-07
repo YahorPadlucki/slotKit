@@ -1,7 +1,7 @@
 
 - loading assets
     + loading sound
-    - finalize loader
+    + finalize loader
     - sound loader integrations
 
 - issue with stop

@@ -46,6 +46,7 @@ export class SoundLoader extends FileLoader {
         // this.sound.loop(true);
         // this.sound.play();
         this.hasLoaded = true;
+        super.loadCompleteHandler();
     }
 
     protected resetLoader() {

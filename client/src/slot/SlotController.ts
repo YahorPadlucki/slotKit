@@ -10,6 +10,8 @@ import {IInitResponse} from "./modules/server/interfaces/IInitResponse";
 import {RewardsModel} from "./modules/rewards/RewardsModel";
 import {RewardsManager} from "./modules/rewards/RewardsManager";
 import {Loader} from "./modules/loader/Loader";
+import {LoaderEvent} from "./modules/loader/events/LoaderEvent";
+import {SoundManager} from "./modules/sound/SoundManager";
 
 export class SlotController {
 
@@ -18,6 +20,8 @@ export class SlotController {
     private rewardsModel: RewardsModel = get(RewardsModel);
     private rewardsManager: RewardsManager = get(RewardsManager);
 
+    private soundManager: SoundManager = get(SoundManager);
+
     private loader: Loader = get(Loader);
 
     constructor(private view: SlotView) {
@@ -25,8 +29,17 @@ export class SlotController {
 
         EventDispatcher.addListener(SlotEvent.REELS_STOPPED, this.onReelsStopped, this);
 
-        this.loader.addSound("test","../data/sounds/test.mp3");
-        this.loader.loadFiles();
+        this.loader.addSound("test", "../data/sounds/test.mp3");
+        this.loader.addSound("test2", "../data/sounds/test2.mp3");
+        this.loader.addSound("test3", "../data/sounds/test3.mp3");
+        this.loader.startLoading();
+
+        EventDispatcher.addListener(LoaderEvent.ALL_FILES_LOADED, this.onFilesLoaded, this);
+
+    }
+
+    private onFilesLoaded(): void {
+        this.soundManager.playSound("test");
     }
 
     public makeInitRequest(): Promise<any> {
