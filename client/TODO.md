@@ -2,15 +2,15 @@
 - loading assets
     + loading sound
     + finalize loader
-    - sound loader integrations
+    + sound loader integrations
 
-- issue with stop
 - sounds Interface
     - same file multiple ids
-    - wait load and play (register sounds before they are loaded) ? // seems not used
+    - prepare Sound for integration
     - prepare SoundInstance for integration
+    - wait load and play (register sounds before they are loaded) ? // seems not used
 
-
+- issue with stop
 - emulation to json
 - width,height number to some config, reels, rows, spin speed - also to config
 - spaceBar control

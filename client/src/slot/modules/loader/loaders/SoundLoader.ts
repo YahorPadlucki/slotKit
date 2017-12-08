@@ -8,14 +8,20 @@ import {Sound} from "../../sound/Sound";
 export class SoundLoader extends FileLoader {
 
     private idList: string[];
-    private hasLoaded = false;
-
     private sound: Howl;
 
     private soundManager: SoundManager = get(SoundManager);
 
+
+    private readonly LOAD_EVENT_NAME: string = "load";
+    private readonly LOAD_EVENT_ID: number = 1;
+
+    private readonly LOAD_ERROR_EVENT_NAME: string = "loaderror";
+    private readonly LOAD_ERROR_EVENT_ID: number = 2;
+
     constructor(id: string, url: string) {
         super(url);
+
         this.idList = [id];
     }
 
@@ -25,32 +31,24 @@ export class SoundLoader extends FileLoader {
     }
 
     //TODO:load progress handler
-
     load() {
+        this.sound = new Howl({src: [this._url]});
 
-        this.sound = new Howl({src: [this._url], onload: this.loadCompleteHandler.bind(this)});
-
-        // for (const id of this.idList) {
-        //     createjs.Sound.registerSound(this._url, id);
-        // }
+        this.sound.on(this.LOAD_EVENT_NAME, () => this.loadCompleteHandler(), this.LOAD_EVENT_ID);
+        this.sound.on(this.LOAD_ERROR_EVENT_NAME, () => this.loadErrorHandler("sound " + this.idList[0]), this.LOAD_ERROR_EVENT_ID);
     }
 
     protected loadCompleteHandler(event?) {
 
-        console.log(this.sound);
-
         for (const id of this.idList) {
-            this.soundManager.setSound(id,new Sound(this.sound));
+            this.soundManager.setSound(id, new Sound(this.sound));
         }
 
-        // this.sound.loop(true);
-        // this.sound.play();
-        this.hasLoaded = true;
         super.loadCompleteHandler();
     }
 
     protected resetLoader() {
-        // createjs.Sound.off("fileload", this.loadCompleteHandler);
-        // createjs.Sound.off("fileerror", this.loadErrorHandler);
+        this.sound.off(this.LOAD_EVENT_NAME, null, this.LOAD_EVENT_ID);
+        this.sound.on(this.LOAD_ERROR_EVENT_NAME, null, this.LOAD_ERROR_EVENT_ID); //TODO: Howler doesn't remove event by function
     }
 }

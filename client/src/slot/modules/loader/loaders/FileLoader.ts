@@ -40,6 +40,9 @@ export class FileLoader {
         EventDispatcher.dispatch(LoaderEvent.FILE_LOADED);
     }
 
+    protected loadErrorHandler(event: any): void {
+    }
+
 
 }
 
