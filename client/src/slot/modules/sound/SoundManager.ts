@@ -8,9 +8,7 @@ export class SoundManager {
     constructor() {
 
         //TODO: integration
-        /*
-        createjs.Sound.alternateExtensions = ["mp3"];
-        this.dispatcher.addListener(DOMEventType.VISIBILITY_CHANGED, hidden => this.setSoundsMuted(hidden));
+        /*this.dispatcher.addListener(DOMEventType.VISIBILITY_CHANGED, hidden => this.setSoundsMuted(hidden));
         this.dispatcher.addListener(SoundManagerEvent.MUTE, isMuted => this.setSoundsMuted(isMuted));
         */
     }
@@ -36,7 +34,7 @@ export class SoundManager {
 
     public isSoundAvailable(soundId: string): boolean {
         const sound: Sound = this.getSound(soundId);
-        return sound && sound.loaded; //loaded check is redundant
+        return !!sound;
     }
 
     public isSoundPlaying(soundId: string): boolean {
@@ -53,31 +51,27 @@ export class SoundManager {
         const sound = this.getSound(soundId);
 
         if (sound) {
-            if (sound.loaded) {
-                sound.play(loop);
-            } else {
-                console.log(`This sound is not loaded yet: ${soundId}`);
-            }
+            sound.play(loop);
         } else {
-            console.log(`There is no such sound registered. constantId: ${soundId}`);
+            console.log(`There is no such sound or it is not loaded yet. ${soundId}`);
         }
     }
 
     //numLoops == 0 - infinitive loop
-   /* public playSoundInstance(soundId: string, numLoops: number = 1, onCompleted: () => void = null): SoundInstance {
-        const sound = this.getSound(soundId);
+    /* public playSoundInstance(soundId: string, numLoops: number = 1, onCompleted: () => void = null): SoundInstance {
+         const sound = this.getSound(soundId);
 
-        if (sound) {
-            if (sound.loaded) {
-                return sound.playInstance(numLoops, onCompleted);
-            } else {
-                console.log(`This sound is not loaded yet: ${sound.id}`);
-            }
-        } else {
-            console.log(`There is no such sound registered. constantId: ${soundId}`);
-        }
-        return null;
-    }*/
+         if (sound) {
+             if (sound.loaded) {
+                 return sound.playInstance(numLoops, onCompleted);
+             } else {
+                 console.log(`This sound is not loaded yet: ${sound.id}`);
+             }
+         } else {
+             console.log(`There is no such sound registered. constantId: ${soundId}`);
+         }
+         return null;
+     }*/
 
     public stopSound(soundId: string): void {
         const sound = this.getSound(soundId);
@@ -93,7 +87,7 @@ export class SoundManager {
         Howler.volume(volume);
     }
 
-    public setSoundsMuted(isMuted:boolean){
+    public setSoundsMuted(isMuted: boolean) {
         Howler.mute(isMuted);
     }
 
@@ -119,14 +113,4 @@ export class SoundManager {
             sound.unMute();
         }
     }
-
-    /* public setLoadingStatusCheck(soundId: string): void {
-         this.sounds[soundId].loaded = true;
-         this.dispatcher.dispatch(SoundManagerEvent.SOUND_LOADED, soundId);
-         createjs.Sound.volume = createjs.Sound.volume;
-         if (this.soundLoadCallbacks[soundId]) {
-             this.soundLoadCallbacks[soundId].call(this);
-             this.soundLoadCallbacks[soundId] = null;
-         }
-     }*/
 }

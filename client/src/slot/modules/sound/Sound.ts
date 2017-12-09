@@ -1,15 +1,11 @@
 export class Sound {
     private instance: Howl;
 
-    protected _volume: number = 1;// TODO: check on init
-
-
-
     constructor(instance: Howl) {
         this.instance = instance;
     }
 
-    public play(loop): void {
+    public play(loop: number = 0): void {
         if (loop != 0) {
             if (loop > 0) {
                 this.instance.loop(true, loop);
@@ -20,6 +16,10 @@ export class Sound {
         }
         this.instance.play();
     }
+
+    /*public playInstance(numLoops: number = 1, onCompleted: () => void): SoundInstance {
+        return new SoundInstance(this.id, this.getSoundConfig(), numLoops, onCompleted);
+    }*/
 
     public stop(): void {
         this.instance.stop();
@@ -47,6 +47,14 @@ export class Sound {
 
     public unMute(): void {
         this.instance.mute(false);
+    }
+
+    public pause(): void {
+        this.instance.pause();
+    }
+
+    public resume(): void {
+        this.instance.play();
     }
 
 

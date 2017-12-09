@@ -5,12 +5,18 @@
     + sound loader integrations
 
 - sounds Interface
-    - same file multiple ids
-    - prepare Sound for integration
+    + prepare Sound for integration
+    - same file multiple ids (for integration/game)
+    - check pause/resume with loop
     - prepare SoundInstance for integration
     - wait load and play (register sounds before they are loaded) ? // seems not used
 
-- issue with stop
+- integration status (howler)
+ - playSoundInstance for slotBuilder support - needs to be done
+ - setLoadingStatusCheck deleted - no need to set loaded, callBacks doesn't work
+ - sound loaded check deleted - cause it is registered only if loaded
+
+- issue with stopping reels
 - emulation to json
 - width,height number to some config, reels, rows, spin speed - also to config
 - spaceBar control
