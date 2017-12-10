@@ -29,6 +29,8 @@ export class SlotController {
 
         EventDispatcher.addListener(SlotEvent.REELS_STOPPED, this.onReelsStopped, this);
 
+
+        // load through loading manager - and handle multiple id on same sounds
         this.loader.addSound("test", "../data/sounds/test.mp3");
         this.loader.addSound("test2", "../data/sounds/test2.mp3");
         this.loader.addSound("test3", "../data/sounds/test3.mp3");

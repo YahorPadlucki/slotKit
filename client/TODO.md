@@ -12,6 +12,7 @@
     - wait load and play (register sounds before they are loaded) ? // seems not used
 
 - integration status (howler)
+ - sound extension checking
  - playSoundInstance for slotBuilder support - needs to be done
  - setLoadingStatusCheck deleted - no need to set loaded, callBacks doesn't work
  - sound loaded check deleted - cause it is registered only if loaded

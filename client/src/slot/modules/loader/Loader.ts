@@ -27,7 +27,8 @@ export class Loader {
 
     public addSound(id: string, url: string, autoDecode: boolean = true): void {
 
-        this.addToLoadingQueue(id, url, FileType.Sound);
+        if (!this.isInQueue) //maybe move in loading manage
+            this.addToLoadingQueue(id, url, FileType.Sound);
     }
 
     private addToLoadingQueue(id: string, url: string, type: FileType): void {
@@ -39,9 +40,13 @@ export class Loader {
         }
     }
 
+    private isInQueue(url: string): boolean {
+        return this.loadingQueue.filter((fileLoader: FileLoader) => fileLoader.url === url).length > 0;
+    }
+
     //TODO: load one by one, try load all together
     private loadNexFileInQueue(): void {
-        if (this.loadingQueue.length ) {
+        if (this.loadingQueue.length) {
             this.currenFileInProgress = this.loadingQueue.shift();
             EventDispatcher.addListener(LoaderEvent.FILE_LOADED, this.onFileLoaded, this);
             this.currenFileInProgress.load();
