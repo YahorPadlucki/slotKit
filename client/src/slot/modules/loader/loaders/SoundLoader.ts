@@ -26,7 +26,7 @@ export class SoundLoader extends FileLoader {
     }
 
     //TODO:  several ids with same url
-    registerId(id: string) {
+    addId(id: string) {
         this.idList.push(id);
     }
 

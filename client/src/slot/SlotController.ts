@@ -12,6 +12,7 @@ import {RewardsManager} from "./modules/rewards/RewardsManager";
 import {Loader} from "./modules/loader/Loader";
 import {LoaderEvent} from "./modules/loader/events/LoaderEvent";
 import {SoundManager} from "./modules/sound/SoundManager";
+import {LoadingManager} from "./modules/loader/LoadingManager";
 
 export class SlotController {
 
@@ -22,22 +23,16 @@ export class SlotController {
 
     private soundManager: SoundManager = get(SoundManager);
 
-    private loader: Loader = get(Loader);
+    private loadingManager: LoadingManager = get(LoadingManager);
+
 
     constructor(private view: SlotView) {
         EventDispatcher.addListener(SlotEvent.SPIN_CLICK, this.onSpinClicked, this);
 
         EventDispatcher.addListener(SlotEvent.REELS_STOPPED, this.onReelsStopped, this);
-
-
-        // load through loading manager - and handle multiple id on same sounds
-        this.loader.addSound("test", "../data/sounds/test.mp3");
-        this.loader.addSound("test2", "../data/sounds/test2.mp3");
-        this.loader.addSound("test3", "../data/sounds/test3.mp3");
-        this.loader.startLoading();
-
         EventDispatcher.addListener(LoaderEvent.ALL_FILES_LOADED, this.onFilesLoaded, this);
 
+        this.loadingManager.loadResources();
     }
 
     private onFilesLoaded(): void {

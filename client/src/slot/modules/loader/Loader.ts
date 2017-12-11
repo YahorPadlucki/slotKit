@@ -27,8 +27,12 @@ export class Loader {
 
     public addSound(id: string, url: string, autoDecode: boolean = true): void {
 
-        if (!this.isInQueue) //maybe move in loading manage
+        const soundLoader = this.getSoundLoaderByUrl(url);
+        if (!soundLoader) {
             this.addToLoadingQueue(id, url, FileType.Sound);
+        } else {
+            soundLoader.addId(id);
+        }
     }
 
     private addToLoadingQueue(id: string, url: string, type: FileType): void {
@@ -40,8 +44,8 @@ export class Loader {
         }
     }
 
-    private isInQueue(url: string): boolean {
-        return this.loadingQueue.filter((fileLoader: FileLoader) => fileLoader.url === url).length > 0;
+    private getSoundLoaderByUrl(url: string): SoundLoader {
+        return this.loadingQueue.filter((fileLoader: FileLoader) => fileLoader.url === url)[0] as SoundLoader;
     }
 
     //TODO: load one by one, try load all together
