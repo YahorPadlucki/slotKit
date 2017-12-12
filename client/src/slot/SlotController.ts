@@ -32,11 +32,13 @@ export class SlotController {
         EventDispatcher.addListener(SlotEvent.REELS_STOPPED, this.onReelsStopped, this);
         EventDispatcher.addListener(LoaderEvent.ALL_FILES_LOADED, this.onFilesLoaded, this);
 
-        this.loadingManager.loadResources();
+        this.loadingManager.loadResources("../data/assets.json");
     }
 
     private onFilesLoaded(): void {
-        this.soundManager.playSound("test");
+        // this.soundManager.playSound("test",-1);
+       // setTimeout(()=> this.soundManager.getSound("test").pause(),1000);
+       // setTimeout(()=> this.soundManager.getSound("test").resume(),2000);
     }
 
     public makeInitRequest(): Promise<any> {

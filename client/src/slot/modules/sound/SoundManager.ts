@@ -24,14 +24,6 @@ export class SoundManager {
         return this.sounds[soundId];
     }
 
-    //TODO: will be removed
-    //  TODO:integration
-    public getSoundConstantById(soundId: string): string {
-        console.warn('Warning: "getSoundConstantById" is redundant and deprecated!');
-
-        return soundId;
-    }
-
     public isSoundAvailable(soundId: string): boolean {
         const sound: Sound = this.getSound(soundId);
         return !!sound;

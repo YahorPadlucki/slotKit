@@ -3,11 +3,14 @@
     + loading sound
     + finalize loader
     + sound loader integrations
+    - assets json
+
+- gulp task to copy data into dist
 
 - sounds Interface
     + prepare Sound for integration
-    - same file multiple ids (for integration/game)
-    - check pause/resume with loop
+    + same file multiple ids (for integration/game)
+    + check pause/resume with loop
     - prepare SoundInstance for integration
     - wait load and play (register sounds before they are loaded) ? // seems not used
 
