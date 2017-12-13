@@ -2,7 +2,7 @@
   "sounds": [
     {
       "id":"test",
-      "url":"../data/sounds/test.mp3"
+      "url":"sounds/test.mp3"
     }
   ]
 }

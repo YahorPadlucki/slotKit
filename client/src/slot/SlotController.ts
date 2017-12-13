@@ -32,7 +32,7 @@ export class SlotController {
         EventDispatcher.addListener(SlotEvent.REELS_STOPPED, this.onReelsStopped, this);
         EventDispatcher.addListener(LoaderEvent.ALL_FILES_LOADED, this.onFilesLoaded, this);
 
-        this.loadingManager.loadResources("../data/assets.json");
+        this.loadingManager.loadResources("./assets.json");
     }
 
     private onFilesLoaded(): void {

@@ -5,10 +5,13 @@ export class LoadingManager {
     private loader: Loader = get(Loader);
 
 
-    public loadResources(assetsJsonUrl:string): void {
+    public loadResources(assetsJsonUrl: string): void {
 
-        this.loadJson(assetsJsonUrl).then((data)=>{
-            console.log(data);
+        this.loadJson(assetsJsonUrl).then((data: AssetsJson) => {
+
+            data.sounds.forEach(sound => console.log(sound.url))
+
+
         })
         // this.loader.addSound("test", "../data/sounds/test.mp3");
         // this.loader.addSound("test2", "../data/sounds/test.mp3");
@@ -25,4 +28,13 @@ export class LoadingManager {
     }
 
 
+}
+
+interface AssetsJson {
+    sounds: Asset[];
+}
+
+interface Asset {
+    id: string;
+    url: string;
 }
