@@ -32,7 +32,7 @@ export class SoundLoader extends FileLoader {
 
     //TODO:load progress handler
     load() {
-        this.sound = new Howl({src: [this._url]});
+        this.sound = new Howl({src: [this.getSoundUrl(this._url)], format: ["ogg", "mp3"]});
 
         this.sound.on(this.LOAD_EVENT_NAME, () => this.loadCompleteHandler(), this.LOAD_EVENT_ID);
         this.sound.on(this.LOAD_ERROR_EVENT_NAME, () => this.loadErrorHandler("sound " + this.idList[0]), this.LOAD_ERROR_EVENT_ID);
@@ -50,5 +50,9 @@ export class SoundLoader extends FileLoader {
     protected resetLoader() {
         this.sound.off(this.LOAD_EVENT_NAME, null, this.LOAD_EVENT_ID);
         this.sound.on(this.LOAD_ERROR_EVENT_NAME, null, this.LOAD_ERROR_EVENT_ID); //TODO: Howler doesn't remove event by function
+    }
+
+    private getSoundUrl(src: string): string {
+        return src.replace("{type}", "ogg");
     }
 }

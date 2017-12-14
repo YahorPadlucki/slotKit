@@ -10,7 +10,8 @@ export class FileLoader {
 
     constructor(url: string) {
         this._url = url;
-        this._name = this._url.match(/([^\\/]+)\.\w+$/)[1];
+        // this._name = this._url.match(/([^\\/]+)\.\w+$/)[1];
+
     }
 
 

@@ -15,10 +15,12 @@
     - wait load and play (register sounds before they are loaded) ? // seems not used
 
 - integration status (howler)
- - sound extension checking
+ - sound extension checking - load in safari
  - playSoundInstance for slotBuilder support - needs to be done
- - setLoadingStatusCheck deleted - no need to set loaded, callBacks doesn't work
- - sound loaded check deleted - cause it is registered only if loaded
+ - register Id method works only for files from same bundle - instead use https://github.com/goldfire/howler.js/issues/403
+ - getSoundUrl - only ogg?? - howler loads first supported
+ + setLoadingStatusCheck deleted - no need to set loaded, callBacks doesn't work
+ + sound loaded check deleted - cause it is registered only if loaded
 
 - issue with stopping reels
 - emulation to json

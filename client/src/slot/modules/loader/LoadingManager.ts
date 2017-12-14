@@ -9,14 +9,18 @@ export class LoadingManager {
 
         this.loadJson(assetsJsonUrl).then((data: AssetsJson) => {
 
-            data.sounds.forEach(sound => console.log(sound.url))
+            data.sounds.forEach(sound => {
+                this.loader.addSound(sound.id, sound.url);
+            });
 
+            this.loader.startLoading();
 
-        })
+        });
+
         // this.loader.addSound("test", "../data/sounds/test.mp3");
         // this.loader.addSound("test2", "../data/sounds/test.mp3");
         // this.loader.addSound("test3", "../data/sounds/test.mp3");
-        // this.loader.startLoading();
+        //
     }
 
     public loadJson(url: string) {
