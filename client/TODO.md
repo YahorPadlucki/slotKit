@@ -1,41 +1,44 @@
+- emulation to json
+- width,height number to some config, reels, rows, spin speed - also to config
 
 - loading assets
+    - loading texture
+    - assets loading priority
     + loading sound
     + finalize loader
     + sound loader integrations
-    - assets json
-
-- gulp task to copy data into dist
-
-- sounds Interface
-    + prepare Sound for integration
-    + same file multiple ids (for integration/game)
-    + check pause/resume with loop
-    - prepare SoundInstance for integration
-    - wait load and play (register sounds before they are loaded) ? // seems not used
+    + assets json
 
 - integration status (howler)
- - sound extension checking - load in safari
- - playSoundInstance for slotBuilder support - needs to be done
  - register Id method works only for files from same bundle - instead use https://github.com/goldfire/howler.js/issues/403
- - getSoundUrl - only ogg?? - howler loads first supported
+ - prepare SoundInstance for integration
+ - wait load and play (register sounds before they are loaded) ? // seems not used
+ + sound extension checking - load in safari
+ + getSoundUrl - only ogg?? - howler loads first supported
  + setLoadingStatusCheck deleted - no need to set loaded, callBacks doesn't work
  + sound loaded check deleted - cause it is registered only if loaded
 
 - issue with stopping reels
-- emulation to json
-- width,height number to some config, reels, rows, spin speed - also to config
+
 - spaceBar control
 - loosing focus, return
 
++ sounds Interface
+    + prepare Sound for integration
+    + same file multiple ids (for integration/game)
+    + check pause/resume with loop
+
++ gulp task to copy data into dist
 + emulate several spins;
 + skipping winning animations
+
 + showing rewards
     + lines on init
     + lines reward
     + symbols toggle animations
     + symbol on several lines
     + symbols animation over callback
+
 + remove blink listener in symbols
 + listeners remove issue
 + reels with different symbols

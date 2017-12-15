@@ -36,7 +36,7 @@ export class SlotController {
     }
 
     private onFilesLoaded(): void {
-        this.soundManager.playSound("test",-1);
+        // this.soundManager.playSound("test");
        // setTimeout(()=> this.soundManager.getSound("test").pause(),1000);
        // setTimeout(()=> this.soundManager.getSound("test").resume(),2000);
     }

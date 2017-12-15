@@ -25,14 +25,13 @@ export class SoundLoader extends FileLoader {
         this.idList = [id];
     }
 
-    //TODO:  several ids with same url
     addId(id: string) {
         this.idList.push(id);
     }
 
     //TODO:load progress handler
     load() {
-        this.sound = new Howl({src: [this.getSoundUrl(this._url)], format: ["ogg", "mp3"]});
+        this.sound = new Howl({src: [this.getSoundUrl(this._url,"ogg"),this.getSoundUrl(this._url,"mp3")]});
 
         this.sound.on(this.LOAD_EVENT_NAME, () => this.loadCompleteHandler(), this.LOAD_EVENT_ID);
         this.sound.on(this.LOAD_ERROR_EVENT_NAME, () => this.loadErrorHandler("sound " + this.idList[0]), this.LOAD_ERROR_EVENT_ID);
@@ -52,7 +51,7 @@ export class SoundLoader extends FileLoader {
         this.sound.on(this.LOAD_ERROR_EVENT_NAME, null, this.LOAD_ERROR_EVENT_ID); //TODO: Howler doesn't remove event by function
     }
 
-    private getSoundUrl(src: string): string {
-        return src.replace("{type}", "ogg");
+    private getSoundUrl(src: string, extension: string): string {
+        return src.replace("{type}", extension);
     }
 }
