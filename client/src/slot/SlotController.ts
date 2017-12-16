@@ -23,23 +23,16 @@ export class SlotController {
 
     private soundManager: SoundManager = get(SoundManager);
 
-    private loadingManager: LoadingManager = get(LoadingManager);
 
 
     constructor(private view: SlotView) {
         EventDispatcher.addListener(SlotEvent.SPIN_CLICK, this.onSpinClicked, this);
 
         EventDispatcher.addListener(SlotEvent.REELS_STOPPED, this.onReelsStopped, this);
-        EventDispatcher.addListener(LoaderEvent.ALL_FILES_LOADED, this.onFilesLoaded, this);
 
-        this.loadingManager.loadResources("./assets.json");
     }
 
-    private onFilesLoaded(): void {
-        // this.soundManager.playSound("test");
-       // setTimeout(()=> this.soundManager.getSound("test").pause(),1000);
-       // setTimeout(()=> this.soundManager.getSound("test").resume(),2000);
-    }
+
 
     public makeInitRequest(): Promise<any> {
         return this.server.initRequest().then((initResponse: IInitResponse) => {

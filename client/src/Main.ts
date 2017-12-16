@@ -4,6 +4,9 @@ import {SlotView} from "./slot/SlotView";
 import {SlotController} from "./slot/SlotController";
 import Ticker = PIXI.ticker;
 import Point = PIXI.Point;
+import {LoadingManager} from "./slot/modules/loader/LoadingManager";
+import {get} from "./slot/modules/utils/locator/locator";
+import {LoaderEvent} from "./slot/modules/loader/events/LoaderEvent";
 
 export class Main {
 
@@ -16,6 +19,8 @@ export class Main {
 
     private slotView: SlotView;
     private slotController: SlotController;
+    private loadingManager: LoadingManager = get(LoadingManager);
+
 
     constructor() {
 
@@ -29,6 +34,7 @@ export class Main {
 
         this.stage = new PIXI.Container();
 
+        EventDispatcher.addListener(LoaderEvent.ALL_FILES_LOADED, this.onFilesLoaded, this);
         this.slotController = new SlotController(this.slotView);
 
         this.slotController.makeInitRequest().then(() => this.onInitResponse())
@@ -43,8 +49,9 @@ export class Main {
 
     }
 
-    private onInitResponse(): void {
+    private onFilesLoaded(): void {
 
+        //TODO:refactor
         const width = this.getWidth();
         const height = this.getHeight();
 
@@ -60,6 +67,16 @@ export class Main {
         window.addEventListener("resize", () => this.onResize(), true);
 
         Ticker.shared.add(this.onTickUpdate, this);
+        // this.soundManager.playSound("test");
+        // setTimeout(()=> this.soundManager.getSound("test").pause(),1000);
+        // setTimeout(()=> this.soundManager.getSound("test").resume(),2000);
+    }
+
+    private onInitResponse(): void {
+
+        this.loadingManager.loadResources("./assets.json");
+
+
     }
 
     private MyListener(someData: any): void {

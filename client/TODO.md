@@ -1,3 +1,5 @@
+- review TODOs
+
 - emulation to json
 - width,height number to some config, reels, rows, spin speed - also to config
 
