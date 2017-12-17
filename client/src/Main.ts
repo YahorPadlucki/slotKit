@@ -39,19 +39,15 @@ export class Main {
 
         this.slotController.makeInitRequest().then(() => this.onInitResponse())
 
+    }
 
-        /*  const dispathcer: EventDispatcher = new EventDispatcher();
+    private onInitResponse(): void {
 
-          dispathcer.addListener("111", this.MyListener, this);
-          dispathcer.dispatch("111", "Fisrt Dispatch");
-          dispathcer.removeListener("111", this.MyListener, this)
-          dispathcer.dispatch("111", "Second Dispath!");*/
-
+        this.loadingManager.loadResources("./assets.json");
     }
 
     private onFilesLoaded(): void {
 
-        //TODO:refactor
         const width = this.getWidth();
         const height = this.getHeight();
 
@@ -67,21 +63,6 @@ export class Main {
         window.addEventListener("resize", () => this.onResize(), true);
 
         Ticker.shared.add(this.onTickUpdate, this);
-        // this.soundManager.playSound("test");
-        // setTimeout(()=> this.soundManager.getSound("test").pause(),1000);
-        // setTimeout(()=> this.soundManager.getSound("test").resume(),2000);
-    }
-
-    private onInitResponse(): void {
-
-        this.loadingManager.loadResources("./assets.json");
-
-
-    }
-
-    private MyListener(someData: any): void {
-        console.log(" Listener " + someData);
-
     }
 
     private onTickUpdate(): void {

@@ -16,8 +16,6 @@ export class SoundManager {
     public setSound(soundId: string, sound: Sound): void {
         this.sounds[soundId] = sound;
         // this.dispatcher.dispatch(SoundManagerEvent.SOUND_LOADED, soundId); // integration
-
-        // this.setLoadingStatusCheck(id);//  TODO:integration
     }
 
     public getSound(soundId: string): Sound {

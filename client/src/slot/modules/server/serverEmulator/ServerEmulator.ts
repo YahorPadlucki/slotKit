@@ -7,6 +7,15 @@ export class ServerEmulator implements IServer {
     private spinRequestTimeout: any;
     private initTimeout: any;
 
+    private spinResponses: ISpinResponse[];
+    private initResponse: IInitResponse;
+
+
+    constructor(initResponse: IInitResponse, spinResponses: ISpinResponse[]) {
+        this.initResponse = initResponse;
+        this.spinResponces = spinResponses;
+    }
+
     private spinResponces: ISpinResponse[] = [
         {
             totalWin: 10,
