@@ -16,7 +16,7 @@ import {LoadingManager} from "./modules/loader/LoadingManager";
 
 export class SlotController {
 
-    private server: IServer = new ServerEmulator();
+    private server: ServerEmulator = get(ServerEmulator);
     private slotModel: SlotModel = get(SlotModel);
     private rewardsModel: RewardsModel = get(RewardsModel);
     private rewardsManager: RewardsManager = get(RewardsManager);
@@ -27,9 +27,7 @@ export class SlotController {
 
     constructor(private view: SlotView) {
         EventDispatcher.addListener(SlotEvent.SPIN_CLICK, this.onSpinClicked, this);
-
         EventDispatcher.addListener(SlotEvent.REELS_STOPPED, this.onReelsStopped, this);
-
     }
 
 

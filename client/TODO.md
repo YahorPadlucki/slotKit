@@ -1,5 +1,4 @@
-- review TODOs
-
+- service locator issue with interfaces
 - emulation to json
 - width,height number to some config, reels, rows, spin speed - also to config
 

@@ -7,6 +7,9 @@ import Point = PIXI.Point;
 import {LoadingManager} from "./slot/modules/loader/LoadingManager";
 import {get} from "./slot/modules/utils/locator/locator";
 import {LoaderEvent} from "./slot/modules/loader/events/LoaderEvent";
+import {IServer} from "./slot/modules/server/IServer";
+import {ServerEmulator} from "./slot/modules/server/serverEmulator/ServerEmulator";
+import {IConfigJson} from "./slot/modules/server/serverEmulator/IConfigJson";
 
 export class Main {
 
@@ -19,6 +22,8 @@ export class Main {
 
     private slotView: SlotView;
     private slotController: SlotController;
+
+    private server: ServerEmulator = new ServerEmulator();
     private loadingManager: LoadingManager = get(LoadingManager);
 
 
@@ -35,10 +40,12 @@ export class Main {
         this.stage = new PIXI.Container();
 
         EventDispatcher.addListener(LoaderEvent.ALL_FILES_LOADED, this.onFilesLoaded, this);
-        this.slotController = new SlotController(this.slotView);
 
-        this.slotController.makeInitRequest().then(() => this.onInitResponse())
-
+        this.loadingManager.loadJson('./emulation.json').then((emulationData: IConfigJson) => {
+            this.server.init(emulationData.init, emulationData.spins);
+            this.slotController = new SlotController(this.slotView);
+            this.slotController.makeInitRequest().then(() => this.onInitResponse())
+        });
     }
 
     private onInitResponse(): void {
@@ -63,6 +70,8 @@ export class Main {
         window.addEventListener("resize", () => this.onResize(), true);
 
         Ticker.shared.add(this.onTickUpdate, this);
+
+
     }
 
     private onTickUpdate(): void {

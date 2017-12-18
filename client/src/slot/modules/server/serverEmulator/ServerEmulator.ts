@@ -11,81 +11,20 @@ export class ServerEmulator implements IServer {
     private initResponse: IInitResponse;
 
 
-    constructor(initResponse: IInitResponse, spinResponses: ISpinResponse[]) {
-        this.initResponse = initResponse;
-        this.spinResponces = spinResponses;
+    constructor() {
+        console.log("Constructing ")
     }
 
-    private spinResponces: ISpinResponse[] = [
-        {
-            totalWin: 10,
-            reels: {
-                stopPositions: [1, 1, 1, 1, 0]
-            },
-            rewards: [
-                {
-                    lineId: 0,
-                    linePayout: 0,
-                    symbolsCount: 3
-                },
-                {
-                    lineId: 1,
-                    linePayout: 0,
-                    symbolsCount: 3
-                }
-            ]
-        },
-        {
-            totalWin: 5,
-            reels: {
-                stopPositions: [3, 1, 2, 1, 0]
-            },
-            rewards: [
-                {
-                    lineId: 3,
-                    linePayout: 0,
-                    symbolsCount: 3
-                }
-            ]
-        },
-        {
-            totalWin: 1,
-            reels: {
-                stopPositions: [5, 3, 2, 1, 0]
-            },
-            rewards: [
-                {
-                    lineId: 2,
-                    linePayout: 0,
-                    symbolsCount: 3
-                }
-            ]
-        }
-    ];
+    public init(initResponse: IInitResponse, spinResponses: ISpinResponse[]) {
+        this.initResponse = initResponse;
+        this.spinResponses = spinResponses;
+    }
 
     initRequest(): Promise<IInitResponse> {
         return new Promise(resolve => {
             clearTimeout(this.initTimeout);
             this.initTimeout = setTimeout(() => {
-                const serverResponse: IInitResponse = {
-                    lines: [
-                        [0, 0, 0, 0, 0],
-                        [1, 0, 1, 0, 1],
-                        [2, 2, 2, 2, 2],
-                        [3, 3, 3, 3, 3],
-                    ],
-                    reels: {
-                        stopPositions: [1, 2, 3, 4, 0],
-                        tapes: [
-                            [3, 3, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3],
-                            [2, 2, 3, 2, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3],
-                            [1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3],
-                            [1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3],
-                            [1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3]
-                        ]
-                    }
-                };
-                resolve(serverResponse)
+                resolve(this.initResponse)
             }, 500);
         })
     }
@@ -94,7 +33,7 @@ export class ServerEmulator implements IServer {
         return new Promise(resolve => {
             clearTimeout(this.spinRequestTimeout);
             this.spinRequestTimeout = setTimeout(() =>
-                resolve(this.spinResponces[Math.floor(Math.random() * this.spinResponces.length)]), 500);
+                resolve(this.spinResponses[Math.floor(Math.random() * this.spinResponses.length)]), 500);
         });
     }
 
