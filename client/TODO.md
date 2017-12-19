@@ -1,5 +1,3 @@
-- service locator issue with interfaces
-- emulation to json
 - width,height number to some config, reels, rows, spin speed - also to config
 
 - loading assets
@@ -10,20 +8,14 @@
     + sound loader integrations
     + assets json
 
-- integration status (howler)
- - register Id method works only for files from same bundle - instead use https://github.com/goldfire/howler.js/issues/403
- - prepare SoundInstance for integration
- - wait load and play (register sounds before they are loaded) ? // seems not used
- + sound extension checking - load in safari
- + getSoundUrl - only ogg?? - howler loads first supported
- + setLoadingStatusCheck deleted - no need to set loaded, callBacks doesn't work
- + sound loaded check deleted - cause it is registered only if loaded
-
 - issue with stopping reels
 
 - spaceBar control
 - loosing focus, return
 
+- that need to be located - should be initit through get?
+
++ emulation to json
 + sounds Interface
     + prepare Sound for integration
     + same file multiple ids (for integration/game)

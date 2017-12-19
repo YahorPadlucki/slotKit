@@ -10,6 +10,7 @@ import {get} from "../utils/locator/locator";
 
 export class ReelsController extends Container {
 
+    //TODO: from config
     private reelsCount: number = 5;
     private reelsGap: number = 15;
 

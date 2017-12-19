@@ -1,0 +1,12 @@
+{
+  "minSlotWidth": 800,
+  "minSlotHeight": 600,
+  "reel": {
+    "reelsNumber": 5,
+    "rowsNumber": 4,
+    "maxSpinSpeed": 500,
+    "gapBetweenReels": 15,
+    "gapBetweenSymbols":5,
+    "visibleHeight": 415
+  }
+}

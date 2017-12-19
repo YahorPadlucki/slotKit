@@ -23,7 +23,7 @@ export class Main {
     private slotView: SlotView;
     private slotController: SlotController;
 
-    private server: ServerEmulator = new ServerEmulator();
+    private server: ServerEmulator = get(ServerEmulator);
     private loadingManager: LoadingManager = get(LoadingManager);
 
 

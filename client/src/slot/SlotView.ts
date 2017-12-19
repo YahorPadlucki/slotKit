@@ -5,7 +5,7 @@ import Container = PIXI.Container;
 export class SlotView extends Container {
 
     private mainScene: MainScene;
-
+//TODO: from config
     private minWidth: number = 800;
     private minHeight: number = 600;
 

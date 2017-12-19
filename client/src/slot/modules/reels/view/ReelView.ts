@@ -14,7 +14,7 @@ export class ReelView extends Container {
     private symbolsInTape: SymbolView[] = [];
 
     private tapeHeight: number;
-
+    //TODO: from config
     private spinSpeed: number = 0;
     private maxSpinSpeed: number = 500;
 
