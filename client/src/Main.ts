@@ -10,6 +10,7 @@ import {LoaderEvent} from "./slot/modules/loader/events/LoaderEvent";
 import {IServer} from "./slot/modules/server/IServer";
 import {ServerEmulator} from "./slot/modules/server/serverEmulator/ServerEmulator";
 import {IConfigJson} from "./slot/modules/server/serverEmulator/IConfigJson";
+import {SlotConfig} from "./slot/SlotConfig";
 
 export class Main {
 
@@ -25,6 +26,7 @@ export class Main {
 
     private server: ServerEmulator = get(ServerEmulator);
     private loadingManager: LoadingManager = get(LoadingManager);
+    private slotConfig: SlotConfig = get(SlotConfig);
 
 
     constructor() {
@@ -41,6 +43,18 @@ export class Main {
 
         EventDispatcher.addListener(LoaderEvent.ALL_FILES_LOADED, this.onFilesLoaded, this);
 
+        this.loadingManager.loadJson('./config.json').then((config: SlotConfig) => {
+            this.slotConfig.minSlotWidth = config.minSlotWidth;
+            this.slotConfig.minSlotHeight = config.minSlotHeight;
+            this.slotConfig.reels = config.reels;
+
+            this.loadAssetsAndStart();
+
+        });
+
+    }
+
+    private loadAssetsAndStart(): void {
         this.loadingManager.loadJson('./emulation.json').then((emulationData: IConfigJson) => {
             this.server.init(emulationData.init, emulationData.spins);
             this.slotController = new SlotController(this.slotView);

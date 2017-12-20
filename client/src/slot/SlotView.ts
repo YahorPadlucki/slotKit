@@ -1,16 +1,22 @@
 import {MainScene} from "./modules/scenes/MainScene";
 import Point = PIXI.Point;
 import Container = PIXI.Container;
+import {SlotConfig} from "./SlotConfig";
+import {get} from "./modules/utils/locator/locator";
 
 export class SlotView extends Container {
 
     private mainScene: MainScene;
-//TODO: from config
-    private minWidth: number = 800;
-    private minHeight: number = 600;
+    private slotConfig: SlotConfig = get(SlotConfig);
+    private minWidth: number;
+    private minHeight: number;
 
     constructor() {
         super();
+
+        this.minWidth = this.slotConfig.minSlotWidth;
+        this.minHeight = this.slotConfig.minSlotHeight;
+
         this.mainScene = new MainScene(this.minWidth, this.minHeight);
         this.mainScene.pivot = new Point(0.5, 0.5);
         this.addChild(this.mainScene);

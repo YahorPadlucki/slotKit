@@ -1,7 +1,7 @@
 {
   "minSlotWidth": 800,
   "minSlotHeight": 600,
-  "reel": {
+  "reels": {
     "reelsNumber": 5,
     "rowsNumber": 4,
     "maxSpinSpeed": 500,
