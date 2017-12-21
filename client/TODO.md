@@ -1,5 +1,3 @@
-- width,height number to some config, reels, rows, spin speed - also to config
-
 - loading assets
     - loading texture
     - assets loading priority
@@ -8,6 +6,9 @@
     + sound loader integrations
     + assets json
 
+- assets
+    - resolutions
+
 - issue with stopping reels
 
 - spaceBar control
@@ -15,6 +16,7 @@
 
 - that need to be located - should be initit through get?
 
++ width, height number to some config, reels, rows, spin speed - also to config
 + emulation to json
 + sounds Interface
     + prepare Sound for integration

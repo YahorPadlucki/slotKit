@@ -3,20 +3,21 @@ import {SymbolView} from "../../symbols/SymbolView";
 import {ReelModel, ReelState} from "../model/ReelModel";
 import {get} from "../../utils/locator/locator";
 import {SlotModel} from "../../../SlotModel";
+import {SlotConfig} from "../../../SlotConfig";
 
 
 export class ReelView extends Container {
 
 
-    private verticalGap: number = 5;
-    private rows: number = 4;
+    private verticalGap: number;
+    private rows: number;
 
     private symbolsInTape: SymbolView[] = [];
 
     private tapeHeight: number;
-    //TODO: from config
+
     private spinSpeed: number = 0;
-    private maxSpinSpeed: number = 500;
+    private maxSpinSpeed: number;
 
 
     private previousState: ReelState = ReelState.Idle;
@@ -28,12 +29,18 @@ export class ReelView extends Container {
     private stopPositionsPrepared: boolean;
 
     private slotModel: SlotModel = get(SlotModel);
+    private slotConfig: SlotConfig = get(SlotConfig);
+
     private reelModel: ReelModel;
 
 
     constructor(reelModel: ReelModel) {
         super();
         this.reelModel = reelModel;
+        this.maxSpinSpeed = this.slotConfig.reels.maxSpinSpeed;
+        this.rows = this.slotConfig.reels.rowsCount;
+        this.verticalGap = this.slotConfig.reels.gapBetweenRows;
+
         this.init();
 
     }

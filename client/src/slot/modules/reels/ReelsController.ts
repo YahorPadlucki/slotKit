@@ -7,12 +7,12 @@ import {ReelController} from "./controller/ReelController";
 import {SlotEvent} from "../../SlotEvent";
 import {SlotModel} from "../../SlotModel";
 import {get} from "../utils/locator/locator";
+import {SlotConfig} from "../../SlotConfig";
 
 export class ReelsController extends Container {
 
-    //TODO: from config
-    private reelsCount: number = 5;
-    private reelsGap: number = 15;
+    private reelsCount: number;
+    private reelsGap: number;
 
     private reels: ReelView[] = [];
     private reelsControllers: ReelController[] = [];
@@ -20,12 +20,16 @@ export class ReelsController extends Container {
     private reelsMask: Graphics;
 
     private slotModel: SlotModel = get(SlotModel);
+    private slotConfig: SlotConfig = get(SlotConfig);
 
     private reelsStopped: boolean = false;
     public visibleHeight: number = 415;
 
     constructor() {
         super();
+
+        this.reelsCount = this.slotConfig.reels.reelsCount;
+        this.reelsGap = this.slotConfig.reels.gapBetweenReels;
 
         for (let i = 0; i < this.reelsCount; i++) {
 
