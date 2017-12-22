@@ -11,6 +11,7 @@ import {IServer} from "./slot/modules/server/IServer";
 import {ServerEmulator} from "./slot/modules/server/serverEmulator/ServerEmulator";
 import {IConfigJson} from "./slot/modules/server/serverEmulator/IConfigJson";
 import {SlotConfig} from "./slot/SlotConfig";
+import {ImageLoader} from "./slot/modules/loader/loaders/ImageLoader";
 
 export class Main {
 
@@ -51,6 +52,10 @@ export class Main {
             this.loadAssetsAndStart();
 
         });
+
+
+        const loader = new ImageLoader('./reelsBack.png',"aaa");
+        loader.load();
 
     }
 

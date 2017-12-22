@@ -34,6 +34,10 @@ export class FileLoader {
     load(): void {
     }
 
+    get inProgress(): boolean {
+        return this._loadProgress !== undefined;
+    }
+
     protected loadProgressHandler(event: any): void {
     }
 
