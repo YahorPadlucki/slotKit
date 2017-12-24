@@ -13,6 +13,10 @@ export class LoadingManager {
                 this.loader.addSound(sound.id, sound.url);
             });
 
+            data.images.forEach(image => {
+                this.loader.addImage(image.id, image.url);
+            });
+
             this.loader.startLoading();
 
         });
@@ -36,6 +40,7 @@ export class LoadingManager {
 
 interface AssetsJson {
     sounds: Asset[];
+    images: Asset[];
 }
 
 interface Asset {

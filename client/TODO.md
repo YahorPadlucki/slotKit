@@ -1,5 +1,6 @@
 - loading assets
     - loading texture
+    - texture provider, texture keys dictionary
     - assets loading priority
     + loading sound
     + finalize loader

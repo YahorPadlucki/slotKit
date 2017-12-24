@@ -1,8 +1,14 @@
 {
   "sounds": [
     {
-      "id":"test",
-      "url":"sounds/test.{type}"
+      "id": "test",
+      "url": "sounds/test.{type}"
+    }
+  ],
+  "images": [
+    {
+      "id": "reelsBack",
+      "url": "images/reelsBack.png"
     }
   ]
 }

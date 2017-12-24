@@ -3,6 +3,8 @@ import Point = PIXI.Point;
 import Container = PIXI.Container;
 import {SlotConfig} from "./SlotConfig";
 import {get} from "./modules/utils/locator/locator";
+import Sprite = PIXI.Sprite;
+import TextureCache = PIXI.utils.TextureCache;
 
 export class SlotView extends Container {
 
@@ -20,6 +22,11 @@ export class SlotView extends Container {
         this.mainScene = new MainScene(this.minWidth, this.minHeight);
         this.mainScene.pivot = new Point(0.5, 0.5);
         this.addChild(this.mainScene);
+
+
+        const reelsBack = new Sprite(TextureCache["reelsBack"]);
+
+        this.addChild(reelsBack);
     }
 
     resize(width: number, height: number) {

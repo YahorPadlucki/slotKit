@@ -2,6 +2,7 @@ import {FileLoader} from "./loaders/FileLoader";
 import {SoundLoader} from "./loaders/SoundLoader";
 import {EventDispatcher} from "../utils/dispatcher/EventDispatcher";
 import {LoaderEvent} from "./events/LoaderEvent";
+import {ImageLoader} from "./loaders/ImageLoader";
 
 export class Loader {
 
@@ -25,7 +26,7 @@ export class Loader {
         this.loadNexFileInQueue();
     }
 
-    public addSound(id: string, url: string, autoDecode: boolean = true): void {
+    public addSound(id: string, url: string): void {
 
         const soundLoader = this.getSoundLoaderByUrl(url);
         if (!soundLoader) {
@@ -35,11 +36,19 @@ export class Loader {
         }
     }
 
+    public addImage(id: string, url: string) {
+        this.addToLoadingQueue(id, url, FileType.Image)
+    }
+
     private addToLoadingQueue(id: string, url: string, type: FileType): void {
 
         switch (type) {
             case FileType.Sound:
                 this.loadingQueue.push(new SoundLoader(id, url));
+                break;
+
+            case FileType.Image:
+                this.loadingQueue.push(new ImageLoader(id, url));
                 break;
         }
     }
@@ -79,6 +88,7 @@ export class Loader {
 }
 
 export const enum FileType {
-    Sound
+    Sound,
+    Image
 }
 

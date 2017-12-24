@@ -42,6 +42,8 @@ export class ImageLoader extends FileLoader{
 
         const texture = TextureCache[this.id];// Texture provider
 
+        console.log("texture loaded")
+
         // PIXI.Texture.removeFromCache(this.url); // remove redundant texture with (ID === path)
     }
 
