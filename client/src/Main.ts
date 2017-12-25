@@ -52,11 +52,6 @@ export class Main {
             this.loadAssetsAndStart();
 
         });
-
-
-        const loader = new ImageLoader('./reelsBack.png',"aaa");
-        loader.load();
-
     }
 
     private loadAssetsAndStart(): void {

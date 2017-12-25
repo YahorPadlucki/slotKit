@@ -24,9 +24,11 @@ export class SlotView extends Container {
         this.addChild(this.mainScene);
 
 
-        const reelsBack = new Sprite(TextureCache["reelsBack"]);
+        // const reelsBack = new Sprite();
+        // this.addChild(reelsBack)
 
-        this.addChild(reelsBack);
+        console.log(PIXI.Texture.fromImage('images/reelsBack.png'));
+        // console.log(TextureCache['images/reelsBack.png']);
     }
 
     resize(width: number, height: number) {
