@@ -1,6 +1,9 @@
 import {ReelsController} from "../reels/ReelsController";
 import {UiPanel} from "../ui/UiPannel";
 import {BaseScene} from "./BaseScene";
+import TextureCache = PIXI.utils.TextureCache;
+import Sprite = PIXI.Sprite;
+import Point = PIXI.Point;
 
 export class MainScene extends BaseScene {
 
@@ -17,6 +20,12 @@ export class MainScene extends BaseScene {
         this.reelsContainer.x = -this.reelsContainer.width / 2;
 
         this.addChild(this.sceneBack);
+
+        const reelsBack = new Sprite(TextureCache['images/reelsBack.png']); //TODO texture provider
+        reelsBack.pivot = new Point(reelsBack.width/2,reelsBack.height/2);
+        reelsBack.scale=new Point(0.5,0.65);
+        this.addChild(reelsBack);
+
         this.addChild(this.reelsContainer);
 
         this.uiPannel = new UiPanel();

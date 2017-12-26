@@ -9,22 +9,21 @@ export class LoadingManager {
 
         this.loadJson(assetsJsonUrl).then((data: AssetsJson) => {
 
-            data.sounds.forEach(sound => {
-                this.loader.addSound(sound.id, sound.url);
-            });
+            if (data.sounds) {
+                data.sounds.forEach(sound => {
+                    this.loader.addSound(sound.id, sound.url);
+                });
+            }
 
-            data.images.forEach(image => {
-                this.loader.addImage(image.id, image.url);
-            });
+            if (data.images) {
+                data.images.forEach(image => {
+                    this.loader.addImage(image.id, image.url);
+                });
+            }
 
             this.loader.startLoading();
 
         });
-
-        // this.loader.addSound("test", "../data/sounds/test.mp3");
-        // this.loader.addSound("test2", "../data/sounds/test.mp3");
-        // this.loader.addSound("test3", "../data/sounds/test.mp3");
-        //
     }
 
     public loadJson(url: string) {

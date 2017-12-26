@@ -1,7 +1,5 @@
 import {FileLoader} from "./FileLoader";
 
-import TextureCache = PIXI.utils.TextureCache;
-
 
 export class ImageLoader extends FileLoader {
     protected loader: any;
@@ -32,16 +30,6 @@ export class ImageLoader extends FileLoader {
         this.loader.removeAllListeners("error");
         this.loader.removeAllListeners("progress");
         this.loader.reset();
-    }
-
-    protected loadCompleteHandler() {
-        super.loadCompleteHandler();
-
-        const texture = TextureCache[this.id];// Texture provider
-
-        console.log("texture loaded ", TextureCache)
-
-        // PIXI.Texture.removeFromCache(this.url); // remove redundant texture with (ID === path)
     }
 
     protected loadProgressHandler(event) {
