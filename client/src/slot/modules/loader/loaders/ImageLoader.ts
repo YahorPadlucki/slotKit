@@ -1,4 +1,6 @@
 import {FileLoader} from "./FileLoader";
+import Loader = PIXI.loaders.Loader;
+import Resource = PIXI.loaders.Resource;
 
 
 export class ImageLoader extends FileLoader {
@@ -18,12 +20,21 @@ export class ImageLoader extends FileLoader {
         // this._loadProgress = undefined;
         this.loader = new PIXI.loaders.Loader();
 
-        this.loader.once("complete", this.loadCompleteHandler, this);
+        this.loader.once("complete", this.imageLoaded, this);
         this.loader.once("error", this.loadErrorHandler, this);
         this.loader.on("progress", this.loadProgressHandler, this);
         this.loader.add(this.id, this._url);
         this.loader.load();
     }
+
+    private imageLoaded(loader: Loader, resources: Resource[]) {
+
+        console.log(loader)
+        console.log(resources[0].texture)
+
+        super.loadCompleteHandler();
+    }
+
 
     protected resetLoader() {
         this.loader.removeAllListeners("complete");
