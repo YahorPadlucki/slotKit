@@ -4,7 +4,6 @@ import {get} from "../utils/locator/locator";
 export class LoadingManager {
     private loader: Loader = get(Loader);
 
-
     public loadResources(assetsJsonUrl: string): void {
 
         this.loadJson(assetsJsonUrl).then((data: AssetsJson) => {

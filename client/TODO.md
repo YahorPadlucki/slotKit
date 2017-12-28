@@ -1,6 +1,8 @@
+- polyfill map
+
 - loading assets
-    - texture provider, texture keys dictionary
     - assets loading priority
+    + texture provider, texture keys dictionary
     + loading texture
     + loading sound
     + finalize loader

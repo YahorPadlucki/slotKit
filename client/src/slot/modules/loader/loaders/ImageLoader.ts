@@ -1,10 +1,13 @@
 import {FileLoader} from "./FileLoader";
 import Loader = PIXI.loaders.Loader;
 import Resource = PIXI.loaders.Resource;
+import {LoaderCache} from "../cache/LoaderCache";
+import {get} from "../../utils/locator/locator";
 
 
 export class ImageLoader extends FileLoader {
-    protected loader: any;
+    protected loader: Loader;
+    private loaderCache: LoaderCache = get(LoaderCache);
 
     constructor(private id: string, url: string,) {
         super(url);
@@ -29,8 +32,10 @@ export class ImageLoader extends FileLoader {
 
     private imageLoaded(loader: Loader, resources: Resource[]) {
 
-        console.log(loader)
-        console.log(resources[0].texture)
+        const texture = resources[this.id].texture;
+        this.loaderCache.addTexture(this.id, texture);
+
+        PIXI.Texture.removeFromCache(this._url);
 
         super.loadCompleteHandler();
     }
