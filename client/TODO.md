@@ -1,5 +1,3 @@
-- polyfill map
-
 - loading assets
     - assets loading priority
     + texture provider, texture keys dictionary

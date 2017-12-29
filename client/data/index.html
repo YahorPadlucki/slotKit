@@ -16,7 +16,22 @@
             height: 100%;
         }
     </style>
-<script src="lib.js"></script></head>
+    <script src="lib.js"></script>
+</head>
+<script>
+    (function (w, d) {
+        function loadScript(name) {
+            var script = d.createElement("script");
+            script.async = false;
+            script.src = name;
+            d.head.appendChild(script);
+        }
+
+        if (!w.Promise) {
+            loadScript("lib/es6-promise.min.js");
+        }
+    })(window, document)
+</script>
 <body>
 <script src="bundle.js"></script>
 </body>
