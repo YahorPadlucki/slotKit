@@ -1,8 +1,9 @@
 import {Loader} from "./Loader";
-import {get} from "../utils/locator/locator";
 
 export class LoadingManager {
-    private loader: Loader = get(Loader);
+
+    private priorityLoader: Loader = new Loader();
+    private lazyLoader: Loader = new Loader();
 
     public loadResources(assetsJsonUrl: string): void {
 
@@ -10,6 +11,7 @@ export class LoadingManager {
 
             if (data.sounds) {
                 data.sounds.forEach(sound => {
+
                     this.loader.addSound(sound.id, sound.url);
                 });
             }
@@ -19,6 +21,9 @@ export class LoadingManager {
                     this.loader.addImage(image.id, image.url);
                 });
             }
+
+            //TODO: create separate loaders - one for PRIORITY other for lazy
+
 
             this.loader.startLoading();
 
@@ -41,7 +46,13 @@ interface AssetsJson {
     images: Asset[];
 }
 
+export const enum AssetPriority {
+    INIT,
+    LAZY
+}
+
 interface Asset {
     id: string;
     url: string;
+    priority: AssetPriority;
 }

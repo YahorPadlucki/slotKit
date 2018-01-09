@@ -7,6 +7,12 @@
     + sound loader integrations
     + assets json
 
+- loading screen
+    - loading bar
+
+
+- also polyfill fetch? check on old browser
+
 - assets
     - resolutions
 

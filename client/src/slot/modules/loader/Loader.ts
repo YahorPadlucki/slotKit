@@ -11,7 +11,7 @@ export class Loader {
 
     private loadingQueue: FileLoader[] = [];
 
-    private currenFileInProgress: FileLoader;
+    private currentFileInProgress: FileLoader;
 
     public startLoading(): void {
         if (this.isLoading) {
@@ -60,9 +60,9 @@ export class Loader {
     //TODO: load one by one, try load all together
     private loadNexFileInQueue(): void {
         if (this.loadingQueue.length) {
-            this.currenFileInProgress = this.loadingQueue.shift();
+            this.currentFileInProgress = this.loadingQueue.shift();
             EventDispatcher.addListener(LoaderEvent.FILE_LOADED, this.onFileLoaded, this);
-            this.currenFileInProgress.load();
+            this.currentFileInProgress.load();
         }
     }
 

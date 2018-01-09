@@ -2,7 +2,8 @@
   "sounds": [
     {
       "id": "test",
-      "url": "sounds/test.{type}"
+      "url": "sounds/test.{type}",
+      "PRIORITY":"lazy"
     }
   ],
   "images": [

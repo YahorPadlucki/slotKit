@@ -9,10 +9,7 @@ import {ISpinResponse} from "./modules/server/interfaces/ISpinResponse";
 import {IInitResponse} from "./modules/server/interfaces/IInitResponse";
 import {RewardsModel} from "./modules/rewards/RewardsModel";
 import {RewardsManager} from "./modules/rewards/RewardsManager";
-import {Loader} from "./modules/loader/Loader";
-import {LoaderEvent} from "./modules/loader/events/LoaderEvent";
 import {SoundManager} from "./modules/sound/SoundManager";
-import {LoadingManager} from "./modules/loader/LoadingManager";
 
 export class SlotController {
 
