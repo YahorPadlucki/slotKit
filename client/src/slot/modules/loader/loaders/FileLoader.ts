@@ -1,7 +1,7 @@
 import {EventDispatcher} from "../../utils/dispatcher/EventDispatcher";
 import {LoaderEvent} from "../events/LoaderEvent";
 
-export class FileLoader {
+export class FileLoader extends EventDispatcher {
     protected _name: string;
     protected _url: string;
 
@@ -9,6 +9,7 @@ export class FileLoader {
     protected _isLoaded: boolean = false;
 
     constructor(url: string) {
+        super();
         this._url = url;
         // this._name = this._url.match(/([^\\/]+)\.\w+$/)[1];
 
@@ -42,7 +43,7 @@ export class FileLoader {
     }
 
     protected loadCompleteHandler(data?: any): void {
-        EventDispatcher.dispatch(LoaderEvent.FILE_LOADED);
+        this.dispatch(LoaderEvent.FILE_LOADED);
     }
 
     protected loadErrorHandler(event: any): void {

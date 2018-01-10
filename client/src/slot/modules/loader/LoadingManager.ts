@@ -1,9 +1,14 @@
 import {Loader} from "./Loader";
+import {LoaderEvent, LoadingManagerEvent} from "./events/LoaderEvent";
+import {EventDispatcher} from "../utils/dispatcher/EventDispatcher";
+import {get} from "../utils/locator/locator";
 
 export class LoadingManager {
 
     private priorityLoader: Loader = new Loader();
     private lazyLoader: Loader = new Loader();
+
+    private dispatcher: EventDispatcher = get(EventDispatcher);
 
     public loadResources(assetsJsonUrl: string): void {
 
@@ -12,20 +17,32 @@ export class LoadingManager {
             if (data.sounds) {
                 data.sounds.forEach(sound => {
 
-                    this.loader.addSound(sound.id, sound.url);
+                   // TODO:REFACTOR loading priority
+
+                    if (sound.priority === AssetPriority.INIT) {
+                        this.priorityLoader.addSound(sound.id, sound.url);
+                    } else {
+                        this.lazyLoader.addSound(sound.id, sound.url);
+                    }
+
                 });
             }
 
             if (data.images) {
                 data.images.forEach(image => {
-                    this.loader.addImage(image.id, image.url);
+                    this.priorityLoader.addImage(image.id, image.url);
                 });
             }
 
-            //TODO: create separate loaders - one for PRIORITY other for lazy
 
+            this.priorityLoader.startLoading();
 
-            this.loader.startLoading();
+            this.priorityLoader.addListener(LoaderEvent.ALL_FILES_LOADED, () => {
+                this.dispatcher.dispatch(LoadingManagerEvent.INITIAL_ASSETS_LOADED);
+                this.lazyLoader.startLoading();
+            });
+
+            this.lazyLoader.addListener(LoaderEvent.ALL_FILES_LOADED, () => this.dispatcher.dispatch(LoadingManagerEvent.LAZY_ASSETS_LOADED));
 
         });
     }
@@ -46,13 +63,12 @@ interface AssetsJson {
     images: Asset[];
 }
 
-export const enum AssetPriority {
-    INIT,
-    LAZY
-}
+export const AssetPriority = {
+    INIT: "INIT"
+};
 
 interface Asset {
     id: string;
     url: string;
-    priority: AssetPriority;
+    priority: string;
 }

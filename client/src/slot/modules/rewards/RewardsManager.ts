@@ -11,12 +11,14 @@ export class RewardsManager {
     private rewardsModel: RewardsModel = get(RewardsModel);
     private slotModel: SlotModel = get(SlotModel);
     private mainResolve;
+    private dispatcher:EventDispatcher = get(EventDispatcher);
+
 
     public showWinnings(): Promise<any> {
         return new Promise((resolve) => {
             this.mainResolve = resolve;
 
-            EventDispatcher.addListener(SymbolEvents.BLINK_COMPLETE, this.onBlinkComplete, this);
+            this.dispatcher.addListener(SymbolEvents.BLINK_COMPLETE, this.onBlinkComplete, this);
             this.dispatchWinningsDisplayEvent(SymbolEvents.BLINK);
         });
     }
@@ -33,7 +35,7 @@ export class RewardsManager {
 
             winLine.forEach((rowIndex, columnIndex) => {
 
-                EventDispatcher.dispatch(event, <IWinSymbolData>{
+                this.dispatcher.dispatch(event, <IWinSymbolData>{
                     columnIndex: columnIndex,
                     rowIndex: rowIndex
                 });
@@ -42,7 +44,7 @@ export class RewardsManager {
     }
 
     private onBlinkComplete() {
-        EventDispatcher.removeListener(SymbolEvents.BLINK_COMPLETE, this.onBlinkComplete, this);
+        this.dispatcher.removeListener(SymbolEvents.BLINK_COMPLETE, this.onBlinkComplete, this);
 
         this.mainResolve();
     }

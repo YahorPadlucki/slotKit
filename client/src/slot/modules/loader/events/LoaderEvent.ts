@@ -3,3 +3,8 @@ export const LoaderEvent = {
   FILE_LOADED: "FILE_LOADED" ,
   ALL_FILES_LOADED: "ALL_FILES_LOADED" ,
 };
+
+export const LoadingManagerEvent = {
+  INITIAL_ASSETS_LOADED:"INITIAL_ASSETS_LOADED",
+  LAZY_ASSETS_LOADED:"LAZY_ASSETS_LOADED"
+};

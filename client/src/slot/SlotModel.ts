@@ -13,6 +13,8 @@ export class SlotModel {
     private _lines: number[][];
 
     private rewardsModel: RewardsModel = get(RewardsModel);
+    private dispatcher:EventDispatcher = get(EventDispatcher);
+
 
     public parseServerSpinResponse(response: ISpinResponse): void {
         this.parseReels(response.reels);
@@ -32,7 +34,7 @@ export class SlotModel {
             }
             if (reels.tapes) {
                 this._tapes = reels.tapes.concat();
-                EventDispatcher.dispatch(SlotEvent.NEW_REELS_TAPES_RECEIVED);
+                this.dispatcher.dispatch(SlotEvent.NEW_REELS_TAPES_RECEIVED);
             }
         }
     }
@@ -52,7 +54,7 @@ export class SlotModel {
     public set state(state: SlotState) {
         if (this._currentSlotState != state) {
             this._currentSlotState = state;
-            EventDispatcher.dispatch(SlotEvent.SLOT_STATE_CHANGED);
+            this.dispatcher.dispatch(SlotEvent.SLOT_STATE_CHANGED);
         }
     }
 

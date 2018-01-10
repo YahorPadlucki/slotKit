@@ -4,7 +4,7 @@ import {EventDispatcher} from "../utils/dispatcher/EventDispatcher";
 import {LoaderEvent} from "./events/LoaderEvent";
 import {ImageLoader} from "./loaders/ImageLoader";
 
-export class Loader {
+export class Loader extends EventDispatcher{
 
     private isLoading: boolean;
     private hasLoaded: boolean;
@@ -61,13 +61,13 @@ export class Loader {
     private loadNexFileInQueue(): void {
         if (this.loadingQueue.length) {
             this.currentFileInProgress = this.loadingQueue.shift();
-            EventDispatcher.addListener(LoaderEvent.FILE_LOADED, this.onFileLoaded, this);
+            this.currentFileInProgress.addListener(LoaderEvent.FILE_LOADED, this.onFileLoaded, this);
             this.currentFileInProgress.load();
         }
     }
 
     private onFileLoaded(url: string): void {
-        EventDispatcher.removeListener(LoaderEvent.FILE_LOADED, this.onFileLoaded, this);
+        this.currentFileInProgress.removeListener(LoaderEvent.FILE_LOADED, this.onFileLoaded, this);
 
         if (!this.loadingQueue.length) {
             this.completeLoading();
@@ -82,7 +82,7 @@ export class Loader {
         this.isLoading = false;
         this.hasLoaded = true;
 
-        EventDispatcher.dispatch(LoaderEvent.ALL_FILES_LOADED);
+        this.dispatch(LoaderEvent.ALL_FILES_LOADED);
     }
 
 }

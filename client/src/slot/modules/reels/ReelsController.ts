@@ -24,6 +24,8 @@ export class ReelsController extends Container {
 
     private reelsStopped: boolean = false;
     public visibleHeight: number = 415;
+    private dispatcher:EventDispatcher = get(EventDispatcher);
+
 
     constructor() {
         super();
@@ -53,7 +55,7 @@ export class ReelsController extends Container {
 
         this.mask = this.reelsMask;
 
-        EventDispatcher.addListener(SlotEvent.ENTER_FRAME, this.onEnterFrame, this);
+        this.dispatcher.addListener(SlotEvent.ENTER_FRAME, this.onEnterFrame, this);
     }
 
     private onEnterFrame(deltaTime: number): void {
@@ -68,7 +70,7 @@ export class ReelsController extends Container {
 
         if (allReelsIdle && !this.reelsStopped) {
             this.reelsStopped = true;
-            EventDispatcher.dispatch(SlotEvent.REELS_STOPPED);
+            this.dispatcher.dispatch(SlotEvent.REELS_STOPPED);
         }
 
         this.reels.forEach(reel => reel.draw(deltaTime));

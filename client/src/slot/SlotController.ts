@@ -19,10 +19,12 @@ export class SlotController {
     private rewardsManager: RewardsManager = get(RewardsManager);
 
     private soundManager: SoundManager = get(SoundManager);
+    private dispatcher:EventDispatcher = get(EventDispatcher);
+
 
     constructor(private view: SlotView) {
-        EventDispatcher.addListener(SlotEvent.SPIN_CLICK, this.onSpinClicked, this);
-        EventDispatcher.addListener(SlotEvent.REELS_STOPPED, this.onReelsStopped, this);
+        this.dispatcher.addListener(SlotEvent.SPIN_CLICK, this.onSpinClicked, this);
+        this.dispatcher.addListener(SlotEvent.REELS_STOPPED, this.onReelsStopped, this);
     }
 
     public makeInitRequest(): Promise<any> {
@@ -51,6 +53,6 @@ export class SlotController {
     private handleServerSpinResponse(serverResponse: ISpinResponse) {
         this.slotModel.parseServerSpinResponse(serverResponse);
 
-        EventDispatcher.dispatch(SlotEvent.SERVER_SPIN_RESPONSE_RECEIVED);
+        this.dispatcher.dispatch(SlotEvent.SERVER_SPIN_RESPONSE_RECEIVED);
     }
 }

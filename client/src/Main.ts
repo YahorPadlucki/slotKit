@@ -6,7 +6,7 @@ import Ticker = PIXI.ticker;
 import Point = PIXI.Point;
 import {LoadingManager} from "./slot/modules/loader/LoadingManager";
 import {get} from "./slot/modules/utils/locator/locator";
-import {LoaderEvent} from "./slot/modules/loader/events/LoaderEvent";
+import {LoaderEvent, LoadingManagerEvent} from "./slot/modules/loader/events/LoaderEvent";
 import {IServer} from "./slot/modules/server/IServer";
 import {ServerEmulator} from "./slot/modules/server/serverEmulator/ServerEmulator";
 import {IConfigJson} from "./slot/modules/server/serverEmulator/IConfigJson";
@@ -29,6 +29,8 @@ export class Main {
     private loadingManager: LoadingManager = get(LoadingManager);
     private slotConfig: SlotConfig = get(SlotConfig);
 
+    private dispatcher:EventDispatcher = get(EventDispatcher);
+
 
     constructor() {
 
@@ -42,7 +44,8 @@ export class Main {
 
         this.stage = new PIXI.Container();
 
-        EventDispatcher.addListener(LoaderEvent.ALL_FILES_LOADED, this.onFilesLoaded, this);
+        this.dispatcher.addListener(LoadingManagerEvent.INITIAL_ASSETS_LOADED, this.onInitialAssetsLoaded, this);
+        this.dispatcher.addListener(LoadingManagerEvent.LAZY_ASSETS_LOADED, ()=>console.log("=== lazy loaded"), this);
 
         this.loadingManager.loadJson('./config.json').then((config: SlotConfig) => {
             this.slotConfig.minSlotWidth = config.minSlotWidth;
@@ -67,7 +70,9 @@ export class Main {
         this.loadingManager.loadResources("./assets.json");
     }
 
-    private onFilesLoaded(): void {
+    private onInitialAssetsLoaded(): void {
+
+        console.log("=== initial assets loaded");
 
         const width = this.getWidth();
         const height = this.getHeight();
@@ -99,7 +104,7 @@ export class Main {
         const deltaTime = now - this.prevTime;
 
         if (deltaTime > this.drawInterval) {
-            EventDispatcher.dispatch(SlotEvent.ENTER_FRAME, deltaTime);
+            this.dispatcher.dispatch(SlotEvent.ENTER_FRAME, deltaTime);
             this.prevTime = now;
             // this.prevTime = now - deltaTime % this.drawInterval;
         }

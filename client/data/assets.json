@@ -3,7 +3,7 @@
     {
       "id": "test",
       "url": "sounds/test.{type}",
-      "PRIORITY":"lazy"
+      "priority":"INIT"
     }
   ],
   "images": [

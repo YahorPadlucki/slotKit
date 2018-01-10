@@ -14,6 +14,9 @@ export class ReelController {
 
     private slotModel: SlotModel = get(SlotModel);
 
+    private dispatcher:EventDispatcher = get(EventDispatcher);
+
+
 
     constructor(reelView: ReelView, model: ReelModel) {
         this.reelView = reelView;
@@ -21,11 +24,11 @@ export class ReelController {
 
         this.model.currentState = ReelState.Idle;
 
-        EventDispatcher.addListener(SlotEvent.SPIN_CLICK, this.onSpinClicked, this);
-        EventDispatcher.addListener(SlotEvent.STOP_CLICK, this.onStopClicked, this);
+        this.dispatcher.addListener(SlotEvent.SPIN_CLICK, this.onSpinClicked, this);
+        this.dispatcher.addListener(SlotEvent.STOP_CLICK, this.onStopClicked, this);
 
-        EventDispatcher.addListener(SlotEvent.SERVER_SPIN_RESPONSE_RECEIVED, this.onServerResponse, this);
-        EventDispatcher.addListener(SlotEvent.NEW_REELS_TAPES_RECEIVED, () => this.model.updateTape(this.slotModel.tapes[this.model.reelIndex]), this);
+        this.dispatcher.addListener(SlotEvent.SERVER_SPIN_RESPONSE_RECEIVED, this.onServerResponse, this);
+        this.dispatcher.addListener(SlotEvent.NEW_REELS_TAPES_RECEIVED, () => this.model.updateTape(this.slotModel.tapes[this.model.reelIndex]), this);
     }
 
     private onSpinClicked(): void {

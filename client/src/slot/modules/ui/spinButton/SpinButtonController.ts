@@ -9,13 +9,15 @@ export class SpinButtonController {
 
 
     private slotModel: SlotModel = get(SlotModel);
+    private dispatcher:EventDispatcher = get(EventDispatcher);
+
 
     constructor(private spinButton: SpinButton, private stopButton: StopButton) {
         this.spinButton.on('pointerdown', this.onSpinClick, this);
         this.stopButton.on('pointerdown', this.onStopClick, this);
 
-        EventDispatcher.addListener(SlotEvent.SLOT_STATE_CHANGED, this.onSlotStateChanged, this);
-        EventDispatcher.addListener(SlotEvent.SERVER_SPIN_RESPONSE_RECEIVED, this.onServerResponse, this);
+        this.dispatcher.addListener(SlotEvent.SLOT_STATE_CHANGED, this.onSlotStateChanged, this);
+        this.dispatcher.addListener(SlotEvent.SERVER_SPIN_RESPONSE_RECEIVED, this.onServerResponse, this);
 
         this.disableStop();
         this.enableSpin();
@@ -42,7 +44,7 @@ export class SpinButtonController {
 
     private onSpinClick(): void {
         this.disableSpin();
-        EventDispatcher.dispatch(SlotEvent.SPIN_CLICK);
+        this.dispatcher.dispatch(SlotEvent.SPIN_CLICK);
     }
 
     onServerResponse(): any {
@@ -61,6 +63,6 @@ export class SpinButtonController {
 
     private onStopClick(): void {
         this.disableStop();
-        EventDispatcher.dispatch(SlotEvent.STOP_CLICK);
+        this.dispatcher.dispatch(SlotEvent.STOP_CLICK);
     }
 }

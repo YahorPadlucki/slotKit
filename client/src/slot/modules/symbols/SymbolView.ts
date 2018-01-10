@@ -16,12 +16,15 @@ export class SymbolView extends Container {
     private _stopRowIndex: number;
     private _stopCollumnIndex: number;
 
+    private dispatcher:EventDispatcher = get(EventDispatcher);
+
+
 
     constructor(colorIndex: number) {
         super();
         this.setSymbolImage(colorIndex);
-        EventDispatcher.addListener(SymbolEvents.BLINK, this.blink, this);
-        EventDispatcher.addListener(SymbolEvents.STOP_BLINK, this.stopBlink, this);
+        this.dispatcher.addListener(SymbolEvents.BLINK, this.blink, this);
+        this.dispatcher.addListener(SymbolEvents.STOP_BLINK, this.stopBlink, this);
     }
 
     public setSymbolImage(colorIndex: number) {
@@ -49,7 +52,7 @@ export class SymbolView extends Container {
             TweenLite.to(this, 1, {
                 alpha: 1,
                 onComplete: () => {
-                    EventDispatcher.dispatch(SymbolEvents.BLINK_COMPLETE)
+                    this.dispatcher.dispatch(SymbolEvents.BLINK_COMPLETE)
                 }
 
             })
@@ -71,8 +74,8 @@ export class SymbolView extends Container {
     }
 
     onDestroy() {
-        EventDispatcher.removeListener(SymbolEvents.BLINK, this.blink, this);
-        EventDispatcher.removeListener(SymbolEvents.STOP_BLINK, this.stopBlink, this);
+        this.dispatcher.removeListener(SymbolEvents.BLINK, this.blink, this);
+        this.dispatcher.removeListener(SymbolEvents.STOP_BLINK, this.stopBlink, this);
 
     }
 }
