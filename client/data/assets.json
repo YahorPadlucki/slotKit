@@ -3,13 +3,15 @@
     {
       "id": "test",
       "url": "sounds/test.{type}",
-      "priority":"INIT"
+      "type": "Sound"
     }
   ],
   "images": [
     {
       "id": "reelsBack",
-      "url": "images/reelsBack.png"
+      "type": "Image",
+      "url": "images/reelsBack.png",
+      "priority": "INIT"
     }
   ]
 }

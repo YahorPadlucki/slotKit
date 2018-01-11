@@ -3,8 +3,9 @@ import {SoundLoader} from "./loaders/SoundLoader";
 import {EventDispatcher} from "../utils/dispatcher/EventDispatcher";
 import {LoaderEvent} from "./events/LoaderEvent";
 import {ImageLoader} from "./loaders/ImageLoader";
+import {Asset, FileType} from "./LoadingManager";
 
-export class Loader extends EventDispatcher{
+export class Loader extends EventDispatcher {
 
     private isLoading: boolean;
     private hasLoaded: boolean;
@@ -26,32 +27,34 @@ export class Loader extends EventDispatcher{
         this.loadNexFileInQueue();
     }
 
-    public addSound(id: string, url: string): void {
+    public addAsset(asset: Asset) {
+        switch (asset.type) {
+            case FileType.Sound:
+                this.addSound(asset.id, asset.url);
+                break;
+
+            case FileType.Image:
+                this.addImage(asset.id, asset.url);
+                break;
+        }
+    }
+
+
+    private addSound(id: string, url: string): void {
 
         const soundLoader = this.getSoundLoaderByUrl(url);
         if (!soundLoader) {
-            this.addToLoadingQueue(id, url, FileType.Sound);
+            this.loadingQueue.push(new SoundLoader(id, url));
         } else {
             soundLoader.addId(id);
         }
     }
 
-    public addImage(id: string, url: string) {
-        this.addToLoadingQueue(id, url, FileType.Image)
+    private addImage(id: string, url: string) {
+        this.loadingQueue.push(new ImageLoader(id, url));
     }
 
-    private addToLoadingQueue(id: string, url: string, type: FileType): void {
 
-        switch (type) {
-            case FileType.Sound:
-                this.loadingQueue.push(new SoundLoader(id, url));
-                break;
-
-            case FileType.Image:
-                this.loadingQueue.push(new ImageLoader(id, url));
-                break;
-        }
-    }
 
     private getSoundLoaderByUrl(url: string): SoundLoader {
         return this.loadingQueue.filter((fileLoader: FileLoader) => fileLoader.url === url)[0] as SoundLoader;
@@ -87,8 +90,5 @@ export class Loader extends EventDispatcher{
 
 }
 
-export const enum FileType {
-    Sound,
-    Image
-}
+
 
