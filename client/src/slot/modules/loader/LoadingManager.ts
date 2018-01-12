@@ -24,11 +24,10 @@ export class LoadingManager {
 
     private onAssetsJsonLoaded(data: AssetsJson): void {
 
-        //TODO: rather ugly
-        const assets = data.sounds.concat(data.images);
-
-        this.getInitAssets(assets).forEach(asset => this.initLoader.addAsset(asset));
-        this.getLazyAssets(assets).forEach(asset => this.lazyLoader.addAsset(asset));
+        for (let assetId in data) {
+            this.getInitAssets(data[assetId]).forEach(asset => this.initLoader.addAsset(asset));
+            this.getLazyAssets(data[assetId]).forEach(asset => this.lazyLoader.addAsset(asset));
+        }
 
         this.initLoader.startLoading();
 

@@ -1,3 +1,8 @@
+- loading screen
+    - loading bar
+
+- review TODOs
+
 - loading assets
     - loading atlasses
     + assets loading priority
@@ -7,10 +12,6 @@
     + finalize loader
     + sound loader integrations
     + assets json
-
-- loading screen
-    - loading bar
-
 
 - also polyfill fetch? check on old browser
 
