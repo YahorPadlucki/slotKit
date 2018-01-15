@@ -1,4 +1,4 @@
-import {MainScene} from "./modules/scenes/MainScene";
+import {MainScene} from "./modules/scenes/ReelsScene";
 import {SlotConfig} from "./SlotConfig";
 import {get} from "./modules/utils/locator/locator";
 import Point = PIXI.Point;
@@ -22,6 +22,10 @@ export class SlotView extends Container {
         this.addChild(this.mainScene);
     }
 
+    public createScene(sceneId:string){
+
+    }
+
     resize(width: number, height: number) {
 
         const scale = Math.min(Math.min(width, this.minWidth) / this.minWidth, Math.min(height, this.minHeight) / this.minHeight);
@@ -29,5 +33,10 @@ export class SlotView extends Container {
 
         this.mainScene.onResize();
     }
+}
+
+export const enum SceneID{
+    REELS_SCENE,
+    LOADING_SCENE
 }
 

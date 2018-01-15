@@ -7,7 +7,7 @@ import Point = PIXI.Point;
 import {LoaderCache} from "../loader/cache/LoaderCache";
 import {get} from "../utils/locator/locator";
 
-export class MainScene extends BaseScene {
+export class ReelsScene extends BaseScene {
 
     private sceneBack: PIXI.Graphics;
 
