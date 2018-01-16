@@ -4,8 +4,8 @@ import {EventDispatcher} from "../utils/dispatcher/EventDispatcher";
 import {get} from "../utils/locator/locator";
 
 export class LoadingManager {
-    private initLoader: Loader = new Loader();
-    private lazyLoader: Loader = new Loader();
+    private preloadAssetsLoader: Loader = new Loader();
+    private mainAssetsLoader: Loader = new Loader();
 
     private dispatcher: EventDispatcher = get(EventDispatcher);
 
@@ -25,28 +25,29 @@ export class LoadingManager {
     private onAssetsJsonLoaded(data: AssetsJson): void {
 
         for (let assetId in data) {
-            this.getInitAssets(data[assetId]).forEach(asset => this.initLoader.addAsset(asset));
-            this.getLazyAssets(data[assetId]).forEach(asset => this.lazyLoader.addAsset(asset));
+            this.getAssetsByPriority(data[assetId], AssetPriority.PRELOAD).forEach(asset => this.preloadAssetsLoader.addAsset(asset));
+            this.getAssetsByPriority(data[assetId], AssetPriority.MAIN).forEach(asset => this.mainAssetsLoader.addAsset(asset));
         }
 
-        this.initLoader.startLoading();
+        this.preloadAssetsLoader.startLoading();
 
-        this.initLoader.addListener(LoaderEvent.ALL_FILES_LOADED, () => {
-            this.dispatcher.dispatch(LoadingManagerEvent.INITIAL_ASSETS_LOADED);
-            this.lazyLoader.startLoading();
+        this.preloadAssetsLoader.addListener(LoaderEvent.ALL_FILES_LOADED, () => {
+            this.dispatcher.dispatch(LoadingManagerEvent.PRELOAD_ASSETS_LOADED);
+            this.mainAssetsLoader.startLoading();
         });
 
-        this.lazyLoader.addListener(LoaderEvent.ALL_FILES_LOADED, () => this.dispatcher.dispatch(LoadingManagerEvent.LAZY_ASSETS_LOADED));
+        this.mainAssetsLoader.addListener(LoaderEvent.ALL_FILES_LOADED, () => this.dispatcher.dispatch(LoadingManagerEvent.MAIN_ASSETS_LOADED));
 
     }
 
-    private getInitAssets(assets: Asset[]): Asset[] {
-        return assets.filter(assets => assets.priority === AssetPriority.INIT);
+    private getAssetsByPriority(assets: Asset[], priority: string): Asset[] {
+        return assets.filter(assets => assets.priority === priority);
     }
 
     private getLazyAssets(assets: Asset[]): Asset[] {
-        return assets.filter(assets => assets.priority !== AssetPriority.INIT);
+        return assets.filter(assets => assets.priority === "");
     }
+
 
 }
 
@@ -56,7 +57,8 @@ interface AssetsJson {
 }
 
 export const AssetPriority = {
-    INIT: "INIT"
+    PRELOAD: "PRELOAD",
+    MAIN: "MAIN"
 };
 
 export interface Asset {

@@ -3,7 +3,8 @@
     {
       "id": "test",
       "url": "sounds/test.{type}",
-      "type": "Sound"
+      "type": "Sound",
+      "priority": "MAIN"
     }
   ],
   "images": [
@@ -11,7 +12,7 @@
       "id": "reelsBack",
       "type": "Image",
       "url": "images/reelsBack.png",
-      "priority": "INIT"
+      "priority": "PRELOAD"
     }
   ]
 }

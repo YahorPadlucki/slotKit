@@ -19,7 +19,7 @@ export class ReelsScene extends BaseScene {
 
     constructor(minWidth, minHeight) {
         super(minWidth, minHeight);
-        this.sceneBack = this.drawTempPlaceHolder();
+        this.sceneBack = this.getSceneBackGraphics();
 
         this.reelsContainer = new ReelsController();
         this.reelsContainer.x = -this.reelsContainer.width / 2;
@@ -41,7 +41,7 @@ export class ReelsScene extends BaseScene {
         this.reelsContainer.y = -this.reelsContainer.visibleHeight / 2 - this.uiPannel.height / 2;
     }
 
-    private drawTempPlaceHolder() {
+    private getSceneBackGraphics(): PIXI.Graphics {
 
         const graphics = new PIXI.Graphics();
         graphics.beginFill(0xcccccc);
@@ -51,7 +51,7 @@ export class ReelsScene extends BaseScene {
         return graphics;
     }
 
-    public onResize() {
+    public onResize(): void {
         this.uiPannel.x = -this.minWidth / 2;
         this.uiPannel.y = this.minHeight / 2 - this.uiPannel.height;
         this.uiPannel.onResize();

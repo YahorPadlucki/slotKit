@@ -10,6 +10,7 @@ import {IInitResponse} from "./modules/server/interfaces/IInitResponse";
 import {RewardsModel} from "./modules/rewards/RewardsModel";
 import {RewardsManager} from "./modules/rewards/RewardsManager";
 import {SoundManager} from "./modules/sound/SoundManager";
+import {SlotConfig} from "./SlotConfig";
 
 export class SlotController {
 
@@ -21,10 +22,17 @@ export class SlotController {
     private soundManager: SoundManager = get(SoundManager);
     private dispatcher:EventDispatcher = get(EventDispatcher);
 
+    private slotConfig: SlotConfig = get(SlotConfig);
+
+
 
     constructor(private view: SlotView) {
         this.dispatcher.addListener(SlotEvent.SPIN_CLICK, this.onSpinClicked, this);
         this.dispatcher.addListener(SlotEvent.REELS_STOPPED, this.onReelsStopped, this);
+
+        // this.dispatcher.addListener()//pre-loader
+        // this.dispatcher.addListener()//main scene
+
     }
 
     public makeInitRequest(): Promise<any> {

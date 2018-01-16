@@ -10,4 +10,9 @@ export class BaseScene extends Container {
         this.minHeight = minHeight;
     }
 
+
+    public onResize():void {
+
+    }
+
 }

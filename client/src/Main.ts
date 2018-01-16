@@ -29,7 +29,7 @@ export class Main {
     private loadingManager: LoadingManager = get(LoadingManager);
     private slotConfig: SlotConfig = get(SlotConfig);
 
-    private dispatcher:EventDispatcher = get(EventDispatcher);
+    private dispatcher: EventDispatcher = get(EventDispatcher);
 
 
     constructor() {
@@ -44,22 +44,28 @@ export class Main {
 
         this.stage = new PIXI.Container();
 
-        this.dispatcher.addListener(LoadingManagerEvent.INITIAL_ASSETS_LOADED, this.onInitialAssetsLoaded, this);
-        this.dispatcher.addListener(LoadingManagerEvent.LAZY_ASSETS_LOADED, ()=>console.log("=== lazy loaded"), this);
+        this.dispatcher.addListener(LoadingManagerEvent.PRELOAD_ASSETS_LOADED, this.onPreloadAssetsLoaded, this);
+        this.dispatcher.addListener(LoadingManagerEvent.MAIN_ASSETS_LOADED, () => console.log("=== main loaded"), this);
 
         this.loadingManager.loadJson('./config.json').then((config: SlotConfig) => {
-            this.slotConfig.minSlotWidth = config.minSlotWidth;
-            this.slotConfig.minSlotHeight = config.minSlotHeight;
-            this.slotConfig.reels = config.reels;
-
+            this.saveToSlotConfig(config);
             this.loadAssetsAndStart();
 
         });
     }
 
+    private saveToSlotConfig(config: SlotConfig) {
+        this.slotConfig.minSlotWidth = config.minSlotWidth;
+        this.slotConfig.minSlotHeight = config.minSlotHeight;
+        this.slotConfig.reels = config.reels;
+    }
+
     private loadAssetsAndStart(): void {
         this.loadingManager.loadJson('./emulation.json').then((emulationData: IConfigJson) => {
             this.server.init(emulationData.init, emulationData.spins);
+
+            this.slotView = new SlotView(this.slotConfig.minSlotWidth, this.slotConfig.minSlotHeight);
+
             this.slotController = new SlotController(this.slotView);
             this.slotController.makeInitRequest().then(() => this.onInitResponse())
         });
@@ -70,14 +76,15 @@ export class Main {
         this.loadingManager.loadResources("./assets.json");
     }
 
-    private onInitialAssetsLoaded(): void {
+    private onPreloadAssetsLoaded(): void {
 
-        console.log("=== initial assets loaded");
+        console.log("=== preload assets loaded");
+
+        //TODO: setting slot view
 
         const width = this.getWidth();
         const height = this.getHeight();
 
-        this.slotView = new SlotView();
         this.slotView.pivot = new Point(0.5, 0.5);
         this.slotView.x = width / 2;
         this.slotView.y = height / 2;
