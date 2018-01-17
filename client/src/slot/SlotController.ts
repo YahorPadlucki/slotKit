@@ -1,4 +1,4 @@
-import {SlotView} from "./SlotView";
+import {SceneID, SlotView} from "./SlotView";
 import {EventDispatcher} from "./modules/utils/dispatcher/EventDispatcher";
 import {SlotEvent} from "./SlotEvent";
 import {IServer} from "./modules/server/IServer";
@@ -62,5 +62,9 @@ export class SlotController {
         this.slotModel.parseServerSpinResponse(serverResponse);
 
         this.dispatcher.dispatch(SlotEvent.SERVER_SPIN_RESPONSE_RECEIVED);
+    }
+
+    onPreloadAssetsLoaded() {
+        this.view.addScene(SceneID.LOADING_SCENE);
     }
 }

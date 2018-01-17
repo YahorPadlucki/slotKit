@@ -48,13 +48,13 @@ export class Main {
         this.dispatcher.addListener(LoadingManagerEvent.MAIN_ASSETS_LOADED, () => console.log("=== main loaded"), this);
 
         this.loadingManager.loadJson('./config.json').then((config: SlotConfig) => {
-            this.saveToSlotConfig(config);
+            this.saveSlotConfig(config);
             this.loadAssetsAndStart();
 
         });
     }
 
-    private saveToSlotConfig(config: SlotConfig) {
+    private saveSlotConfig(config: SlotConfig) {
         this.slotConfig.minSlotWidth = config.minSlotWidth;
         this.slotConfig.minSlotHeight = config.minSlotHeight;
         this.slotConfig.reels = config.reels;
@@ -65,6 +65,9 @@ export class Main {
             this.server.init(emulationData.init, emulationData.spins);
 
             this.slotView = new SlotView(this.slotConfig.minSlotWidth, this.slotConfig.minSlotHeight);
+            this.slotView.pivot = new Point(0.5, 0.5);
+
+            this.stage.addChild(this.slotView);
 
             this.slotController = new SlotController(this.slotView);
             this.slotController.makeInitRequest().then(() => this.onInitResponse())
@@ -80,16 +83,7 @@ export class Main {
 
         console.log("=== preload assets loaded");
 
-        //TODO: setting slot view
-
-        const width = this.getWidth();
-        const height = this.getHeight();
-
-        this.slotView.pivot = new Point(0.5, 0.5);
-        this.slotView.x = width / 2;
-        this.slotView.y = height / 2;
-
-        this.stage.addChild(this.slotView);
+        this.slotController.onPreloadAssetsLoaded();
 
         this.onResize();
 

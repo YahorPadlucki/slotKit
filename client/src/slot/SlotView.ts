@@ -2,7 +2,7 @@ import {ReelsScene} from "./modules/scenes/ReelsScene";
 import Point = PIXI.Point;
 import Container = PIXI.Container;
 import {BaseScene} from "./modules/scenes/BaseScene";
-import {PreloaderScene} from "./modules/scenes/loadingScreen/LoadingScene";
+import {LoadingScene} from "./modules/scenes/loadingScreen/LoadingScene";
 
 export class SlotView extends Container {
 
@@ -36,7 +36,7 @@ export class SlotView extends Container {
     }
 
     private createLoadingScene(): BaseScene {
-        return new PreloaderScene(this.minWidth, this.minHeight);
+        return new LoadingScene(this.minWidth, this.minHeight);
     }
 
 

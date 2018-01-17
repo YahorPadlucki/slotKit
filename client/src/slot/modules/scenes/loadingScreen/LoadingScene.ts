@@ -1,11 +1,25 @@
 import {BaseScene} from "../BaseScene";
+import {LoadingBar} from "./LoadingBar";
+import Point = PIXI.Point;
 
-export class PreloaderScene extends BaseScene {
+export class LoadingScene extends BaseScene {
+
+    private progressBar: LoadingBar;
 
     constructor(minWidth, minHeight) {
         super(minWidth, minHeight);
         const sceneBack = this.getSceneBackGraphics();
         this.addChild(sceneBack);
+
+
+        this.progressBar = new LoadingBar();
+        this.progressBar.pivot = new Point(0.5,0.5);
+        this.addChild(this.progressBar);
+
+        //TODO:
+        this.progressBar.showProgress(0);
+
+        setTimeout(()=>this.progressBar.showProgress(50),2000)
     }
 
     private getSceneBackGraphics(): PIXI.Graphics {
