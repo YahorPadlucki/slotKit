@@ -1,4 +1,6 @@
 - loading screen
+    + loading precent
+    - smooth tween
     - loading bar
 
 - review TODOs

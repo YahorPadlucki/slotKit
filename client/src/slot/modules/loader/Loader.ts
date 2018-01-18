@@ -3,7 +3,10 @@ import {SoundLoader} from "./loaders/SoundLoader";
 import {EventDispatcher} from "../utils/dispatcher/EventDispatcher";
 import {LoaderEvent} from "./events/LoaderEvent";
 import {ImageLoader} from "./loaders/ImageLoader";
-import {Asset, FileType} from "./LoadingManager";
+import {
+    Asset,
+    FileType
+} from "./LoadingManager";
 
 export class Loader extends EventDispatcher {
 
@@ -11,6 +14,7 @@ export class Loader extends EventDispatcher {
     private hasLoaded: boolean;
 
     private loadingQueue: FileLoader[] = [];
+    private totalFilesToLoadCount: number;
 
     private currentFileInProgress: FileLoader;
 
@@ -19,6 +23,7 @@ export class Loader extends EventDispatcher {
             return;
         }
 
+        this.totalFilesToLoadCount = this.loadingQueue.length;
         this.hasLoaded = false;
         this.isLoading = true;
 
@@ -55,7 +60,6 @@ export class Loader extends EventDispatcher {
     }
 
 
-
     private getSoundLoaderByUrl(url: string): SoundLoader {
         return this.loadingQueue.filter((fileLoader: FileLoader) => fileLoader.url === url)[0] as SoundLoader;
     }
@@ -71,6 +75,7 @@ export class Loader extends EventDispatcher {
 
     private onFileLoaded(url: string): void {
         this.currentFileInProgress.removeListener(LoaderEvent.FILE_LOADED, this.onFileLoaded, this);
+        this.dispatch(LoaderEvent.FILE_LOADED);
 
         if (!this.loadingQueue.length) {
             this.completeLoading();
@@ -86,6 +91,14 @@ export class Loader extends EventDispatcher {
         this.hasLoaded = true;
 
         this.dispatch(LoaderEvent.ALL_FILES_LOADED);
+    }
+
+    public totalFilesCount(): number {
+        return this.totalFilesToLoadCount;
+    }
+
+    public filesLeftCount(): number {
+        return this.loadingQueue.length;
     }
 
 }

@@ -1,5 +1,8 @@
 import {Loader} from "./Loader";
-import {LoaderEvent, LoadingManagerEvent} from "./events/LoaderEvent";
+import {
+    LoaderEvent,
+    LoadingManagerEvent
+} from "./events/LoaderEvent";
 import {EventDispatcher} from "../utils/dispatcher/EventDispatcher";
 import {get} from "../utils/locator/locator";
 
@@ -31,12 +34,25 @@ export class LoadingManager {
 
         this.preloadAssetsLoader.startLoading();
 
+
         this.preloadAssetsLoader.addListener(LoaderEvent.ALL_FILES_LOADED, () => {
             this.dispatcher.dispatch(LoadingManagerEvent.PRELOAD_ASSETS_LOADED);
             this.mainAssetsLoader.startLoading();
         });
 
         this.mainAssetsLoader.addListener(LoaderEvent.ALL_FILES_LOADED, () => this.dispatcher.dispatch(LoadingManagerEvent.MAIN_ASSETS_LOADED));
+
+        this.mainAssetsLoader.addListener(LoaderEvent.FILE_LOADED, () => {
+            console.log("=== Main File loaded");
+
+            const totalFiles: number = this.mainAssetsLoader.totalFilesCount();
+            const loadedFiles: number = totalFiles - this.mainAssetsLoader.filesLeftCount();
+
+            const loadedPercent = (loadedFiles / totalFiles) * 100;
+
+            this.dispatcher.dispatch(LoadingManagerEvent.MAIN_ASSETS_LOAD_PROGRESS, loadedPercent);
+        });
+
 
     }
 
