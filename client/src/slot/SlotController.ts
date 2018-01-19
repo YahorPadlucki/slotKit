@@ -1,9 +1,15 @@
-import {SceneID, SlotView} from "./SlotView";
+import {
+    SceneID,
+    SlotView
+} from "./SlotView";
 import {EventDispatcher} from "./modules/utils/dispatcher/EventDispatcher";
 import {SlotEvent} from "./SlotEvent";
 import {IServer} from "./modules/server/IServer";
 import {ServerEmulator} from "./modules/server/serverEmulator/ServerEmulator";
-import {SlotModel, SlotState} from "./SlotModel";
+import {
+    SlotModel,
+    SlotState
+} from "./SlotModel";
 import {get} from "./modules/utils/locator/locator";
 import {ISpinResponse} from "./modules/server/interfaces/ISpinResponse";
 import {IInitResponse} from "./modules/server/interfaces/IInitResponse";
@@ -11,6 +17,7 @@ import {RewardsModel} from "./modules/rewards/RewardsModel";
 import {RewardsManager} from "./modules/rewards/RewardsManager";
 import {SoundManager} from "./modules/sound/SoundManager";
 import {SlotConfig} from "./SlotConfig";
+import {LoadingManagerEvent} from "./modules/loader/events/LoaderEvent";
 
 export class SlotController {
 
@@ -20,15 +27,14 @@ export class SlotController {
     private rewardsManager: RewardsManager = get(RewardsManager);
 
     private soundManager: SoundManager = get(SoundManager);
-    private dispatcher:EventDispatcher = get(EventDispatcher);
+    private dispatcher: EventDispatcher = get(EventDispatcher);
 
     private slotConfig: SlotConfig = get(SlotConfig);
 
 
-
     constructor(private view: SlotView) {
-        this.dispatcher.addListener(SlotEvent.SPIN_CLICK, this.onSpinClicked, this);
-        this.dispatcher.addListener(SlotEvent.REELS_STOPPED, this.onReelsStopped, this);
+        this.dispatcher.addListener(LoadingManagerEvent.MAIN_ASSETS_LOADED, () => this.onMainAssetsLoaded());
+
 
         // this.dispatcher.addListener()//pre-loader
         // this.dispatcher.addListener()//main scene
@@ -64,7 +70,13 @@ export class SlotController {
         this.dispatcher.dispatch(SlotEvent.SERVER_SPIN_RESPONSE_RECEIVED);
     }
 
-    onPreloadAssetsLoaded() {
-        this.view.addScene(SceneID.LOADING_SCENE);
+    public onPreloadAssetsLoaded(): void {
+        this.view.showScene(SceneID.LOADING_SCENE);
+    }
+
+    private onMainAssetsLoaded(): void {
+        this.view.showScene(SceneID.REELS_SCENE);
+        this.dispatcher.addListener(SlotEvent.SPIN_CLICK, this.onSpinClicked, this);
+        this.dispatcher.addListener(SlotEvent.REELS_STOPPED, this.onReelsStopped, this);
     }
 }

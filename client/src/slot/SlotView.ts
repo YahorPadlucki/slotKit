@@ -12,7 +12,7 @@ export class SlotView extends Container {
         super();
     }
 
-    public addScene(sceneId: SceneID) {
+    public showScene(sceneId: SceneID): void {
 
         if (this.currentScene)
             this.removeChild(this.currentScene);
@@ -27,7 +27,7 @@ export class SlotView extends Container {
         }
         this.currentScene.pivot = new Point(0.5, 0.5);
         this.addChild(this.currentScene);
-
+        this.currentScene.onResize();
 
     }
 

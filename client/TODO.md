@@ -1,10 +1,3 @@
-- loading screen
-    + loading precent
-    - smooth tween
-    - loading bar
-
-- review TODOs
-
 - loading assets
     - loading atlasses
     + assets loading priority
@@ -15,17 +8,27 @@
     + sound loader integrations
     + assets json
 
-- also polyfill fetch? check on old browser
-
 - assets
     - resolutions
 
-- issue with stopping reels
+- review TODOs and check dependencies
+
 
 - spaceBar control
-- loosing focus, return
+
+- issues:
+    - with stopping reels
+    - loosing focus, return
+
+- also polyfill fetch? check on old browser
+- add linter
 
 - that need to be located - should be initit through get?
+
++ loading screen
+    + loading precent
+    + smooth tween
+    + loading bar
 
 + width, height number to some config, reels, rows, spin speed - also to config
 + emulation to json

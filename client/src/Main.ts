@@ -45,7 +45,6 @@ export class Main {
         this.stage = new PIXI.Container();
 
         this.dispatcher.addListener(LoadingManagerEvent.PRELOAD_ASSETS_LOADED, this.onPreloadAssetsLoaded, this);
-        this.dispatcher.addListener(LoadingManagerEvent.MAIN_ASSETS_LOADED, () => console.log("=== main loaded"), this);
 
         this.loadingManager.loadJson('./config.json').then((config: SlotConfig) => {
             this.saveSlotConfig(config);

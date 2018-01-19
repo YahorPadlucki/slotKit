@@ -20,15 +20,10 @@ export class LoadingScene extends BaseScene {
         this.progressBar.pivot = new Point(0.5, 0.5);
         this.addChild(this.progressBar);
 
-        //TODO:
-        this.progressBar.showProgress(0);
-
         this.dispatcher.addListener(LoadingManagerEvent.MAIN_ASSETS_LOAD_PROGRESS, (percent: number) => {
                 this.progressBar.showProgress(percent);
             }
         );
-
-        // setTimeout(()=>this.progressBar.showProgress(50),2000)
     }
 
     private getSceneBackGraphics(): PIXI.Graphics {

@@ -14,10 +14,15 @@ export class LoadingBar extends Container {
         this.bar.beginFill(0xFF65cc);
         this.bar.drawRect(-this.barWidth / 2, -this.barHeight / 2, this.barWidth, this.barHeight);
         this.bar.endFill();
+
+        this.bar.width = 0;
         this.addChild(this.bar);
     }
 
-    public showProgress(loadedPercent: number) {
-        this.bar.width = this.barWidth/(100/loadedPercent);
+    public showProgress(loadedPercent: number): void {
+        const toWidth: number = this.barWidth / (100 / loadedPercent);
+        TweenLite.to(this.bar, 0.1, {
+            width: toWidth
+        });
     }
 }
