@@ -7,7 +7,7 @@ export class LoaderCache {
     public addTexture(id: string, texture: Texture) {
 
         if (!this.imageCache[id]) {
-            this.imageCache.id = texture;
+            this.imageCache[id] = texture;
         }
     }
 

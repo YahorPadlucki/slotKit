@@ -31,6 +31,12 @@
       "type": "Image",
       "url": "images/reelsBack4.png",
       "priority": "MAIN"
+    },
+    {
+      "id": "spinButton",
+      "type": "Image",
+      "url": "images/spinButton.png",
+      "priority": "MAIN"
     }
   ]
 }

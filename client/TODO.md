@@ -1,5 +1,9 @@
+- assets
+    - make atlas
+    - parse resolutions
+
 - loading assets
-    - loading atlasses
+    - loading atlas
     + assets loading priority
     + texture provider, texture keys dictionary
     + loading texture
@@ -8,8 +12,7 @@
     + sound loader integrations
     + assets json
 
-- assets
-    - resolutions
+- spin button states
 
 - review TODOs and check dependencies
 

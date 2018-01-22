@@ -30,7 +30,7 @@ export class ReelsScene extends BaseScene {
         const reelsBack = new Sprite(reelsBackTexture);
 
         reelsBack.pivot = new Point(reelsBack.width / 2, reelsBack.height / 2);
-        reelsBack.scale = new Point(0.5, 0.65);
+        reelsBack.scale = new Point(0.5, 0.7);
         this.addChild(reelsBack);
 
         this.addChild(this.reelsContainer);
@@ -39,6 +39,8 @@ export class ReelsScene extends BaseScene {
         this.addChild(this.uiPannel);
 
         this.reelsContainer.y = -this.reelsContainer.visibleHeight / 2 - this.uiPannel.height / 2;
+        reelsBack.y = 0- this.uiPannel.height / 2;
+        // reelsBack.x = 0;
     }
 
     private getSceneBackGraphics(): PIXI.Graphics {
