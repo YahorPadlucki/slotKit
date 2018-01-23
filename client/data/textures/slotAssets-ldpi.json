@@ -1,0 +1,28 @@
+{"frames": {
+
+"reelsBack.png":
+{
+	"frame": {"x":1,"y":1,"w":589,"h":342},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":589,"h":342},
+	"sourceSize": {"w":589,"h":342}
+},
+"spinButton.png":
+{
+	"frame": {"x":1,"y":345,"w":124,"h":124},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":124,"h":124},
+	"sourceSize": {"w":124,"h":124}
+}},
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "slotAssets-ldpi.png",
+	"format": "RGBA8888",
+	"size": {"w":1024,"h":512},
+	"scale": "0.5",
+	"smartupdate": "$TexturePacker:SmartUpdate:9bf6984fedbf9a1250a5df4b57393d76:fb326da5116b1efb654fa9a8cc554e0b:c4b55d5775a9103e49249b03462711fb$"
+}
+}

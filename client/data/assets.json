@@ -11,31 +11,31 @@
     {
       "id": "reelsBack",
       "type": "Image",
-      "url": "images/reelsBack.png",
+      "url": "sourceImages/reelsBack.png",
       "priority": "PRELOAD"
     },
     {
       "id": "reelsBack2",
       "type": "Image",
-      "url": "images/reelsBack2.png",
+      "url": "sourceImages/reelsBack2.png",
       "priority": "MAIN"
     },
     {
       "id": "reelsBack3",
       "type": "Image",
-      "url": "images/reelsBack3.png",
+      "url": "sourceImages/reelsBack3.png",
       "priority": "MAIN"
     },
     {
       "id": "reelsBack4",
       "type": "Image",
-      "url": "images/reelsBack4.png",
+      "url": "sourceImages/reelsBack4.png",
       "priority": "MAIN"
     },
     {
       "id": "spinButton",
       "type": "Image",
-      "url": "images/spinButton.png",
+      "url": "sourceImages/spinButton.png",
       "priority": "MAIN"
     }
   ]

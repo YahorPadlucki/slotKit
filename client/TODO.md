@@ -14,6 +14,8 @@
 
 - spin button states
 
+- win text field
+
 - review TODOs and check dependencies
 
 
