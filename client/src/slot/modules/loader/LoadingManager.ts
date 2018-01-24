@@ -87,5 +87,6 @@ export interface Asset {
 //TODO: as interface?
 export const FileType = {
     Sound: "Sound",
-    Image: "Image"
+    Image: "Image",
+    Atlas: "Atlas"
 };

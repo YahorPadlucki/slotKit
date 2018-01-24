@@ -15,27 +15,15 @@
       "priority": "PRELOAD"
     },
     {
-      "id": "reelsBack2",
-      "type": "Image",
-      "url": "sourceImages/reelsBack2.png",
-      "priority": "MAIN"
-    },
-    {
-      "id": "reelsBack3",
-      "type": "Image",
-      "url": "sourceImages/reelsBack3.png",
-      "priority": "MAIN"
-    },
-    {
-      "id": "reelsBack4",
-      "type": "Image",
-      "url": "sourceImages/reelsBack4.png",
-      "priority": "MAIN"
-    },
-    {
       "id": "spinButton",
       "type": "Image",
       "url": "sourceImages/spinButton.png",
+      "priority": "MAIN"
+    },
+    {
+      "id": "slotAssets",
+      "type": "Atlas",
+      "url": "textures/slotAssets-hdpi.json",
       "priority": "MAIN"
     }
   ]

@@ -33,6 +33,11 @@ export class ImageLoader extends FileLoader {
     private imageLoaded(loader: Loader, resources: Resource[]) {
 
         const texture = resources[this.id].texture;
+
+        if(resources[this.id].textures){
+            //TODO: for each
+        }
+
         this.loaderCache.addTexture(this.id, texture);
 
         PIXI.Texture.removeFromCache(this._url);

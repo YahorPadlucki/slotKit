@@ -7,6 +7,7 @@ import {
     Asset,
     FileType
 } from "./LoadingManager";
+import {SpriteSheetLoader} from "./loaders/SpriteSheetLoader";
 
 export class Loader extends EventDispatcher {
 
@@ -41,6 +42,10 @@ export class Loader extends EventDispatcher {
             case FileType.Image:
                 this.addImage(asset.id, asset.url);
                 break;
+
+            case FileType.Atlas:
+                this.addAtlas(asset.id, asset.url);
+                break;
         }
     }
 
@@ -57,6 +62,10 @@ export class Loader extends EventDispatcher {
 
     private addImage(id: string, url: string) {
         this.loadingQueue.push(new ImageLoader(id, url));
+    }
+
+    private addAtlas(id: string, url: string) {
+        this.loadingQueue.push(new SpriteSheetLoader(id, url));
     }
 
 
