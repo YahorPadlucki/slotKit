@@ -1,23 +1,10 @@
-- assets
-    - make atlas
-    - parse resolutions
-
-- loading assets
-    - loading atlas
-    + assets loading priority
-    + texture provider, texture keys dictionary
-    + loading texture
-    + loading sound
-    + finalize loader
-    + sound loader integrations
-    + assets json
+- parse atlas ids
 
 - spin button states
 
 - win text field
 
 - review TODOs and check dependencies
-
 
 - spaceBar control
 
@@ -28,7 +15,19 @@
 - also polyfill fetch? check on old browser
 - add linter
 
+ - handle assets resolutions
+
 - that need to be located - should be initit through get?
+
++ loading assets
+    + loading atlas
+    + assets loading priority
+    + texture provider, texture keys dictionary
+    + loading texture
+    + loading sound
+    + finalize loader
+    + sound loader integrations
+    + assets json
 
 + loading screen
     + loading precent

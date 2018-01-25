@@ -26,7 +26,7 @@ export class ReelsScene extends BaseScene {
 
         this.addChild(this.sceneBack);
 
-        const reelsBackTexture = this.loaderCache.getTexture("reelsBack");
+        const reelsBackTexture = this.loaderCache.getTexture("reelsBack.png");
         const reelsBack = new Sprite(reelsBackTexture);
 
         reelsBack.pivot = new Point(reelsBack.width / 2, reelsBack.height / 2);

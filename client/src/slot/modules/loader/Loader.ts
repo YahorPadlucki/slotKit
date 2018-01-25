@@ -7,7 +7,6 @@ import {
     Asset,
     FileType
 } from "./LoadingManager";
-import {SpriteSheetLoader} from "./loaders/SpriteSheetLoader";
 
 export class Loader extends EventDispatcher {
 
@@ -30,7 +29,12 @@ export class Loader extends EventDispatcher {
 
         // this.updateProgress();
 
-        this.loadNexFileInQueue();
+        if (this.loadingQueue.length) {
+            this.loadNexFileInQueue();
+        }
+        else {
+            this.completeLoading();
+        }
     }
 
     public addAsset(asset: Asset) {
@@ -40,11 +44,8 @@ export class Loader extends EventDispatcher {
                 break;
 
             case FileType.Image:
-                this.addImage(asset.id, asset.url);
-                break;
-
             case FileType.Atlas:
-                this.addAtlas(asset.id, asset.url);
+                this.addImage(asset.id, asset.url);
                 break;
         }
     }
@@ -63,11 +64,6 @@ export class Loader extends EventDispatcher {
     private addImage(id: string, url: string) {
         this.loadingQueue.push(new ImageLoader(id, url));
     }
-
-    private addAtlas(id: string, url: string) {
-        this.loadingQueue.push(new SpriteSheetLoader(id, url));
-    }
-
 
     private getSoundLoaderByUrl(url: string): SoundLoader {
         return this.loadingQueue.filter((fileLoader: FileLoader) => fileLoader.url === url)[0] as SoundLoader;

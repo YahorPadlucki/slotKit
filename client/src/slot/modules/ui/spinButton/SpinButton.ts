@@ -22,7 +22,7 @@ export class SpinButton extends Button {
 
         this.disableGraphics.visible = false;
 
-        const spinButtonTexture = this.loaderCache.getTexture("spinButton");
+        const spinButtonTexture = this.loaderCache.getTexture("spinButton.png");
         const spinButtonImage = new Sprite(spinButtonTexture);
 
         spinButtonImage.pivot = new Point(spinButtonImage.width / 2, spinButtonImage.height / 2);

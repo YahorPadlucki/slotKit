@@ -3,6 +3,7 @@ import Loader = PIXI.loaders.Loader;
 import Resource = PIXI.loaders.Resource;
 import {LoaderCache} from "../cache/LoaderCache";
 import {get} from "../../utils/locator/locator";
+import Texture = PIXI.Texture;
 
 
 export class ImageLoader extends FileLoader {
@@ -32,19 +33,27 @@ export class ImageLoader extends FileLoader {
 
     private imageLoaded(loader: Loader, resources: Resource[]) {
 
-        const texture = resources[this.id].texture;
+        const texture: Texture = resources[this.id].texture;
+        const textures: Texture[] = resources[this.id].textures;
 
-        if(resources[this.id].textures){
-            //TODO: for each
+        if (texture) {
+            this.addTextureToCache(this.id, texture);
         }
-
-        this.loaderCache.addTexture(this.id, texture);
-
-        PIXI.Texture.removeFromCache(this._url);
+        if (textures) {
+            for (let t in textures) {
+                this.addTextureToCache(textures[t].textureCacheIds[0], textures[t]);
+            }
+        }
 
         super.loadCompleteHandler();
     }
 
+
+    private addTextureToCache(id: string, texture: Texture) {
+        this.loaderCache.addTexture(id, texture);
+
+        PIXI.Texture.removeFromCache(this._url);
+    }
 
     protected resetLoader() {
         this.loader.removeAllListeners("complete");

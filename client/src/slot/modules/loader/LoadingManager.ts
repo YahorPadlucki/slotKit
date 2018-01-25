@@ -32,13 +32,14 @@ export class LoadingManager {
             this.getAssetsByPriority(data[assetId], AssetPriority.MAIN).forEach(asset => this.mainAssetsLoader.addAsset(asset));
         }
 
-        this.preloadAssetsLoader.startLoading();
-
 
         this.preloadAssetsLoader.addListener(LoaderEvent.ALL_FILES_LOADED, () => {
             this.dispatcher.dispatch(LoadingManagerEvent.PRELOAD_ASSETS_LOADED);
             this.mainAssetsLoader.startLoading();
         });
+
+        this.preloadAssetsLoader.startLoading();
+
 
         this.mainAssetsLoader.addListener(LoaderEvent.ALL_FILES_LOADED, () => this.dispatcher.dispatch(LoadingManagerEvent.MAIN_ASSETS_LOADED));
 

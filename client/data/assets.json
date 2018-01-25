@@ -9,18 +9,6 @@
   ],
   "images": [
     {
-      "id": "reelsBack",
-      "type": "Image",
-      "url": "sourceImages/reelsBack.png",
-      "priority": "PRELOAD"
-    },
-    {
-      "id": "spinButton",
-      "type": "Image",
-      "url": "sourceImages/spinButton.png",
-      "priority": "MAIN"
-    },
-    {
       "id": "slotAssets",
       "type": "Atlas",
       "url": "textures/slotAssets-hdpi.json",
