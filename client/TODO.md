@@ -1,6 +1,8 @@
-- parse atlas ids
-
 - spin button states
+ - over
+ - down
+ - stop
+ - prepare propper image assets
 
 - win text field
 

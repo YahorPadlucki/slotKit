@@ -31,7 +31,7 @@ export class ImageLoader extends FileLoader {
         this.loader.load();
     }
 
-    private imageLoaded(loader: Loader, resources: Resource[]) {
+    private imageLoaded(loader: Loader, resources: Resource[]): void {
 
         const texture: Texture = resources[this.id].texture;
         const textures: Texture[] = resources[this.id].textures;
@@ -41,7 +41,9 @@ export class ImageLoader extends FileLoader {
         }
         if (textures) {
             for (let t in textures) {
-                this.addTextureToCache(textures[t].textureCacheIds[0], textures[t]);
+
+                const textureId: string = textures[t].textureCacheIds[0].replace(".png", "");
+                this.addTextureToCache(textureId, textures[t]);
             }
         }
 
@@ -49,7 +51,7 @@ export class ImageLoader extends FileLoader {
     }
 
 
-    private addTextureToCache(id: string, texture: Texture) {
+    private addTextureToCache(id: string, texture: Texture): void {
         this.loaderCache.addTexture(id, texture);
 
         PIXI.Texture.removeFromCache(this._url);

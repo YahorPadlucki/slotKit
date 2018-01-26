@@ -1,5 +1,13 @@
 {"frames": {
 
+"playBtnIcon.png":
+{
+	"frame": {"x":1,"y":775,"w":43,"h":43},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":43,"h":43},
+	"sourceSize": {"w":43,"h":43}
+},
 "reelsBack.png":
 {
 	"frame": {"x":1,"y":1,"w":1177,"h":683},
@@ -8,13 +16,21 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":1177,"h":683},
 	"sourceSize": {"w":1177,"h":683}
 },
-"spinButton.png":
+"spinButtonBack.png":
 {
-	"frame": {"x":1,"y":686,"w":248,"h":247},
+	"frame": {"x":1,"y":686,"w":87,"h":87},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":248,"h":247},
-	"sourceSize": {"w":248,"h":247}
+	"spriteSourceSize": {"x":0,"y":0,"w":87,"h":87},
+	"sourceSize": {"w":87,"h":87}
+},
+"stopBtnIcon.png":
+{
+	"frame": {"x":1,"y":775,"w":43,"h":43},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":43,"h":43},
+	"sourceSize": {"w":43,"h":43}
 }},
 "meta": {
 	"app": "http://www.codeandweb.com/texturepacker",
@@ -23,6 +39,6 @@
 	"format": "RGBA8888",
 	"size": {"w":2048,"h":1024},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:9bf6984fedbf9a1250a5df4b57393d76:fb326da5116b1efb654fa9a8cc554e0b:c4b55d5775a9103e49249b03462711fb$"
+	"smartupdate": "$TexturePacker:SmartUpdate:d79a0e7813a60ce0a3efa1e26c0364a0:74443a5009c9bf771606199dcd494458:c4b55d5775a9103e49249b03462711fb$"
 }
 }

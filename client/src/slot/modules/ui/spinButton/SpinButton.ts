@@ -4,52 +4,41 @@ import Sprite = PIXI.Sprite;
 import Point = PIXI.Point;
 import {LoaderCache} from "../../loader/cache/LoaderCache";
 import {get} from "../../utils/locator/locator";
+import Texture = PIXI.Texture;
 
 export class SpinButton extends Button {
 
-    private activeGraphics: Graphics;
-    private disableGraphics: Graphics;
-
-    private loaderCache:LoaderCache = get(LoaderCache);
+    private loaderCache: LoaderCache = get(LoaderCache);
+    private spinButtonBackImage: PIXI.Sprite;
 
     constructor() {
         super();
-        this.activeGraphics = this.prepareState(0x15ee86);
-        this.addChild(this.activeGraphics);
+        const spinButtonTexture = this.loaderCache.getTexture("spinButtonBack");
+        this.spinButtonBackImage = new Sprite(spinButtonTexture);
 
-        this.disableGraphics = this.prepareState(0xaab6b1);
-        this.addChild(this.disableGraphics);
+        const playIconTexture:Texture = this.loaderCache.getTexture("playBtnIcon");
+        const playIcon:Sprite = new Sprite(playIconTexture);
 
-        this.disableGraphics.visible = false;
+        this.spinButtonBackImage.tint = 0xffffff;
 
-        const spinButtonTexture = this.loaderCache.getTexture("spinButton.png");
-        const spinButtonImage = new Sprite(spinButtonTexture);
 
-        spinButtonImage.pivot = new Point(spinButtonImage.width / 2, spinButtonImage.height / 2);
-        spinButtonImage.scale = new Point(0.3, 0.3);
-        this.addChild(spinButtonImage);
+        this.spinButtonBackImage.pivot = new Point(this.spinButtonBackImage.width / 2, this.spinButtonBackImage.height / 2);
+        this.addChild(this.spinButtonBackImage);
+
+        playIcon.pivot = new Point(playIcon.width / 2, playIcon.height / 2);
+        this.addChild(playIcon);
     }
 
     public disable(): void {
         super.disable();
-        this.activeGraphics.visible = false;
-        this.disableGraphics.visible = true;
+
+        this.spinButtonBackImage.tint = 0xC0C0C0;
+        // this.disableGraphics.visible = true;
     }
 
     public enable(): void {
         super.enable();
-        this.activeGraphics.visible = true;
-        this.disableGraphics.visible = false;
-    }
-
-    private prepareState(color: number): Graphics {
-        const state = new PIXI.Graphics();
-        state.beginFill(color);
-
-        state.drawCircle(0, 0, 45);
-        state.endFill();
-
-        return state;
+        this.spinButtonBackImage.tint = 0x228B22;
     }
 
 }

@@ -175,7 +175,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>../../../../../Downloads/test-{v}.json</filename>
+                <filename>textures/slotAssets-{v}.json</filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -222,8 +222,10 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
+            <key type="filename">sourceImages/playBtnIcon.png</key>
             <key type="filename">sourceImages/reelsBack.png</key>
-            <key type="filename">sourceImages/spinButton.png</key>
+            <key type="filename">sourceImages/spinButtonBack.png</key>
+            <key type="filename">sourceImages/stopBtnIcon.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -231,8 +233,10 @@
         </map>
         <key>fileList</key>
         <array>
+            <filename>sourceImages/playBtnIcon.png</filename>
             <filename>sourceImages/reelsBack.png</filename>
-            <filename>sourceImages/spinButton.png</filename>
+            <filename>sourceImages/spinButtonBack.png</filename>
+            <filename>sourceImages/stopBtnIcon.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
