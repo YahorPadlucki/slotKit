@@ -233,10 +233,10 @@
         </map>
         <key>fileList</key>
         <array>
-            <filename>sourceImages/playBtnIcon.png</filename>
             <filename>sourceImages/reelsBack.png</filename>
             <filename>sourceImages/spinButtonBack.png</filename>
             <filename>sourceImages/stopBtnIcon.png</filename>
+            <filename>sourceImages/playBtnIcon.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

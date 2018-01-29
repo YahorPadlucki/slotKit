@@ -1,9 +1,8 @@
 import {Button} from "../generic/Button";
-import Graphics = PIXI.Graphics;
-import Sprite = PIXI.Sprite;
-import Point = PIXI.Point;
 import {LoaderCache} from "../../loader/cache/LoaderCache";
 import {get} from "../../utils/locator/locator";
+import Sprite = PIXI.Sprite;
+import Point = PIXI.Point;
 import Texture = PIXI.Texture;
 
 export class SpinButton extends Button {
@@ -23,9 +22,11 @@ export class SpinButton extends Button {
 
 
         this.spinButtonBackImage.pivot = new Point(this.spinButtonBackImage.width / 2, this.spinButtonBackImage.height / 2);
+        this.spinButtonBackImage.scale = new Point(0.35, 0.35);
         this.addChild(this.spinButtonBackImage);
 
-        playIcon.pivot = new Point(playIcon.width / 2, playIcon.height / 2);
+        playIcon.pivot = new Point(playIcon.width / 2.3, playIcon.height / 2);
+        playIcon.scale = new Point(0.35, 0.35);
         this.addChild(playIcon);
     }
 
