@@ -4,11 +4,12 @@ import {get} from "../../utils/locator/locator";
 import Sprite = PIXI.Sprite;
 import Point = PIXI.Point;
 import Texture = PIXI.Texture;
+import * as filters from 'pixi-filters';
 
 export class SpinButton extends Button {
 
     private loaderCache: LoaderCache = get(LoaderCache);
-    private spinButtonBackImage: PIXI.Sprite;
+    private spinButtonBackImage: Sprite;
 
     constructor() {
         super();
@@ -28,6 +29,9 @@ export class SpinButton extends Button {
         playIcon.pivot = new Point(playIcon.width / 2.3, playIcon.height / 2);
         playIcon.scale = new Point(0.35, 0.35);
         this.addChild(playIcon);
+
+        const filter = new filters.ShockwaveFilter();
+        this.spinButtonBackImage.filters = [filter];
     }
 
     public disable(): void {

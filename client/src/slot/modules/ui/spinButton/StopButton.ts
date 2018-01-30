@@ -1,14 +1,32 @@
 import {Button} from "../generic/Button";
+import {LoaderCache} from "../../loader/cache/LoaderCache";
+import {get} from "../../utils/locator/locator";
+import Sprite = PIXI.Sprite;
+import Texture = PIXI.Texture;
+import Point = PIXI.Point;
 
 export class StopButton extends Button {
 
+    private loaderCache: LoaderCache = get(LoaderCache);
+    private stopButtonBackImage: Sprite;
+
     constructor() {
         super();
-        const graphics = new PIXI.Graphics();
-        graphics.beginFill(0xec1313);
+        const buttonTexture = this.loaderCache.getTexture("spinButtonBack");
+        this.stopButtonBackImage = new Sprite(buttonTexture);
 
-        graphics.drawCircle(0, 0, 45);
-        graphics.endFill();
-        this.addChild(graphics);
+        const playIconTexture:Texture = this.loaderCache.getTexture("stopBtnIcon");
+        const stopIcon:Sprite = new Sprite(playIconTexture);
+
+        this.stopButtonBackImage.tint = 0xec1313;
+
+
+        this.stopButtonBackImage.pivot = new Point(this.stopButtonBackImage.width / 2, this.stopButtonBackImage.height / 2);
+        this.stopButtonBackImage.scale = new Point(0.35, 0.35);
+        this.addChild(this.stopButtonBackImage);
+
+        stopIcon.pivot = new Point(stopIcon.width / 2, stopIcon.height / 2);
+        stopIcon.scale = new Point(0.35, 0.35);
+        this.addChild(stopIcon);
     }
 }

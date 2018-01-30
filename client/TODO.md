@@ -1,9 +1,7 @@
-- spin button states
- - over
- - down
- - stop
- - prepare propper image assets
 
+ -try spin button shaders or smth like this (npm install pixi-filters shockwave filter)
+
+ - handle assets resolutions
 - win text field
 
 - review TODOs and check dependencies
@@ -17,10 +15,10 @@
 - also polyfill fetch? check on old browser
 - add linter
 
- - handle assets resolutions
 
 - that need to be located - should be initit through get?
 
++spin button states
 + loading assets
     + loading atlas
     + assets loading priority
