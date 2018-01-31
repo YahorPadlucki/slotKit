@@ -1,13 +1,10 @@
-const path = require('path');
-
-
 module.exports = {
-    entry: './src/Main.ts',
+    entry: ['./node_modules/pixi-filters/lib/pixi-filters.es.js','./src/Main.ts'],
     output: {
         filename: './dist/bundle.js'
     },
     resolve: {
-        extensions: ['.ts']
+        extensions: ['.ts','.js']
     },
     devtool: 'source-map',
     module: {

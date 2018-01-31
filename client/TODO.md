@@ -1,5 +1,6 @@
 
  -try spin button shaders or smth like this (npm install pixi-filters shockwave filter)
+ http://pixijs.io/examples/#/filters/blur-filter.js
 
  - handle assets resolutions
 - win text field
