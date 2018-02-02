@@ -12,9 +12,6 @@ import {EventDispatcher} from "../../utils/dispatcher/EventDispatcher";
 
 export class SpinButton extends Button {
 
-
-    filter: filters.ShockwaveFilter;
-
     private loaderCache: LoaderCache = get(LoaderCache);
     private spinButtonBackImage: Sprite;
     private dispatcher: EventDispatcher = get(EventDispatcher);
@@ -31,9 +28,6 @@ export class SpinButton extends Button {
 
         this.spinButtonBackImage.pivot = new Point(this.spinButtonBackImage.width / 2, this.spinButtonBackImage.height / 2);
         this.spinButtonBackImage.scale = new Point(0.35, 0.35);
-        this.filter = new filters.ShockwaveFilter([44 ,44], {"amplitude":30,"radius":-5,"speed":100,"wavelength":50});
-
-        this.filters = [this.filter];
 
         this.addChild(this.spinButtonBackImage);
 
@@ -41,18 +35,11 @@ export class SpinButton extends Button {
         playIcon.scale = new Point(0.35, 0.35);
         this.addChild(playIcon);
 
-        this.dispatcher.addListener(SlotEvent.ENTER_FRAME, this.onEnterFrame, this);
-
-    }
-
-    onEnterFrame(): any {
-        this.filter.time = (this.filter.time >= 1) ? 0 : this.filter.time + 0.01;
     }
 
     public disable(): void {
-        // super.disable();
+        super.disable();
         this.spinButtonBackImage.tint = 0xC0C0C0;
-        // this.disableGraphics.visible = true;
     }
 
     public enable(): void {

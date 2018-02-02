@@ -1,8 +1,6 @@
-
- -try spin button shaders or smth like this (npm install pixi-filters shockwave filter)
- http://pixijs.io/examples/#/filters/blur-filter.js
-
- - handle assets resolutions
+- handle assets resolutions
+       - initial hdpi size
+       - detect device and load appropriate
 - win text field
 
 - review TODOs and check dependencies
@@ -16,7 +14,7 @@
 - also polyfill fetch? check on old browser
 - add linter
 
-
+- try some static filters
 - that need to be located - should be initit through get?
 
 +spin button states
