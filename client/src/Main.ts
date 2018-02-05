@@ -6,12 +6,16 @@ import Ticker = PIXI.ticker;
 import Point = PIXI.Point;
 import {LoadingManager} from "./slot/modules/loader/LoadingManager";
 import {get} from "./slot/modules/utils/locator/locator";
-import {LoaderEvent, LoadingManagerEvent} from "./slot/modules/loader/events/LoaderEvent";
+import {
+    LoaderEvent,
+    LoadingManagerEvent
+} from "./slot/modules/loader/events/LoaderEvent";
 import {IServer} from "./slot/modules/server/IServer";
 import {ServerEmulator} from "./slot/modules/server/serverEmulator/ServerEmulator";
 import {IConfigJson} from "./slot/modules/server/serverEmulator/IConfigJson";
 import {SlotConfig} from "./slot/SlotConfig";
 import {ImageLoader} from "./slot/modules/loader/loaders/ImageLoader";
+import {DeviceUtils} from "./slot/modules/utils/DeviceUtils";
 
 export class Main {
 
@@ -30,6 +34,7 @@ export class Main {
     private slotConfig: SlotConfig = get(SlotConfig);
 
     private dispatcher: EventDispatcher = get(EventDispatcher);
+    private deviceUtils: DeviceUtils = get(DeviceUtils);
 
 
     constructor() {
@@ -45,6 +50,8 @@ export class Main {
         this.stage = new PIXI.Container();
 
         this.dispatcher.addListener(LoadingManagerEvent.PRELOAD_ASSETS_LOADED, this.onPreloadAssetsLoaded, this);
+
+        this.deviceUtils.init();
 
         this.loadingManager.loadJson('./config.json').then((config: SlotConfig) => {
             this.saveSlotConfig(config);

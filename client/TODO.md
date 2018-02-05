@@ -2,6 +2,8 @@
        - initial hdpi size
        - detect device and load appropriate
 - win text field
+    - bitmap font
+    - web font
 
 - review TODOs and check dependencies
 
