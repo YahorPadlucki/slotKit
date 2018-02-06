@@ -2,43 +2,43 @@
 
 "playBtnIcon.png":
 {
-	"frame": {"x":910,"y":178,"w":65,"h":73},
+	"frame": {"x":479,"y":69,"w":26,"h":30},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":55,"y":52,"w":65,"h":73},
-	"sourceSize": {"w":175,"h":175}
+	"spriteSourceSize": {"x":20,"y":18,"w":26,"h":30},
+	"sourceSize": {"w":66,"h":66}
 },
 "reelsBack.png":
 {
-	"frame": {"x":1,"y":1,"w":824,"h":478},
+	"frame": {"x":1,"y":1,"w":442,"h":359},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":824,"h":478},
-	"sourceSize": {"w":824,"h":478}
+	"spriteSourceSize": {"x":0,"y":0,"w":442,"h":359},
+	"sourceSize": {"w":442,"h":359}
 },
 "spinButtonBack.png":
 {
-	"frame": {"x":827,"y":1,"w":175,"h":175},
+	"frame": {"x":445,"y":1,"w":66,"h":66},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":175,"h":175},
-	"sourceSize": {"w":175,"h":175}
+	"spriteSourceSize": {"x":0,"y":0,"w":66,"h":66},
+	"sourceSize": {"w":66,"h":66}
 },
 "stopBtnIcon.png":
 {
-	"frame": {"x":827,"y":178,"w":81,"h":81},
+	"frame": {"x":445,"y":69,"w":32,"h":32},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":47,"y":47,"w":81,"h":81},
-	"sourceSize": {"w":175,"h":175}
+	"spriteSourceSize": {"x":17,"y":17,"w":32,"h":32},
+	"sourceSize": {"w":66,"h":66}
 }},
 "meta": {
 	"app": "http://www.codeandweb.com/texturepacker",
 	"version": "1.0",
 	"image": "slotAssets-hdpi.png",
 	"format": "RGBA8888",
-	"size": {"w":1024,"h":512},
-	"scale": "0.7",
-	"smartupdate": "$TexturePacker:SmartUpdate:bed20f4584011ba168260dbfbc3331a1:580cd9f32b25fd597867f99390d320ea:c4b55d5775a9103e49249b03462711fb$"
+	"size": {"w":512,"h":512},
+	"scale": "0.75",
+	"smartupdate": "$TexturePacker:SmartUpdate:3a9e89bf83f4e2ed55d282c0cbe1a20c:b4d86798f6c2f58b116590c35049664b:939deed520564a3a7b39d92836eaa22c$"
 }
 }

@@ -7,6 +7,7 @@ import {
     Asset,
     FileType
 } from "./LoadingManager";
+import {DeviceUtils} from "../utils/DeviceUtils";
 
 export class Loader extends EventDispatcher {
 
@@ -62,6 +63,7 @@ export class Loader extends EventDispatcher {
     }
 
     private addImage(id: string, url: string) {
+        url = url.replace("{dpi}", DeviceUtils.density);
         this.loadingQueue.push(new ImageLoader(id, url));
     }
 

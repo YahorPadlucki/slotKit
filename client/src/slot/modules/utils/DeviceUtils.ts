@@ -1,6 +1,6 @@
 export class DeviceUtils {
 
-    public static dencity: string = ""
+    public static density: string = "";
 
     private data = {
         density: {
@@ -33,36 +33,34 @@ export class DeviceUtils {
         // this.aspectRatio = this.deviceLongSide / this.deviceShortSide;
 
 
-        this.setDensity(deviceShortSide, deviceLongSide);
-        DeviceUtils.dencity = "asd";
+        DeviceUtils.density = this.setDensity(deviceShortSide, deviceLongSide);
+        console.log("====Density ", DeviceUtils.density);
 
     }
 
-    public setDensity(deviceShortSide: number, deviceLongSide): void {
+    private setDensity(deviceShortSide: number, deviceLongSide): string {
         const {top, right, bottom, left} = this.data.padding;
         const {width, height} = this.data.safeArea;
         const {density} = this.data;
 
-        const minScale = Math.min(
+        const minScale: number = Math.min(
             (deviceLongSide - left - right) / width,
             (deviceShortSide - top - bottom) / height
         );
-//TODO: improve
-        const densityKeys = Object.keys(density);
-        let resultDensity: string;
+
+        const densityKeys: string[] = Object.keys(density);
+        let resultDensity: string = "";
         for (let i: number = 0; i < densityKeys.length; i++) {
             const densityValue: number = density[densityKeys[i]];
             if (densityValue >= minScale) {
                 const densityIndex = Math.max(0, i - 1);
-                resultDensity = density[densityKeys[densityIndex]];
+                resultDensity = densityKeys[densityIndex];
                 break;
             }
 
-            resultDensity = density[densityKeys[i]];
+            resultDensity = densityKeys[i];
         }
 
-
-        console.log(resultDensity);
-
+        return resultDensity;
     }
 }

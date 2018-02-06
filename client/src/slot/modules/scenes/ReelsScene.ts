@@ -30,7 +30,6 @@ export class ReelsScene extends BaseScene {
         const reelsBack = new Sprite(reelsBackTexture);
 
         reelsBack.pivot = new Point(reelsBack.width / 2, reelsBack.height / 2);
-        reelsBack.scale = new Point(0.5, 0.7);
         this.addChild(reelsBack);
 
         this.addChild(this.reelsContainer);

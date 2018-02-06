@@ -1,13 +1,10 @@
 import {Button} from "../generic/Button";
 import {LoaderCache} from "../../loader/cache/LoaderCache";
 import {get} from "../../utils/locator/locator";
+import {EventDispatcher} from "../../utils/dispatcher/EventDispatcher";
 import Sprite = PIXI.Sprite;
 import Point = PIXI.Point;
 import Texture = PIXI.Texture;
-
-import * as filters from 'pixi-filters';
-import {SlotEvent} from "../../../SlotEvent";
-import {EventDispatcher} from "../../utils/dispatcher/EventDispatcher";
 
 
 export class SpinButton extends Button {
@@ -27,12 +24,10 @@ export class SpinButton extends Button {
 
 
         this.spinButtonBackImage.pivot = new Point(this.spinButtonBackImage.width / 2, this.spinButtonBackImage.height / 2);
-        this.spinButtonBackImage.scale = new Point(0.35, 0.35);
 
         this.addChild(this.spinButtonBackImage);
 
         playIcon.pivot = new Point(playIcon.width / 2.3, playIcon.height / 2);
-        playIcon.scale = new Point(0.35, 0.35);
         this.addChild(playIcon);
 
     }

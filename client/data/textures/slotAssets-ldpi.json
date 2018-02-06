@@ -2,43 +2,43 @@
 
 "playBtnIcon.png":
 {
-	"frame": {"x":128,"y":406,"w":47,"h":52},
+	"frame": {"x":368,"y":1,"w":18,"h":20},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":39,"y":37,"w":47,"h":52},
-	"sourceSize": {"w":125,"h":125}
+	"spriteSourceSize": {"x":13,"y":12,"w":18,"h":20},
+	"sourceSize": {"w":44,"h":44}
 },
 "reelsBack.png":
 {
-	"frame": {"x":1,"y":1,"w":589,"h":342},
+	"frame": {"x":1,"y":1,"w":295,"h":239},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":589,"h":342},
-	"sourceSize": {"w":589,"h":342}
+	"spriteSourceSize": {"x":0,"y":0,"w":295,"h":239},
+	"sourceSize": {"w":295,"h":239}
 },
 "spinButtonBack.png":
 {
-	"frame": {"x":1,"y":345,"w":125,"h":125},
+	"frame": {"x":298,"y":1,"w":44,"h":44},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":125,"h":125},
-	"sourceSize": {"w":125,"h":125}
+	"spriteSourceSize": {"x":0,"y":0,"w":44,"h":44},
+	"sourceSize": {"w":44,"h":44}
 },
 "stopBtnIcon.png":
 {
-	"frame": {"x":128,"y":345,"w":59,"h":59},
+	"frame": {"x":344,"y":1,"w":22,"h":22},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":33,"y":33,"w":59,"h":59},
-	"sourceSize": {"w":125,"h":125}
+	"spriteSourceSize": {"x":11,"y":11,"w":22,"h":22},
+	"sourceSize": {"w":44,"h":44}
 }},
 "meta": {
 	"app": "http://www.codeandweb.com/texturepacker",
 	"version": "1.0",
 	"image": "slotAssets-ldpi.png",
 	"format": "RGBA8888",
-	"size": {"w":1024,"h":512},
+	"size": {"w":512,"h":256},
 	"scale": "0.5",
-	"smartupdate": "$TexturePacker:SmartUpdate:bed20f4584011ba168260dbfbc3331a1:580cd9f32b25fd597867f99390d320ea:c4b55d5775a9103e49249b03462711fb$"
+	"smartupdate": "$TexturePacker:SmartUpdate:3a9e89bf83f4e2ed55d282c0cbe1a20c:b4d86798f6c2f58b116590c35049664b:939deed520564a3a7b39d92836eaa22c$"
 }
 }

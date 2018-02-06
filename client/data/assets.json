@@ -11,7 +11,7 @@
     {
       "id": "slotAssets",
       "type": "Atlas",
-      "url": "textures/slotAssets-hdpi.json",
+      "url": "textures/slotAssets-{dpi}.json",
       "priority": "MAIN"
     }
   ]

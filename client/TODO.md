@@ -1,6 +1,3 @@
-- handle assets resolutions
-       - initial hdpi size
-       - detect device and load appropriate
 - win text field
     - bitmap font
     - web font
@@ -18,6 +15,10 @@
 
 - try some static filters
 - that need to be located - should be initit through get?
+
++ handle assets resolutions
+       + initial xhdpi size - no scale for images
+       + detect device and load appropriate density
 
 +spin button states
 + loading assets
