@@ -5,18 +5,21 @@ import {SymbolEvents} from "../symbols/events/SymbolEvents";
 import {IWinSymbolData} from "./interfaces/IWinSymbolData";
 import {SlotModel} from "../../SlotModel";
 import {RewardVO} from "./RewardVO";
+import {RewardsEvents} from "./RewardsEvents";
 
 export class RewardsManager {
 
     private rewardsModel: RewardsModel = get(RewardsModel);
     private slotModel: SlotModel = get(SlotModel);
     private mainResolve;
-    private dispatcher:EventDispatcher = get(EventDispatcher);
+    private dispatcher: EventDispatcher = get(EventDispatcher);
 
 
     public showWinnings(): Promise<any> {
         return new Promise((resolve) => {
             this.mainResolve = resolve;
+
+            this.dispatcher.dispatch(RewardsEvents.SHOW_TOTAL_WIN, this.rewardsModel.totalWin);
 
             this.dispatcher.addListener(SymbolEvents.BLINK_COMPLETE, this.onBlinkComplete, this);
             this.dispatchWinningsDisplayEvent(SymbolEvents.BLINK);

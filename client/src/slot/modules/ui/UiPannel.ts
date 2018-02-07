@@ -2,13 +2,19 @@ import Container = PIXI.Container;
 import Graphics = PIXI.Graphics;
 import {StopButton} from "./spinButton/StopButton";
 import {SpinButton} from "./spinButton/SpinButton";
-import {SpinButtonController} from "./spinButton/SpinButtonController";
+import {SpinButtonMediator} from "./spinButton/SpinButtonMediator";
+import {WinFieldView} from "./winField/WinFieldView";
+import {WinFieldMediator} from "./winField/WinFieldMediator";
 
 export class UiPanel extends Container {
 
     private spinButton: SpinButton;
     private stopButton: StopButton;
-    private spinButtonController: SpinButtonController;
+    private spinButtonMediator: SpinButtonMediator;
+
+    private winFieldView: WinFieldView;
+    private winFieldMediator: WinFieldMediator;
+
     private panelHeight: number = 100;
     private panelWidth: number = 800;
 
@@ -17,10 +23,16 @@ export class UiPanel extends Container {
         super();
         this.spinButton = new SpinButton();
         this.stopButton = new StopButton();
-        this.spinButtonController = new SpinButtonController(this.spinButton, this.stopButton);
+        this.spinButtonMediator = new SpinButtonMediator(this.spinButton, this.stopButton);
 
         this.stopButton.y = this.spinButton.y = this.panelHeight / 2;
         this.stopButton.x = this.spinButton.x = this.panelWidth - this.spinButton.width;
+
+        this.winFieldView = new WinFieldView();
+        this.winFieldMediator = new WinFieldMediator(this.winFieldView);
+
+        this.winFieldView.x = this.panelWidth / 2;
+        this.winFieldView.y = this.panelHeight / 2;
 
 
         const back = new Graphics();
@@ -32,6 +44,8 @@ export class UiPanel extends Container {
 
         this.addChild(this.spinButton);
         this.addChild(this.stopButton);
+
+        this.addChild(this.winFieldView);
 
     }
 

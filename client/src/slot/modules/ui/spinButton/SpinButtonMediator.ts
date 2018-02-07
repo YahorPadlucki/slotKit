@@ -5,7 +5,7 @@ import {StopButton} from "./StopButton";
 import {SlotModel, SlotState} from "../../../SlotModel";
 import {get} from "../../utils/locator/locator";
 
-export class SpinButtonController {
+export class SpinButtonMediator {
 
 
     private slotModel: SlotModel = get(SlotModel);
