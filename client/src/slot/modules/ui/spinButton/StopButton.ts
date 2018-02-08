@@ -22,11 +22,9 @@ export class StopButton extends Button {
 
 
         this.stopButtonBackImage.pivot = new Point(this.stopButtonBackImage.width / 2, this.stopButtonBackImage.height / 2);
-        this.stopButtonBackImage.scale = new Point(0.35, 0.35);
         this.addChild(this.stopButtonBackImage);
 
         stopIcon.pivot = new Point(stopIcon.width / 2, stopIcon.height / 2);
-        stopIcon.scale = new Point(0.35, 0.35);
         this.addChild(stopIcon);
     }
 }
