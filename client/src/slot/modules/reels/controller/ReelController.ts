@@ -1,5 +1,8 @@
 import {ReelView} from "../view/ReelView";
-import {ReelModel, ReelState} from "../model/ReelModel";
+import {
+    ReelModel,
+    ReelState
+} from "../model/ReelModel";
 import {EventDispatcher} from "../../utils/dispatcher/EventDispatcher";
 import {SlotEvent} from "../../../SlotEvent";
 import {SlotModel} from "../../../SlotModel";
@@ -14,8 +17,7 @@ export class ReelController {
 
     private slotModel: SlotModel = get(SlotModel);
 
-    private dispatcher:EventDispatcher = get(EventDispatcher);
-
+    private dispatcher: EventDispatcher = get(EventDispatcher);
 
 
     constructor(reelView: ReelView, model: ReelModel) {
@@ -38,6 +40,7 @@ export class ReelController {
         switch (this.model.currentState) {
             case ReelState.Idle:
                 this.model.currentState = ReelState.StartSpin;
+                this.dispatcher.dispatch(SlotEvent.REELS_SPIN_STARTED);
                 break;
         }
     }

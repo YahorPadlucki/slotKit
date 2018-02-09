@@ -4,7 +4,7 @@ import Text = PIXI.Text;
 export class WinFieldView extends Container {
     private text: Text;
 
-    private centerX: number;
+    private idleText: string = "Good Luck!";
 
     constructor() {
         super();
@@ -25,14 +25,25 @@ export class WinFieldView extends Container {
         this.addChild(this.text);
     }
 
-    public showTotalWin(totalWin: number) {
+    public showTotalWin(totalWin: number): void {
 
-        this.text.text =  totalWin.toLocaleString('en-IN', {
+        this.text.text = totalWin.toLocaleString('en-IN', {
             minimumFractionDigits: 2,
             maximumFractionDigits: 2
 
         });
-        this.text.x = -this.text.width / 2;
 
+
+        this.align();
+    }
+
+
+    public showIdleLabel(): void {
+        this.text.text = this.idleText;
+        this.align();
+    }
+
+    private align() {
+        this.text.x = -this.text.width / 2;
     }
 }

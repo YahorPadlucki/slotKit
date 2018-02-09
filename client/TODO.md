@@ -1,8 +1,6 @@
-- win text field
-    - bitmap font
-    - web font
-
 - review TODOs and check dependencies
+
+- bitmap font
 
 - spaceBar control
 

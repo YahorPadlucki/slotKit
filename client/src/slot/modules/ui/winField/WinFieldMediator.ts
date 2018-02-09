@@ -2,6 +2,7 @@ import {WinFieldView} from "./WinFieldView";
 import {EventDispatcher} from "../../utils/dispatcher/EventDispatcher";
 import {get} from "../../utils/locator/locator";
 import {RewardsEvents} from "../../rewards/RewardsEvents";
+import {SlotEvent} from "../../../SlotEvent";
 
 export class WinFieldMediator {
 
@@ -11,7 +12,9 @@ export class WinFieldMediator {
 
 
     constructor(private view: WinFieldView) {
+        this.view.showIdleLabel();
         this.dispatcher.addListener(RewardsEvents.SHOW_TOTAL_WIN, this.showTotalWin, this);
+        this.dispatcher.addListener(SlotEvent.REELS_SPIN_STARTED, () => this.view.showIdleLabel(), this);
 
     }
 
