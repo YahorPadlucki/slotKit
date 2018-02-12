@@ -1,12 +1,13 @@
-- review TODOs and check dependencies
-
-- bitmap font
-
-- spaceBar control
 
 - issues:
     - with stopping reels
     - loosing focus, return
+
+- bitmap font
+
+- draw dependencies scheme
+
+- spaceBar control
 
 - also polyfill fetch? check on old browser
 - add linter

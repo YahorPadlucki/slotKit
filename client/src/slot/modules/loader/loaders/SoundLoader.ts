@@ -29,7 +29,6 @@ export class SoundLoader extends FileLoader {
         this.idList.push(id);
     }
 
-    //TODO:load progress handler
     load() {
         this.sound = new Howl({src: [this.getSoundUrl(this._url,"ogg"),this.getSoundUrl(this._url,"mp3")]});
 

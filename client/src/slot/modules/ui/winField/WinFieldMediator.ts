@@ -8,18 +8,32 @@ export class WinFieldMediator {
 
     private dispatcher: EventDispatcher = get(EventDispatcher);
 
-    protected visibleValue: number;
+    protected visibleValue: number = 0;
+    private totalWinToShow: number = 0;
 
 
     constructor(private view: WinFieldView) {
         this.view.showIdleLabel();
         this.dispatcher.addListener(RewardsEvents.SHOW_TOTAL_WIN, this.showTotalWin, this);
-        this.dispatcher.addListener(SlotEvent.REELS_SPIN_STARTED, () => this.view.showIdleLabel(), this);
+        this.dispatcher.addListener(SlotEvent.REELS_SPIN_STARTED, this.onReelsSpinStarted, this);
 
     }
 
-    showTotalWin(totalWin: number): void {
-        // this.view.showTotalWin(totalWin);
+    private onReelsSpinStarted(): void {
+
+        TweenLite.killTweensOf(this);
+
+
+        if (this.totalWinToShow > 0) {
+            this.view.showTotalWin(this.totalWinToShow);
+        }
+
+        setTimeout(() => this.view.showIdleLabel(), 500);
+        this.totalWinToShow = 0;
+    }
+
+    private showTotalWin(totalWin: number): void {
+        this.totalWinToShow = totalWin;
         this.visibleValue = 0;
         TweenLite.killTweensOf(this);
         TweenLite.to(
