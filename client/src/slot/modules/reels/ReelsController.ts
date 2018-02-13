@@ -2,7 +2,10 @@ import Container = PIXI.Container;
 import Graphics = PIXI.Graphics;
 import {ReelView} from "./view/ReelView";
 import {EventDispatcher} from "../utils/dispatcher/EventDispatcher";
-import {ReelModel, ReelState} from "./model/ReelModel";
+import {
+    ReelModel,
+    ReelState
+} from "./model/ReelModel";
 import {ReelController} from "./controller/ReelController";
 import {SlotEvent} from "../../SlotEvent";
 import {SlotModel} from "../../SlotModel";
@@ -10,6 +13,7 @@ import {get} from "../utils/locator/locator";
 import {SlotConfig} from "../../SlotConfig";
 
 export class ReelsController extends Container {
+
 
     private reelsCount: number;
     private reelsGap: number;
@@ -24,7 +28,7 @@ export class ReelsController extends Container {
 
     private reelsStopped: boolean = false;
     public visibleHeight: number = 415;
-    private dispatcher:EventDispatcher = get(EventDispatcher);
+    private dispatcher: EventDispatcher = get(EventDispatcher);
 
 
     constructor() {
@@ -56,6 +60,13 @@ export class ReelsController extends Container {
         this.mask = this.reelsMask;
 
         this.dispatcher.addListener(SlotEvent.ENTER_FRAME, this.onEnterFrame, this);
+
+        this.dispatcher.addListener(SlotEvent.SERVER_SPIN_RESPONSE_RECEIVED, this.onServerResponse, this);
+
+    }
+
+    onServerResponse(): any {
+        this.reelsControllers.forEach(reelController => reelController.stopOnServerResponse());
     }
 
     private onEnterFrame(deltaTime: number): void {
@@ -69,6 +80,7 @@ export class ReelsController extends Container {
         });
 
         if (allReelsIdle && !this.reelsStopped) {
+            console.log("====== all stopped");
             this.reelsStopped = true;
             this.dispatcher.dispatch(SlotEvent.REELS_STOPPED);
         }

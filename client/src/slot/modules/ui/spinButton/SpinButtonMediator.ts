@@ -52,6 +52,7 @@ export class SpinButtonMediator {
     }
 
     onSlotStateChanged(): any {
+        console.log("==== slot state"+this.slotModel.state)
         if (this.slotModel.state === SlotState.Idle||this.slotModel.state === SlotState.ShowWin) {
             this.disableStop();
             this.enableSpin();

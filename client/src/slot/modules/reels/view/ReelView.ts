@@ -118,7 +118,7 @@ export class ReelView extends Container {
         const topSymbol = this.symbolsInTape[0];
         const bottomSymbol = this.symbolsInTape[this.symbolsInTape.length - 1];
 
-        if (topSymbol.y >= -topSymbol.symbolHeight) {
+        if (topSymbol.y >= -topSymbol.symbolHeight) { //TODO -105>=-100
 
             if (this.reelModel.currentState == ReelState.StartStop) {
 
@@ -202,7 +202,7 @@ export class ReelView extends Container {
         TweenLite.killTweensOf(this);
 
         this.spinSpeed = 0;
-        this.readyToStop = false;
+        // this.readyToStop = false;
         this.reelModel.currentState = ReelState.Stopping;
 
         const topVisibleSymbol = this.symbolsInTape[1];

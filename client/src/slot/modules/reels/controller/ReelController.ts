@@ -12,7 +12,7 @@ export class ReelController {
     public reelView: ReelView;
     public model: ReelModel;
 
-    private autoStopTime: number = 2000;
+    private autoStopTime: number = 500;
     private autoStopTimer: any;
 
     private slotModel: SlotModel = get(SlotModel);
@@ -29,7 +29,6 @@ export class ReelController {
         this.dispatcher.addListener(SlotEvent.SPIN_CLICK, this.onSpinClicked, this);
         this.dispatcher.addListener(SlotEvent.STOP_CLICK, this.onStopClicked, this);
 
-        this.dispatcher.addListener(SlotEvent.SERVER_SPIN_RESPONSE_RECEIVED, this.onServerResponse, this);
         this.dispatcher.addListener(SlotEvent.NEW_REELS_TAPES_RECEIVED, () => this.model.updateTape(this.slotModel.tapes[this.model.reelIndex]), this);
     }
 
@@ -45,8 +44,11 @@ export class ReelController {
         }
     }
 
-    private onServerResponse(): void {
-        this.autoStopTimer = setTimeout(() => this.stopReel(), this.autoStopTime + (this.model.reelIndex * 200));
+    public stopOnServerResponse(): void {
+        if (!this.isReelActive) return;
+
+        const stopTime = this.autoStopTime + (this.model.reelIndex * 500);
+        this.autoStopTimer = setTimeout(() => this.stopReel(), stopTime);
     }
 
     private onStopClicked(): void {
@@ -54,7 +56,6 @@ export class ReelController {
     }
 
     private stopReel(isManual: boolean = false) {
-        if (this.model.currentState == ReelState.Idle) return;
 
         clearTimeout(this.autoStopTimer);
         if (isManual) {
@@ -63,4 +64,9 @@ export class ReelController {
             this.model.currentState = ReelState.StartStop;
         }
     }
+
+    private get isReelActive(): boolean {
+        return (this.model.currentState == ReelState.StartSpin || this.model.currentState == ReelState.Spin || this.model.currentState == ReelState.Stopping)
+    }
+
 }
