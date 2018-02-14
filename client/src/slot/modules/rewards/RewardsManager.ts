@@ -11,13 +11,17 @@ export class RewardsManager {
 
     private rewardsModel: RewardsModel = get(RewardsModel);
     private slotModel: SlotModel = get(SlotModel);
-    private mainResolve;
     private dispatcher: EventDispatcher = get(EventDispatcher);
 
 
+    private mainResolve: Function;
+    private reject: Function;
+
+
     public showWinnings(): Promise<any> {
-        return new Promise((resolve) => {
+        return new Promise((resolve, reject) => {
             this.mainResolve = resolve;
+            this.reject = reject;
 
             this.dispatcher.dispatch(RewardsEvents.SHOW_TOTAL_WIN, this.rewardsModel.totalWin);
 
@@ -27,6 +31,10 @@ export class RewardsManager {
     }
 
     public cancelShowWinnings() {
+        if (this.reject) {
+            this.reject();
+
+        }
         this.dispatchWinningsDisplayEvent(SymbolEvents.STOP_BLINK);
     }
 

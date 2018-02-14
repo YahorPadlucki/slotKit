@@ -57,11 +57,12 @@ export class SlotController {
     private onReelsStopped() {
         if (this.rewardsModel.totalWin > 0) {
             this.slotModel.state = SlotState.ShowWin;
-            this.rewardsManager.showWinnings().then(() => this.slotModel.state = SlotState.Idle);
+            this.rewardsManager.showWinnings();
         }
-        else {
-            this.slotModel.state = SlotState.Idle;
-        }
+
+
+        this.slotModel.state = SlotState.Idle
+
     }
 
     private handleServerSpinResponse(serverResponse: ISpinResponse) {

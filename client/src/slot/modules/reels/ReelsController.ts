@@ -62,10 +62,22 @@ export class ReelsController extends Container {
         this.dispatcher.addListener(SlotEvent.ENTER_FRAME, this.onEnterFrame, this);
 
         this.dispatcher.addListener(SlotEvent.SERVER_SPIN_RESPONSE_RECEIVED, this.onServerResponse, this);
+        this.dispatcher.addListener(SlotEvent.STOP_CLICK, this.onStopClicked, this);
+        this.dispatcher.addListener(SlotEvent.SPIN_CLICK, this.onSpinClicked, this);
+
 
     }
 
-    onServerResponse(): any {
+    private onSpinClicked(): void {
+        this.reelsStopped = false;
+        this.reelsControllers.forEach(reelsController => reelsController.onSpinClicked())
+    }
+
+    private onStopClicked(): void {
+        this.reelsControllers.forEach(reelController => reelController.onStopClicked());
+    }
+
+    private onServerResponse(): void {
         this.reelsControllers.forEach(reelController => reelController.stopOnServerResponse());
     }
 

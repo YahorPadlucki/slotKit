@@ -1,6 +1,6 @@
 
 - issues:
-    - with stopping reels
+    - auto stop + manual stop
     - loosing focus, return
 
 - bitmap font

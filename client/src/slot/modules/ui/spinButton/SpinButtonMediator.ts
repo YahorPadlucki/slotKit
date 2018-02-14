@@ -2,14 +2,17 @@ import {SpinButton} from "./SpinButton";
 import {EventDispatcher} from "../../utils/dispatcher/EventDispatcher";
 import {SlotEvent} from "../../../SlotEvent";
 import {StopButton} from "./StopButton";
-import {SlotModel, SlotState} from "../../../SlotModel";
+import {
+    SlotModel,
+    SlotState
+} from "../../../SlotModel";
 import {get} from "../../utils/locator/locator";
 
 export class SpinButtonMediator {
 
 
     private slotModel: SlotModel = get(SlotModel);
-    private dispatcher:EventDispatcher = get(EventDispatcher);
+    private dispatcher: EventDispatcher = get(EventDispatcher);
 
 
     constructor(private spinButton: SpinButton, private stopButton: StopButton) {
@@ -47,19 +50,18 @@ export class SpinButtonMediator {
         this.dispatcher.dispatch(SlotEvent.SPIN_CLICK);
     }
 
-    onServerResponse(): any {
+    onServerResponse(): void {
         this.enableStop();
     }
 
-    onSlotStateChanged(): any {
-        console.log("==== slot state"+this.slotModel.state)
-        if (this.slotModel.state === SlotState.Idle||this.slotModel.state === SlotState.ShowWin) {
+    onSlotStateChanged(): void {
+        if (this.slotModel.state === SlotState.Idle || this.slotModel.state === SlotState.ShowWin) {
             this.disableStop();
             this.enableSpin();
         }
-      /*  if (this.slotModel.state === SlotState.ShowWin) {
-            this.disableStop();
-        }*/
+        /*  if (this.slotModel.state === SlotState.ShowWin) {
+              this.disableStop();
+          }*/
     }
 
     private onStopClick(): void {
