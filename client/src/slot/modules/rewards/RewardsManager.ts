@@ -19,9 +19,8 @@ export class RewardsManager {
 
 
     public showWinnings(): Promise<any> {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             this.mainResolve = resolve;
-            this.reject = reject;
 
             this.dispatcher.dispatch(RewardsEvents.SHOW_TOTAL_WIN, this.rewardsModel.totalWin);
 
@@ -31,10 +30,6 @@ export class RewardsManager {
     }
 
     public cancelShowWinnings() {
-        if (this.reject) {
-            this.reject();
-
-        }
         this.dispatchWinningsDisplayEvent(SymbolEvents.STOP_BLINK);
     }
 

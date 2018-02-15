@@ -54,20 +54,22 @@ export class ReelController {
         if (!this.isReelSpinning) return;
         clearTimeout(this.autoStopTimer);
 
-        this.stopReel(!auto)
+        this.stopReel(auto)
     }
 
-    private stopReel(isManual: boolean = false) {
+    private stopReel(isAutoStop: boolean = false) {
 
-        if (isManual) {
-            this.model.currentState = ReelState.ManualStop;
-        } else {
+        if (isAutoStop) {
             this.model.currentState = ReelState.StartStop;
+
+        } else {
+            this.model.currentState = ReelState.ManualStop;
+
         }
     }
 
     private get isReelSpinning(): boolean {
-        return (this.model.currentState == ReelState.StartSpin || this.model.currentState == ReelState.Spin )
+        return this.model.currentState != ReelState.Idle && this.model.currentState != ReelState.Stopping;
     }
 
 }
