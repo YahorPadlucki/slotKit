@@ -1,6 +1,9 @@
 import Container = PIXI.Container;
 import {SymbolView} from "../../symbols/SymbolView";
-import {ReelModel, ReelState} from "../model/ReelModel";
+import {
+    ReelModel,
+    ReelState
+} from "../model/ReelModel";
 import {get} from "../../utils/locator/locator";
 import {SlotModel} from "../../../SlotModel";
 import {SlotConfig} from "../../../SlotConfig";
@@ -107,7 +110,7 @@ export class ReelView extends Container {
     }
 
     private spin(deltaTime: number): void {
-        this.symbolsInTape.forEach((symbol) => symbol.y += this.spinSpeed / 1000 * deltaTime);
+        this.symbolsInTape.forEach((symbol) => symbol.y += this.spinSpeed);
         if (this.reelModel.currentState !== ReelState.Stopping)
             this.updateSymbols();
 
@@ -118,7 +121,7 @@ export class ReelView extends Container {
         const topSymbol = this.symbolsInTape[0];
         const bottomSymbol = this.symbolsInTape[this.symbolsInTape.length - 1];
 
-        if (topSymbol.y >= -topSymbol.symbolHeight+this.verticalGap) {
+        if (topSymbol.y >= -topSymbol.symbolHeight + this.verticalGap) {
 
             if (this.reelModel.currentState == ReelState.StartStop) {
 

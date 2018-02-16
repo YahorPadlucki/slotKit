@@ -92,7 +92,6 @@ export class ReelsController extends Container {
         });
 
         if (allReelsIdle && !this.reelsStopped) {
-            console.log("====== all stopped");
             this.reelsStopped = true;
             this.dispatcher.dispatch(SlotEvent.REELS_STOPPED);
         }

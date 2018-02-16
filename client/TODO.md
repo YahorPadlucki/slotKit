@@ -1,19 +1,15 @@
-
-- issues:
-    - auto stop + manual stop
-    - loosing focus, return
-
-- bitmap font
+- spaceBar control
 
 - draw dependencies scheme
-
-- spaceBar control
 
 - also polyfill fetch? check on old browser
 - add linter
 
 - try some static filters
+- bitmap font
 - that need to be located - should be initit through get?
+
++ loosing focus and spinning
 
 + handle assets resolutions
        + initial xhdpi size - no scale for images
