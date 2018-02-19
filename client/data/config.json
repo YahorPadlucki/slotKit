@@ -4,7 +4,7 @@
   "reels": {
     "reelsCount": 5,
     "rowsCount": 4,
-    "maxSpinSpeed": 25,
+    "maxSpinSpeed": 10,
     "gapBetweenReels": 15,
     "gapBetweenRows":5,
     "visibleHeight": 415

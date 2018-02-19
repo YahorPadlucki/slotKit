@@ -16,6 +16,7 @@ import {IConfigJson} from "./slot/modules/server/serverEmulator/IConfigJson";
 import {SlotConfig} from "./slot/SlotConfig";
 import {ImageLoader} from "./slot/modules/loader/loaders/ImageLoader";
 import {DeviceUtils} from "./slot/modules/utils/DeviceUtils";
+import {KeyboardManager} from "./slot/modules/utils/KeyboardManager";
 
 export class Main {
 
@@ -36,6 +37,8 @@ export class Main {
     private dispatcher: EventDispatcher = get(EventDispatcher);
     private deviceUtils: DeviceUtils = get(DeviceUtils);
 
+    private keyBoardManager: KeyboardManager;
+
 
     constructor() {
 
@@ -52,6 +55,8 @@ export class Main {
         this.dispatcher.addListener(LoadingManagerEvent.PRELOAD_ASSETS_LOADED, this.onPreloadAssetsLoaded, this);
 
         this.deviceUtils.init();
+
+        this.keyBoardManager = get(KeyboardManager);
 
         this.loadingManager.loadJson('./config.json').then((config: SlotConfig) => {
             this.saveSlotConfig(config);

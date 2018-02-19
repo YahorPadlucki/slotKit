@@ -10,6 +10,10 @@ export class Button extends Container {
         this.interactive = false;
         this.buttonMode = false;
     }
+
+    public isEnabled(): boolean {
+        return this.interactive && this.buttonMode;
+    }
 }
 
 export const enum ButtonState {

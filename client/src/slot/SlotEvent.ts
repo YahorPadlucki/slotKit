@@ -14,4 +14,11 @@ export const SlotEvent = {
 
     NEW_REELS_TAPES_RECEIVED: "NEW_REELS_TAPES_RECEIVED"
 
+
+};
+
+export const KeyBoardEvent = {
+    SPACE_DOWN: "KeyBoardEvent.SPACE_DOWN",
+    SPACE_UP: "KeyBoardEvent.SPACE_UP",
+
 };

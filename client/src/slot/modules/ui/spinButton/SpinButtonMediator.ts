@@ -6,6 +6,7 @@ import {
     SlotModel,
     SlotState
 } from "../../../SlotModel";
+import {KeyBoardEvent} from "../../../SlotEvent";
 import {get} from "../../utils/locator/locator";
 
 export class SpinButtonMediator {
@@ -18,6 +19,10 @@ export class SpinButtonMediator {
     constructor(private spinButton: SpinButton, private stopButton: StopButton) {
         this.spinButton.on('pointerdown', this.onSpinClick, this);
         this.stopButton.on('pointerdown', this.onStopClick, this);
+
+        this.dispatcher.addListener(KeyBoardEvent.SPACE_DOWN, this.onSpacePressed, this);
+
+        this.dispatcher.addListener(SlotEvent.SLOT_STATE_CHANGED, this.onSlotStateChanged, this);
 
         this.dispatcher.addListener(SlotEvent.SLOT_STATE_CHANGED, this.onSlotStateChanged, this);
         this.dispatcher.addListener(SlotEvent.SERVER_SPIN_RESPONSE_RECEIVED, this.onServerResponse, this);
@@ -63,6 +68,13 @@ export class SpinButtonMediator {
               this.disableStop();
           }*/
     }
+
+    private onSpacePressed(): void {
+        if (this.spinButton.isEnabled()) {
+            this.onSpinClick();
+        }
+    }
+
 
     private onStopClick(): void {
         this.disableStop();
