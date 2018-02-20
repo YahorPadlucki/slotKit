@@ -73,8 +73,12 @@ export class SpinButtonMediator {
         if (this.spinButton.isEnabled()) {
             this.onSpinClick();
         }
-    }
 
+
+        if (this.stopButton.isEnabled()) {
+            this.onStopClick();
+        }
+    }
 
     private onStopClick(): void {
         this.disableStop();

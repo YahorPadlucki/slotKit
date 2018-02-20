@@ -103,7 +103,8 @@ export class ReelView extends Container {
             {
                 spinSpeed: this.maxSpinSpeed,
                 onComplete: () => {
-                    this.reelModel.currentState = ReelState.Spin;
+                    if (this.reelModel.currentState == ReelState.StartSpin)
+                        this.reelModel.currentState = ReelState.Spin;
                 }
             }
         );

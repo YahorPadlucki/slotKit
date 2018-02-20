@@ -1,5 +1,3 @@
-- spaceBar control
-
 - draw dependencies scheme
 
 - also polyfill fetch? check on old browser
@@ -9,6 +7,7 @@
 - bitmap font
 - that need to be located - should be initit through get?
 
++ spaceBar control
 + loosing focus and spinning
 
 + handle assets resolutions

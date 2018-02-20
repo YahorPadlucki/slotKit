@@ -15,7 +15,6 @@ export class KeyboardManager {
 
         if (e.keyCode === 32) {
             this.dispatcher.dispatch(KeyBoardEvent.SPACE_DOWN);
-            console.log("KeyboardEventManage | onKeyboardEvent __ KeyboardEvent.SPACEBAR");
         }
     }
 
@@ -23,7 +22,6 @@ export class KeyboardManager {
 
         if (e.keyCode === 32) {
             this.dispatcher.dispatch(KeyBoardEvent.SPACE_UP);
-            console.log("====== key up")
         }
     }
 }
