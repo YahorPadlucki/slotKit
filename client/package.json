@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack"
+    "build": "webpack",
+    "lint": "tslint -t codeFrame 'src/**/*.ts'",
+    "precommit": "npm run lint"
   },
   "author": "",
   "license": "MIT",
@@ -28,6 +30,7 @@
     "source-map-loader": "^0.2.1",
     "typescript": "^2.4.2",
     "webpack": "^3.5.5",
-    "webpack-stream": "^4.0.0"
+    "webpack-stream": "^4.0.0",
+    "tslint": "^5.7.0"
   }
 }

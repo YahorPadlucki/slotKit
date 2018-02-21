@@ -1,20 +1,20 @@
 import {SpinButton} from "./SpinButton";
 import {EventDispatcher} from "../../utils/dispatcher/EventDispatcher";
-import {SlotEvent} from "../../../SlotEvent";
+import {
+    KeyBoardEvent,
+    SlotEvent
+} from "../../../SlotEvent";
 import {StopButton} from "./StopButton";
 import {
     SlotModel,
     SlotState
 } from "../../../SlotModel";
-import {KeyBoardEvent} from "../../../SlotEvent";
 import {get} from "../../utils/locator/locator";
 
 export class SpinButtonMediator {
 
-
     private slotModel: SlotModel = get(SlotModel);
     private dispatcher: EventDispatcher = get(EventDispatcher);
-
 
     constructor(private spinButton: SpinButton, private stopButton: StopButton) {
         this.spinButton.on('pointerdown', this.onSpinClick, this);
