@@ -15,7 +15,6 @@ export class LoadingScene extends BaseScene {
         const sceneBack = this.getSceneBackGraphics();
         this.addChild(sceneBack);
 
-
         this.progressBar = new LoadingBar();
         this.progressBar.pivot = new Point(0.5, 0.5);
         this.addChild(this.progressBar);

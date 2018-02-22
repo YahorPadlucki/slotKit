@@ -14,8 +14,9 @@ export class SlotView extends Container {
 
     public showScene(sceneId: SceneID): void {
 
-        if (this.currentScene)
+        if (this.currentScene) {
             this.removeChild(this.currentScene);
+        }
 
         switch (sceneId) {
             case SceneID.LOADING_SCENE:
@@ -39,7 +40,6 @@ export class SlotView extends Container {
         return new LoadingScene(this.minWidth, this.minHeight);
     }
 
-
     resize(width: number, height: number) {
 
         const scale = Math.min(Math.min(width, this.minWidth) / this.minWidth, Math.min(height, this.minHeight) / this.minHeight);
@@ -53,4 +53,3 @@ export const enum SceneID {
     REELS_SCENE,
     LOADING_SCENE
 }
-

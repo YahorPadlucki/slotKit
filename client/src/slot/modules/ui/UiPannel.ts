@@ -18,7 +18,6 @@ export class UiPanel extends Container {
     private panelHeight: number = 100;
     private panelWidth: number = 800;
 
-
     constructor() {
         super();
         this.spinButton = new SpinButton();
@@ -33,7 +32,6 @@ export class UiPanel extends Container {
 
         this.winFieldView.x = this.panelWidth / 2;
         this.winFieldView.y = this.panelHeight / 2;
-
 
         const back = new Graphics();
         back.beginFill(0x706F6D, 0.5);

@@ -1,6 +1,6 @@
 import {EventMap} from "./Event";
 import {List} from "../dataStructures/List";
-import {EventListener} from "./EventListener"
+import {EventListener} from "./EventListener";
 
 export class EventDispatcher {
 
@@ -18,10 +18,9 @@ export class EventDispatcher {
         this.eventMaps.removeByFilter({event: event, listener: listener, scope: scope});
     }
 
-
     public dispatch(event: string, data?: any) {
         this.eventMaps.getByFilter({event: event}).forEach((eventMap) => {
             eventMap.eventListener.call(eventMap.scope, data);
-        })
+        });
     }
 }

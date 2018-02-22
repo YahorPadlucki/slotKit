@@ -11,7 +11,6 @@ export class WinFieldMediator {
     protected visibleValue: number = 0;
     private totalWinToShow: number = 0;
 
-
     constructor(private view: WinFieldView) {
         this.view.showIdleLabel();
         this.dispatcher.addListener(RewardsEvents.SHOW_TOTAL_WIN, this.showTotalWin, this);
@@ -22,7 +21,6 @@ export class WinFieldMediator {
     private onReelsSpinStarted(): void {
 
         TweenLite.killTweensOf(this);
-
 
         if (this.totalWinToShow > 0) {
             this.view.showTotalWin(this.totalWinToShow);

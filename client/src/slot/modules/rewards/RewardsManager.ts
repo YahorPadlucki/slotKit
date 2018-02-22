@@ -13,10 +13,8 @@ export class RewardsManager {
     private slotModel: SlotModel = get(SlotModel);
     private dispatcher: EventDispatcher = get(EventDispatcher);
 
-
     private mainResolve: Function;
     private reject: Function;
-
 
     public showWinnings(): Promise<any> {
         return new Promise((resolve) => {
@@ -34,7 +32,7 @@ export class RewardsManager {
     }
 
     private dispatchWinningsDisplayEvent(event: string) {
-        if (!this.rewardsModel.rewards) return;
+        if (!this.rewardsModel.rewards) { return; }
 
         this.rewardsModel.rewards.forEach((rewardVO: RewardVO) => {
             const winLine: number[] = this.slotModel.lines[rewardVO.lineId];

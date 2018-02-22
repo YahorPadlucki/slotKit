@@ -39,7 +39,6 @@ export class Main {
 
     private keyBoardManager: KeyboardManager;
 
-
     constructor() {
 
         const width = this.getWidth();
@@ -81,7 +80,7 @@ export class Main {
             this.stage.addChild(this.slotView);
 
             this.slotController = new SlotController(this.slotView);
-            this.slotController.makeInitRequest().then(() => this.onInitResponse())
+            this.slotController.makeInitRequest().then(() => this.onInitResponse());
         });
     }
 
@@ -101,7 +100,6 @@ export class Main {
         window.addEventListener("resize", () => this.onResize(), true);
 
         Ticker.shared.add(this.onTickUpdate, this);
-
 
     }
 
@@ -142,7 +140,7 @@ export class Main {
     }
 
     private getHeight() {
-        return document.documentElement.clientHeight
+        return document.documentElement.clientHeight;
     }
 }
 

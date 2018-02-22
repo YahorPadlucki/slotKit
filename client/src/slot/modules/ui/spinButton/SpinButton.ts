@@ -6,13 +6,11 @@ import Sprite = PIXI.Sprite;
 import Point = PIXI.Point;
 import Texture = PIXI.Texture;
 
-
 export class SpinButton extends Button {
 
     private loaderCache: LoaderCache = get(LoaderCache);
     private spinButtonBackImage: Sprite;
     private dispatcher: EventDispatcher = get(EventDispatcher);
-
 
     constructor() {
         super();
@@ -21,7 +19,6 @@ export class SpinButton extends Button {
 
         const playIconTexture: Texture = this.loaderCache.getTexture("playBtnIcon");
         const playIcon: Sprite = new Sprite(playIconTexture);
-
 
         this.spinButtonBackImage.pivot = new Point(this.spinButtonBackImage.width / 2, this.spinButtonBackImage.height / 2);
 

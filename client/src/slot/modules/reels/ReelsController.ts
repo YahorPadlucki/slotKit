@@ -14,7 +14,6 @@ import {SlotConfig} from "../../SlotConfig";
 
 export class ReelsController extends Container {
 
-
     private reelsCount: number;
     private reelsGap: number;
 
@@ -29,7 +28,6 @@ export class ReelsController extends Container {
     private reelsStopped: boolean = false;
     public visibleHeight: number = 415;
     private dispatcher: EventDispatcher = get(EventDispatcher);
-
 
     constructor() {
         super();
@@ -65,12 +63,11 @@ export class ReelsController extends Container {
         this.dispatcher.addListener(SlotEvent.STOP_CLICK, this.onStopClicked, this);
         this.dispatcher.addListener(SlotEvent.SPIN_CLICK, this.onSpinClicked, this);
 
-
     }
 
     private onSpinClicked(): void {
         this.reelsStopped = false;
-        this.reelsControllers.forEach(reelsController => reelsController.onSpinClicked())
+        this.reelsControllers.forEach(reelsController => reelsController.onSpinClicked());
     }
 
     private onStopClicked(): void {
@@ -85,7 +82,7 @@ export class ReelsController extends Container {
         let allReelsIdle: boolean = true;
         //TODO:refactor
         this.reelsControllers.forEach(reelController => {
-            if (reelController.model.currentState != ReelState.Idle) {
+            if (reelController.model.currentState !== ReelState.Idle) {
                 this.reelsStopped = false;
                 allReelsIdle = false;
             }

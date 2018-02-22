@@ -6,7 +6,7 @@ export class Sound {
     }
 
     public play(loop: number = 0): void {
-        if (loop != 0) {
+        if (loop !== 0) {
             if (loop > 0) {
                 this.instance.loop(true, loop);
             } else {
@@ -56,6 +56,5 @@ export class Sound {
     public resume(): void {
         this.instance.play();
     }
-
 
 }

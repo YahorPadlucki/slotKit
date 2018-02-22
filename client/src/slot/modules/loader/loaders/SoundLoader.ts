@@ -12,7 +12,6 @@ export class SoundLoader extends FileLoader {
 
     private soundManager: SoundManager = get(SoundManager);
 
-
     private readonly LOAD_EVENT_NAME: string = "load";
     private readonly LOAD_EVENT_ID: number = 1;
 
@@ -30,7 +29,7 @@ export class SoundLoader extends FileLoader {
     }
 
     load() {
-        this.sound = new Howl({src: [this.getSoundUrl(this._url,"ogg"),this.getSoundUrl(this._url,"mp3")]});
+        this.sound = new Howl({src: [this.getSoundUrl(this._url, "ogg"), this.getSoundUrl(this._url, "mp3")]});
 
         this.sound.on(this.LOAD_EVENT_NAME, () => this.loadCompleteHandler(), this.LOAD_EVENT_ID);
         this.sound.on(this.LOAD_ERROR_EVENT_NAME, () => this.loadErrorHandler("sound " + this.idList[0]), this.LOAD_ERROR_EVENT_ID);

@@ -14,7 +14,6 @@ export const SlotEvent = {
 
     NEW_REELS_TAPES_RECEIVED: "NEW_REELS_TAPES_RECEIVED"
 
-
 };
 
 export const KeyBoardEvent = {

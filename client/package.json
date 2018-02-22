@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
     "lint": "tslint -t codeFrame 'src/**/*.ts'",
-    "precommit": "npm run lint"
+    "precommit": "npm run lint",
+    "fix": "tslint --fix -t codeFrame 'src/**/*.ts'"
   },
   "author": "",
   "license": "MIT",
@@ -22,6 +23,7 @@
     "@types/howler": "^2.0.5",
     "@types/es6-promise": "0.0.33",
     "awesome-typescript-loader": "^3.2.3",
+    "husky": "^0.14.3",
     "brfs": "^1.4.3",
     "browserify-versionify": "^1.0.6",
     "gulp": "^3.9.1",

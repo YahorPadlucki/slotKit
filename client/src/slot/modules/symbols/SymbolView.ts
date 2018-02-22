@@ -7,7 +7,6 @@ import {IWinSymbolData} from "../rewards/interfaces/IWinSymbolData";
 
 export class SymbolView extends Container {
 
-
     public symbolWidth: number = 100;
     public symbolHeight: number = 100;
 
@@ -17,8 +16,6 @@ export class SymbolView extends Container {
     private _stopCollumnIndex: number;
 
     private dispatcher:EventDispatcher = get(EventDispatcher);
-
-
 
     constructor(colorIndex: number) {
         super();
@@ -41,8 +38,9 @@ export class SymbolView extends Container {
     }
 
     private blink(winSymbolData: IWinSymbolData) {
-        if (winSymbolData.rowIndex != this._stopRowIndex || winSymbolData.columnIndex != this._stopCollumnIndex)
+        if (winSymbolData.rowIndex !== this._stopRowIndex || winSymbolData.columnIndex !== this._stopCollumnIndex) {
             return;
+        }
 
         TweenLite.killTweensOf(this);
         TweenLite.to(this, 1, {
@@ -52,18 +50,19 @@ export class SymbolView extends Container {
             TweenLite.to(this, 1, {
                 alpha: 1,
                 onComplete: () => {
-                    this.dispatcher.dispatch(SymbolEvents.BLINK_COMPLETE)
+                    this.dispatcher.dispatch(SymbolEvents.BLINK_COMPLETE);
                 }
 
             })
             ;
-        }, 1000)
+        }, 1000);
 
     }
 
     private stopBlink(winSymbolData: IWinSymbolData) {
-        if (winSymbolData.rowIndex != this._stopRowIndex || winSymbolData.columnIndex != this._stopCollumnIndex)
+        if (winSymbolData.rowIndex !== this._stopRowIndex || winSymbolData.columnIndex !== this._stopCollumnIndex) {
             return;
+        }
         TweenLite.killTweensOf(this);
         this.alpha = 1;
     }

@@ -8,9 +8,7 @@ import {get} from "../../utils/locator/locator";
 import {SlotModel} from "../../../SlotModel";
 import {SlotConfig} from "../../../SlotConfig";
 
-
 export class ReelView extends Container {
-
 
     private verticalGap: number;
     private rows: number;
@@ -21,7 +19,6 @@ export class ReelView extends Container {
 
     private spinSpeed: number = 0;
     private maxSpinSpeed: number;
-
 
     private previousState: ReelState = ReelState.Idle;
     private _currentTapeIndex: number = 0;
@@ -35,7 +32,6 @@ export class ReelView extends Container {
     private slotConfig: SlotConfig = get(SlotConfig);
 
     private reelModel: ReelModel;
-
 
     constructor(reelModel: ReelModel) {
         super();
@@ -70,9 +66,9 @@ export class ReelView extends Container {
     }
 
     draw(deltaTime: number) {
-        if (!this.inited) return;
+        if (!this.inited) { return; }
         const currentState = this.reelModel.currentState;
-        if (this.previousState != currentState) {
+        if (this.previousState !== currentState) {
             switch (this.reelModel.currentState) {
                 case ReelState.Idle:
                     break;
@@ -103,8 +99,9 @@ export class ReelView extends Container {
             {
                 spinSpeed: this.maxSpinSpeed,
                 onComplete: () => {
-                    if (this.reelModel.currentState == ReelState.StartSpin)
+                    if (this.reelModel.currentState === ReelState.StartSpin) {
                         this.reelModel.currentState = ReelState.Spin;
+                    }
                 }
             }
         );
@@ -112,8 +109,9 @@ export class ReelView extends Container {
 
     private spin(deltaTime: number): void {
         this.symbolsInTape.forEach((symbol) => symbol.y += this.spinSpeed);
-        if (this.reelModel.currentState !== ReelState.Stopping)
+        if (this.reelModel.currentState !== ReelState.Stopping) {
             this.updateSymbols();
+        }
 
     }
 
@@ -124,14 +122,14 @@ export class ReelView extends Container {
 
         if (topSymbol.y >= -topSymbol.symbolHeight + this.verticalGap) {
 
-            if (this.reelModel.currentState == ReelState.StartStop) {
+            if (this.reelModel.currentState === ReelState.StartStop) {
 
                 const stopPosition = this.getNormalizedPosition(this.slotModel.getStopReelsPosition()[this.reelModel.reelIndex] - 1);
                 const finalBottomRowPosition = this.getNormalizedPosition(stopPosition + this.rows);
 
                 if (!this.stopPositionsPrepared) {
 
-                    if (this.currentTapeIndex != finalBottomRowPosition) {
+                    if (this.currentTapeIndex !== finalBottomRowPosition) {
                         this.currentTapeIndex = finalBottomRowPosition;
                     }
                     this.stopPositionsPrepared = true;
@@ -139,21 +137,19 @@ export class ReelView extends Container {
                 } else {
                     if (!this.readyToStop) {
 
-                        if (this.currentTapeIndex == stopPosition) {
+                        if (this.currentTapeIndex === stopPosition) {
                             this.readyToStop = true;
                         }
 
                     }
                 }
 
-
             } else {
-                if (this.reelModel.currentState == ReelState.ManualStop) {
+                if (this.reelModel.currentState === ReelState.ManualStop) {
                     this.readyToStop = true;
                 }
 
             }
-
 
             this.addSymbolToTop();
         }
@@ -185,18 +181,20 @@ export class ReelView extends Container {
         if (position >= tapeLength) {
             position -= tapeLength;
         }
-        if (position < 0)
+        if (position < 0) {
             position += tapeLength;
+        }
 
         return position;
     }
 
     private checkIfReadyToStop() {
-        if (!this.readyToStop) return;
+        if (!this.readyToStop) { return; }
         const topVisibleSymbol = this.symbolsInTape[1];
         if (topVisibleSymbol.y >= -topVisibleSymbol.height / 2 && topVisibleSymbol.y <= 0) {
-            if (this.reelModel.currentState == ReelState.ManualStop)
+            if (this.reelModel.currentState === ReelState.ManualStop) {
                 this.changeSymbolsToStopSymbols();
+            }
             this.stopSpin();
 
         }

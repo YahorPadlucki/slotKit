@@ -32,8 +32,7 @@ export class Loader extends EventDispatcher {
 
         if (this.loadingQueue.length) {
             this.loadNexFileInQueue();
-        }
-        else {
+        } else {
             this.completeLoading();
         }
     }
@@ -50,7 +49,6 @@ export class Loader extends EventDispatcher {
                 break;
         }
     }
-
 
     private addSound(id: string, url: string): void {
 
@@ -90,7 +88,6 @@ export class Loader extends EventDispatcher {
             this.loadNexFileInQueue();
         }
 
-
     }
 
     private completeLoading(): void {
@@ -109,6 +106,3 @@ export class Loader extends EventDispatcher {
     }
 
 }
-
-
-

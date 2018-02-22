@@ -16,7 +16,6 @@ export class ReelsScene extends BaseScene {
 
     private loaderCache: LoaderCache = get(LoaderCache);
 
-
     constructor(minWidth, minHeight) {
         super(minWidth, minHeight);
         this.sceneBack = this.getSceneBackGraphics();
@@ -38,7 +37,7 @@ export class ReelsScene extends BaseScene {
         this.addChild(this.uiPannel);
 
         this.reelsContainer.y = -this.reelsContainer.visibleHeight / 2 - this.uiPannel.height / 2;
-        reelsBack.y = 0- this.uiPannel.height / 2;
+        reelsBack.y = 0 - this.uiPannel.height / 2;
         // reelsBack.x = 0;
     }
 

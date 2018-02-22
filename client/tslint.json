@@ -29,7 +29,6 @@
     "no-construct": true,
     "no-debugger": true,
     "no-invalid-this": true,
-    "no-unused-expression": true,
     "no-duplicate-variable": true,
     "no-consecutive-blank-lines": true,
     "semicolon": [true, "always", "ignore-interfaces"]

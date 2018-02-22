@@ -21,17 +21,19 @@ export class LoadingManager {
         return new Promise((resolve, reject) => {
             fetch(url).then(result => {
                 result.json().then(data => resolve(data));
-            })
+            });
         });
     }
 
     private onAssetsJsonLoaded(data: AssetsJson): void {
 
         for (let assetId in data) {
-            this.getAssetsByPriority(data[assetId], AssetPriority.PRELOAD).forEach(asset => this.preloadAssetsLoader.addAsset(asset));
-            this.getAssetsByPriority(data[assetId], AssetPriority.MAIN).forEach(asset => this.mainAssetsLoader.addAsset(asset));
-        }
+            if (data.hasOwnProperty(assetId)) {
 
+                this.getAssetsByPriority(data[assetId], AssetPriority.PRELOAD).forEach(asset => this.preloadAssetsLoader.addAsset(asset));
+                this.getAssetsByPriority(data[assetId], AssetPriority.MAIN).forEach(asset => this.mainAssetsLoader.addAsset(asset));
+            }
+        }
 
         this.preloadAssetsLoader.addListener(LoaderEvent.ALL_FILES_LOADED, () => {
             this.dispatcher.dispatch(LoadingManagerEvent.PRELOAD_ASSETS_LOADED);
@@ -39,7 +41,6 @@ export class LoadingManager {
         });
 
         this.preloadAssetsLoader.startLoading();
-
 
         this.mainAssetsLoader.addListener(LoaderEvent.ALL_FILES_LOADED, () => this.dispatcher.dispatch(LoadingManagerEvent.MAIN_ASSETS_LOADED));
 
@@ -54,7 +55,6 @@ export class LoadingManager {
             this.dispatcher.dispatch(LoadingManagerEvent.MAIN_ASSETS_LOAD_PROGRESS, loadedPercent);
         });
 
-
     }
 
     private getAssetsByPriority(assets: Asset[], priority: string): Asset[] {
@@ -64,7 +64,6 @@ export class LoadingManager {
     private getLazyAssets(assets: Asset[]): Asset[] {
         return assets.filter(assets => assets.priority === "");
     }
-
 
 }
 

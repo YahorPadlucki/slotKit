@@ -15,7 +15,6 @@ export class FileLoader extends EventDispatcher {
 
     }
 
-
     get url(): string {
         return this._url;
     }
@@ -49,6 +48,4 @@ export class FileLoader extends EventDispatcher {
     protected loadErrorHandler(event: any): void {
     }
 
-
 }
-

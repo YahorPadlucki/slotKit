@@ -15,12 +15,10 @@ export class SlotModel {
     private rewardsModel: RewardsModel = get(RewardsModel);
     private dispatcher:EventDispatcher = get(EventDispatcher);
 
-
     public parseServerSpinResponse(response: ISpinResponse): void {
         this.parseReels(response.reels);
         this.rewardsModel.parse(response);
     }
-
 
     public parseServerInitResponse(response: IInitResponse): void {
         this.parseReels(response.reels);
@@ -39,20 +37,18 @@ export class SlotModel {
         }
     }
 
-
     private parseLines(lines: number[][]) {
         if (lines) {
             this._lines = lines.concat();
         }
     }
 
-
     public getStopReelsPosition(): number[] {
         return this._stopReelsPosition;
     }
 
     public set state(state: SlotState) {
-        if (this._currentSlotState != state) {
+        if (this._currentSlotState !== state) {
             this._currentSlotState = state;
             this.dispatcher.dispatch(SlotEvent.SLOT_STATE_CHANGED);
         }

@@ -7,7 +7,7 @@ export class List<T> {
     }
 
     public has(item: T): boolean {
-        return this.list.indexOf(item) != -1;
+        return this.list.indexOf(item) !== -1;
     }
 
     public remove(item: T): void {
@@ -23,7 +23,6 @@ export class List<T> {
     public removeByFilter<FilterType>(filter: FilterType): void {
         this.list = this.filter(filter, true);
     }
-
 
     private filter<Filter>(filter: Filter, isInverted: boolean = false): T[] {
         const result: T[] = [];
@@ -50,6 +49,5 @@ export class List<T> {
         }
         return true;
     }
-
 
 }

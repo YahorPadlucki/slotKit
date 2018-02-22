@@ -1,6 +1,5 @@
 export class ReelModel {
 
-
     private _reelIndex: number;
     private _currentState: ReelState;
 

@@ -20,7 +20,6 @@ export class StopButton extends Button {
 
         this.stopButtonBackImage.tint = 0xec1313;
 
-
         this.stopButtonBackImage.pivot = new Point(this.stopButtonBackImage.width / 2, this.stopButtonBackImage.height / 2);
         this.addChild(this.stopButtonBackImage);
 

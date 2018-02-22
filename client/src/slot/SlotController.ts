@@ -31,10 +31,8 @@ export class SlotController {
 
     private slotConfig: SlotConfig = get(SlotConfig);
 
-
     constructor(private view: SlotView) {
         this.dispatcher.addListener(LoadingManagerEvent.MAIN_ASSETS_LOADED, () => this.onMainAssetsLoaded());
-
 
         // this.dispatcher.addListener()//pre-loader
         // this.dispatcher.addListener()//main scene
@@ -45,7 +43,7 @@ export class SlotController {
         return this.server.initRequest().then((initResponse: IInitResponse) => {
             this.slotModel.parseServerInitResponse(initResponse);
             return Promise.resolve();
-        })
+        });
     }
 
     private onSpinClicked(): void {
@@ -60,8 +58,7 @@ export class SlotController {
             this.rewardsManager.showWinnings();
         }
 
-
-        this.slotModel.state = SlotState.Idle
+        this.slotModel.state = SlotState.Idle;
 
     }
 

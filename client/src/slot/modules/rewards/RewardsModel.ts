@@ -3,7 +3,6 @@ import {ISpinResponse} from "../server/interfaces/ISpinResponse";
 
 export class RewardsModel {
 
-
     private _rewards: RewardVO[];
     private _totalWin: number;
 
@@ -17,7 +16,7 @@ export class RewardsModel {
                 rewardVO.linePayout = reward.linePayout;
 
                 this._rewards.push(rewardVO);
-            })
+            });
         }
         if (response.totalWin) {
             this._totalWin = response.totalWin;

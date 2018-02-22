@@ -10,9 +10,8 @@ export class ServerEmulator implements IServer {
     private spinResponses: ISpinResponse[];
     private initResponse: IInitResponse;
 
-
     constructor() {
-        console.log("Constructing ")
+        console.log("Constructing ");
     }
 
     public init(initResponse: IInitResponse, spinResponses: ISpinResponse[]) {
@@ -24,9 +23,9 @@ export class ServerEmulator implements IServer {
         return new Promise(resolve => {
             clearTimeout(this.initTimeout);
             this.initTimeout = setTimeout(() => {
-                resolve(this.initResponse)
+                resolve(this.initResponse);
             }, 500);
-        })
+        });
     }
 
     spinRequest(): Promise<ISpinResponse> {

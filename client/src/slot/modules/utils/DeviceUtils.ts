@@ -27,11 +27,9 @@ export class DeviceUtils {
         const {devicePixelRatio} = window;
         const {availWidth, availHeight} = window.screen;
 
-
         const deviceLongSide = Math.max(availHeight, availWidth) * devicePixelRatio;
         const deviceShortSide = Math.min(availHeight, availWidth) * devicePixelRatio;
         // this.aspectRatio = this.deviceLongSide / this.deviceShortSide;
-
 
         DeviceUtils.density = this.setDensity(deviceShortSide, deviceLongSide);
         console.log("====Density ", DeviceUtils.density);

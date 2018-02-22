@@ -9,7 +9,6 @@ export class WinFieldView extends Container {
     constructor() {
         super();
 
-
         const style = new PIXI.TextStyle({
             align: 'center',
             fill: '#ffda28',
@@ -33,10 +32,8 @@ export class WinFieldView extends Container {
 
         });
 
-
         this.align();
     }
-
 
     public showIdleLabel(): void {
         this.text.text = this.idleText;

@@ -5,15 +5,13 @@ import {LoaderCache} from "../cache/LoaderCache";
 import {get} from "../../utils/locator/locator";
 import Texture = PIXI.Texture;
 
-
 export class ImageLoader extends FileLoader {
     protected loader: Loader;
     private loaderCache: LoaderCache = get(LoaderCache);
 
-    constructor(private id: string, url: string,) {
+    constructor(private id: string, url: string, ) {
         super(url);
     }
-
 
     load(): void {
         if (this.inProgress || this.isLoaded) {
@@ -41,15 +39,15 @@ export class ImageLoader extends FileLoader {
         }
         if (textures) {
             for (let t in textures) {
-
-                const textureId: string = textures[t].textureCacheIds[0].replace(".png", "");
-                this.addTextureToCache(textureId, textures[t]);
+                if (textures.hasOwnProperty(t)) {
+                    const textureId: string = textures[t].textureCacheIds[0].replace(".png", "");
+                    this.addTextureToCache(textureId, textures[t]);
+                }
             }
         }
 
         super.loadCompleteHandler();
     }
-
 
     private addTextureToCache(id: string, texture: Texture): void {
         this.loaderCache.addTexture(id, texture);
