@@ -1,5 +1,6 @@
 const gulp = require("gulp");
 const fs = require('fs');
+const path = require('path');
 
 const concat = require('gulp-concat');
 
@@ -39,3 +40,10 @@ gulp.task('copy:data', () => gulp.src(BUILD_DATA_FILES).pipe(gulp.dest(BUILD_DIR
 
 
 gulp.task("default",['copy:data','addLibs'], ()=>gulp.src('src/Main.ts').pipe(webpackStream(webpackConfig, webpack)).pipe(gulp.dest("./")));
+
+gulp.task("server", () => {
+    const liteServer = require('lite-server');
+
+process.chdir(path.resolve(BUILD_DIR));
+liteServer.server();
+});

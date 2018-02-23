@@ -1,12 +1,12 @@
 - draw dependencies scheme
 
 - also polyfill fetch? check on old browser
-- add linter
 
 - try some static filters
 - bitmap font
 - that need to be located - should be initit through get?
 
++ add linter
 + spaceBar control
 + loosing focus and spinning
 
