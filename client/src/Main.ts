@@ -17,6 +17,8 @@ import {SlotConfig} from "./slot/SlotConfig";
 import {ImageLoader} from "./slot/modules/loader/loaders/ImageLoader";
 import {DeviceUtils} from "./slot/modules/utils/DeviceUtils";
 import {KeyboardManager} from "./slot/modules/utils/KeyboardManager";
+import {SlotModel} from "./slot/SlotModel";
+import {IInitResponse} from "./slot/modules/server/interfaces/IInitResponse";
 
 export class Main {
 
@@ -29,6 +31,7 @@ export class Main {
 
     private slotView: SlotView;
     private slotController: SlotController;
+    private slotModel: SlotModel = get(SlotModel);
 
     private server: ServerEmulator = get(ServerEmulator);
     private loadingManager: LoadingManager = get(LoadingManager);
@@ -59,8 +62,7 @@ export class Main {
 
         this.loadingManager.loadJson('./config.json').then((config: SlotConfig) => {
             this.saveSlotConfig(config);
-            this.loadAssetsAndStart();
-
+            this.prepareServerAndMakeInitRequest();
         });
     }
 
@@ -70,23 +72,31 @@ export class Main {
         this.slotConfig.reels = config.reels;
     }
 
-    private loadAssetsAndStart(): void {
+    private prepareServerAndMakeInitRequest(): void {
         this.loadingManager.loadJson('./emulation.json').then((emulationData: IConfigJson) => {
             this.server.init(emulationData.init, emulationData.spins);
 
-            this.slotView = new SlotView(this.slotConfig.minSlotWidth, this.slotConfig.minSlotHeight);
-            this.slotView.pivot = new Point(0.5, 0.5);
-
-            this.stage.addChild(this.slotView);
-
-            this.slotController = new SlotController(this.slotView);
-            this.slotController.makeInitRequest().then(() => this.onInitResponse());
+            this.server.initRequest().then((initResponse: IInitResponse) => {
+                this.slotModel.parseServerInitResponse(initResponse);
+                this.onInitResponse();
+            });
         });
     }
 
     private onInitResponse(): void {
 
+        this.addSlotView();
+
         this.loadingManager.loadResources("./assets.json");
+    }
+
+    private addSlotView() {
+        this.slotView = new SlotView(this.slotConfig.minSlotWidth, this.slotConfig.minSlotHeight);
+        this.slotView.pivot = new Point(0.5, 0.5);
+
+        this.stage.addChild(this.slotView);
+
+        this.slotController = new SlotController(this.slotView);
     }
 
     private onPreloadAssetsLoaded(): void {

@@ -40,7 +40,7 @@ export class SlotView extends Container {
         return new LoadingScene(this.minWidth, this.minHeight);
     }
 
-    resize(width: number, height: number) {
+    public resize(width: number, height: number): void {
 
         const scale = Math.min(Math.min(width, this.minWidth) / this.minWidth, Math.min(height, this.minHeight) / this.minHeight);
         this.scale.set(scale);

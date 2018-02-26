@@ -4,7 +4,7 @@
       "id": "test",
       "url": "sounds/test.{type}",
       "type": "Sound",
-      "priority": "MAIN"
+      "priority": "PRELOAD"
     }
   ],
   "images": [

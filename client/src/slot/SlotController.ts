@@ -26,24 +26,10 @@ export class SlotController {
     private rewardsModel: RewardsModel = get(RewardsModel);
     private rewardsManager: RewardsManager = get(RewardsManager);
 
-    private soundManager: SoundManager = get(SoundManager);
     private dispatcher: EventDispatcher = get(EventDispatcher);
-
-    private slotConfig: SlotConfig = get(SlotConfig);
 
     constructor(private view: SlotView) {
         this.dispatcher.addListener(LoadingManagerEvent.MAIN_ASSETS_LOADED, () => this.onMainAssetsLoaded());
-
-        // this.dispatcher.addListener()//pre-loader
-        // this.dispatcher.addListener()//main scene
-
-    }
-
-    public makeInitRequest(): Promise<any> {
-        return this.server.initRequest().then((initResponse: IInitResponse) => {
-            this.slotModel.parseServerInitResponse(initResponse);
-            return Promise.resolve();
-        });
     }
 
     private onSpinClicked(): void {
