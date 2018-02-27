@@ -12,11 +12,8 @@ import {
 } from "./SlotModel";
 import {get} from "./modules/utils/locator/locator";
 import {ISpinResponse} from "./modules/server/interfaces/ISpinResponse";
-import {IInitResponse} from "./modules/server/interfaces/IInitResponse";
 import {RewardsModel} from "./modules/rewards/RewardsModel";
 import {RewardsManager} from "./modules/rewards/RewardsManager";
-import {SoundManager} from "./modules/sound/SoundManager";
-import {SlotConfig} from "./SlotConfig";
 import {LoadingManagerEvent} from "./modules/loader/events/LoaderEvent";
 
 export class SlotController {
@@ -38,7 +35,7 @@ export class SlotController {
         this.server.spinRequest().then((serverResponse: ISpinResponse) => this.handleServerSpinResponse(serverResponse));
     }
 
-    private onReelsStopped() {
+    private onReelsStopped(): void {
         if (this.rewardsModel.totalWin > 0) {
             this.slotModel.state = SlotState.ShowWin;
             this.rewardsManager.showWinnings();
@@ -48,13 +45,13 @@ export class SlotController {
 
     }
 
-    private handleServerSpinResponse(serverResponse: ISpinResponse) {
+    private handleServerSpinResponse(serverResponse: ISpinResponse): void {
         this.slotModel.parseServerSpinResponse(serverResponse);
 
         this.dispatcher.dispatch(SlotEvent.SERVER_SPIN_RESPONSE_RECEIVED);
     }
 
-    public onPreloadAssetsLoaded(): void {
+    public showLoadinScene(): void {
         this.view.showScene(SceneID.LOADING_SCENE);
     }
 

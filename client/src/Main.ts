@@ -2,28 +2,24 @@ import {EventDispatcher} from "./slot/modules/utils/dispatcher/EventDispatcher";
 import {SlotEvent} from "./slot/SlotEvent";
 import {SlotView} from "./slot/SlotView";
 import {SlotController} from "./slot/SlotController";
-import Ticker = PIXI.ticker;
-import Point = PIXI.Point;
 import {LoadingManager} from "./slot/modules/loader/LoadingManager";
 import {get} from "./slot/modules/utils/locator/locator";
-import {
-    LoaderEvent,
-    LoadingManagerEvent
-} from "./slot/modules/loader/events/LoaderEvent";
-import {IServer} from "./slot/modules/server/IServer";
+import {LoadingManagerEvent} from "./slot/modules/loader/events/LoaderEvent";
 import {ServerEmulator} from "./slot/modules/server/serverEmulator/ServerEmulator";
 import {IConfigJson} from "./slot/modules/server/serverEmulator/IConfigJson";
 import {SlotConfig} from "./slot/SlotConfig";
-import {ImageLoader} from "./slot/modules/loader/loaders/ImageLoader";
 import {DeviceUtils} from "./slot/modules/utils/DeviceUtils";
 import {KeyboardManager} from "./slot/modules/utils/KeyboardManager";
 import {SlotModel} from "./slot/SlotModel";
 import {IInitResponse} from "./slot/modules/server/interfaces/IInitResponse";
+import Ticker = PIXI.ticker;
+import Point = PIXI.Point;
+import Container = PIXI.Container;
 
 export class Main {
 
     private renderer: PIXI.SystemRenderer;
-    private stage: PIXI.Container;
+    private stage: Container;
 
     private prevTime: number = 0;
     private fps: number = 60;
@@ -52,7 +48,7 @@ export class Main {
 
         this.drawInterval = 1000 / this.fps;
 
-        this.stage = new PIXI.Container();
+        this.stage = new Container();
 
         this.dispatcher.addListener(LoadingManagerEvent.PRELOAD_ASSETS_LOADED, this.onPreloadAssetsLoaded, this);
 
@@ -66,7 +62,7 @@ export class Main {
         });
     }
 
-    private saveSlotConfig(config: SlotConfig) {
+    private saveSlotConfig(config: SlotConfig): void {
         this.slotConfig.minSlotWidth = config.minSlotWidth;
         this.slotConfig.minSlotHeight = config.minSlotHeight;
         this.slotConfig.reels = config.reels;
@@ -75,35 +71,33 @@ export class Main {
     private prepareServerAndMakeInitRequest(): void {
         this.loadingManager.loadJson('./emulation.json').then((emulationData: IConfigJson) => {
             this.server.init(emulationData.init, emulationData.spins);
-
-            this.server.initRequest().then((initResponse: IInitResponse) => {
-                this.slotModel.parseServerInitResponse(initResponse);
-                this.onInitResponse();
-            });
+            this.server.initRequest().then((initResponse: IInitResponse) => this.onInitResponse(initResponse));
         });
     }
 
-    private onInitResponse(): void {
+    private onInitResponse(initResponse: IInitResponse): void {
 
-        this.addSlotView();
+        this.slotModel.parseServerInitResponse(initResponse);
+
+        this.createSlotViewAndController();
 
         this.loadingManager.loadResources("./assets.json");
     }
 
-    private addSlotView() {
+    private createSlotViewAndController(): void {
         this.slotView = new SlotView(this.slotConfig.minSlotWidth, this.slotConfig.minSlotHeight);
+        this.slotController = new SlotController(this.slotView);
+
         this.slotView.pivot = new Point(0.5, 0.5);
 
         this.stage.addChild(this.slotView);
-
-        this.slotController = new SlotController(this.slotView);
     }
 
     private onPreloadAssetsLoaded(): void {
 
         console.log("=== preload assets loaded");
 
-        this.slotController.onPreloadAssetsLoaded();
+        this.slotController.showLoadinScene();
 
         this.onResize();
 
@@ -130,7 +124,7 @@ export class Main {
         }
     }
 
-    private onResize() {
+    private onResize(): void {
         const width = this.getWidth();
         const height = this.getHeight();
 
@@ -145,11 +139,11 @@ export class Main {
         this.slotView.y = height / 2;
     }
 
-    private getWidth() {
+    private getWidth(): number {
         return Math.max(document.documentElement.clientWidth, window.innerWidth);
     }
 
-    private getHeight() {
+    private getHeight(): number {
         return document.documentElement.clientHeight;
     }
 }

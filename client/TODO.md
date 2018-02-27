@@ -1,3 +1,5 @@
+- start from clean repo
+
 - draw dependencies scheme
 
 - also polyfill fetch? check on old browser

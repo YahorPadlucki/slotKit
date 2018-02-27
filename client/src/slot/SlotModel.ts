@@ -13,7 +13,7 @@ export class SlotModel {
     private _lines: number[][];
 
     private rewardsModel: RewardsModel = get(RewardsModel);
-    private dispatcher:EventDispatcher = get(EventDispatcher);
+    private dispatcher: EventDispatcher = get(EventDispatcher);
 
     public parseServerSpinResponse(response: ISpinResponse): void {
         this.parseReels(response.reels);
@@ -25,7 +25,7 @@ export class SlotModel {
         this.parseLines(response.lines);
     }
 
-    private parseReels(reels: IServerReelsResponse) {
+    private parseReels(reels: IServerReelsResponse): void {
         if (reels) {
             if (reels.stopPositions) {
                 this._stopReelsPosition = reels.stopPositions;
@@ -37,7 +37,7 @@ export class SlotModel {
         }
     }
 
-    private parseLines(lines: number[][]) {
+    private parseLines(lines: number[][]): void {
         if (lines) {
             this._lines = lines.concat();
         }
