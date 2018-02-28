@@ -19,7 +19,7 @@ const BUILD_DATA_FILES = "data/**/*";
 const BUILD_DIR = "dist";
 
 
-gulp.task('addLibs', () => {
+gulp.task('addLibs',['copy:data'], () => {
     const indexPath = `./dist/index.html`;
     const indexHtml = fs.readFileSync(indexPath, 'utf8');
     const libFileName = 'lib.js';
