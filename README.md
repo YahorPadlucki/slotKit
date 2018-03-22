@@ -1,6 +1,8 @@
 ## Slot Kit
 Minimalistic slot game
 
+https://yahorpadlucki.github.io/slotKit/dist/
+
 <p align="center">
   <img src="example.png" alt="Size Limit example"
        width="400" height="300">
